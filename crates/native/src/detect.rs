@@ -1170,7 +1170,7 @@ mod tests {
     fn the_launcher_records_its_folder_under_the_publisher_key() {
         assert_eq!(
             install_dir_keys(&artcraft_launcher_core::catalog::LAUNCHER),
-            [r"SOFTWARE\ArtCraft Launcher".to_string(), format!(r"SOFTWARE\{LEARNING_MACHINES}\ArtCraft Launcher")]
+            [r"SOFTWARE\Craft Fork Launcher".to_string(), format!(r"SOFTWARE\{LEARNING_MACHINES}\Craft Fork Launcher")]
         );
         let photo = CraftApp::by_id("photocraft").unwrap();
         assert_eq!(install_dir_keys(photo), [r"SOFTWARE\PhotoCraft".to_string()]);

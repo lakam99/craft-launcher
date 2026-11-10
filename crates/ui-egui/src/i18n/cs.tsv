@@ -1,4 +1,4 @@
-# Czech (cs) catalog for ArtCraft Launcher.
+# Czech (cs) catalog for Craft Fork Launcher.
 # Format: context<TAB>source<TAB>translation
 # Empty context = plain UI string (tl!, t). @id = command-id keyed. @plural = one|few|other.
 # @msg = status/error message template. Other context = disambiguation for tr_ctx.
@@ -39,8 +39,8 @@
 	Open	Otevřít
 	Open {version}	Otevřít {version}
 	Open {installed} without updating. {latest} stays available.	Otevřít {installed} bez aktualizace. Verze {latest} zůstane k dispozici.
-	{latest} is out, but ArtCraft Launcher can't install it over this copy.	Verze {latest} je venku, ale ArtCraft Launcher ji nemůže nainstalovat přes tuto kopii.
-	ArtCraft Launcher can't install version {version} over this copy.	ArtCraft Launcher nemůže verzi {version} nainstalovat přes tuto kopii.
+	{latest} is out, but Craft Fork Launcher can't install it over this copy.	Verze {latest} je venku, ale Craft Fork Launcher ji nemůže nainstalovat přes tuto kopii.
+	Craft Fork Launcher can't install version {version} over this copy.	Craft Fork Launcher nemůže verzi {version} nainstalovat přes tuto kopii.
 	Download for {os}	Stáhnout pro {os}
 	Download	Stáhnout
 	Coming soon	Již brzy
@@ -72,7 +72,7 @@
 	{name} wasn't opened: a quote in its launch options isn't closed.	Aplikace {name} nebyla otevřena: uvozovky v jejích možnostech spuštění nejsou uzavřené.
 	Save	Uložit
 	All releases	Všechna vydání
-	ArtCraft Launcher {version} is available.	Je k dispozici ArtCraft Launcher {version}.
+	Craft Fork Launcher {version} is available.	Je k dispozici Craft Fork Launcher {version}.
 	Dismiss	Skrýt
 	Update and restart	Aktualizovat a restartovat
 	A new version is available. Would you like to relaunch with the updated version?	Je k dispozici nová verze. Chcete aplikaci znovu spustit s aktualizovanou verzí?
@@ -83,7 +83,7 @@
 	Released {date}	Vydáno {date}
 	Open on GitHub	Otevřít na GitHubu
 	Close	Zavřít
-	ArtCraft Launcher {version}	ArtCraft Launcher {version}
+	Craft Fork Launcher {version}	Craft Fork Launcher {version}
 	Only when I ask	Pouze na vyžádání
 	Automatically download and install updates	Automaticky stahovat a instalovat aktualizace
 	Ask for permission once when updating all apps	Při aktualizaci všech aplikací požádat o oprávnění pouze jednou
@@ -96,14 +96,14 @@
 	Updates always use the format an app was installed with.	Aktualizace vždy použijí formát, ve kterém byla aplikace nainstalována.
 	Running in the background	Běh na pozadí
 	Keep running in the tray when the window is closed	Po zavření okna ponechat spuštěné v oznamovací oblasti
-	ArtCraft Launcher is still running	ArtCraft Launcher stále běží
+	Craft Fork Launcher is still running	Craft Fork Launcher stále běží
 	It's in the tray: open it or quit it from the tray icon, or turn this off in the settings.	Je v oznamovací oblasti: otevřete ho nebo ukončete přes ikonu v ní, nebo to vypněte v nastavení.
 	Show the window on the current desktop	Zobrazit okno na aktuální ploše
-	Start ArtCraft Launcher when I log in	Spouštět ArtCraft Launcher po přihlášení
+	Start Craft Fork Launcher when I log in	Spouštět Craft Fork Launcher po přihlášení
 	Community	Komunita
 	Questions, ideas and news from the ArtCraft team	Dotazy, nápady a novinky od týmu ArtCraft
 	Appearance	Vzhled
-	Quit ArtCraft Launcher	Ukončit ArtCraft Launcher
+	Quit Craft Fork Launcher	Ukončit Craft Fork Launcher
 	Done	Hotovo
 	Uninstall {name}?	Odinstalovat {name}?
 	The app will be moved to the Trash. Your documents and settings stay.	Aplikace bude přesunuta do Koše. Vaše dokumenty a nastavení zůstanou zachovány.
@@ -143,7 +143,7 @@
 	Open link	Otevřít odkaz
 	Update	Aktualizovat
 	{name} icon	Ikona aplikace {name}
-	Loading ArtCraft Launcher…	Načítání aplikace ArtCraft Launcher…
+	Loading Craft Fork Launcher…	Načítání aplikace Craft Fork Launcher…
 	Cancel update	Zrušit aktualizaci
 	Stop waiting; the update can be started again later	Přestat čekat; aktualizaci lze spustit znovu později
 	Download again	Stáhnout znovu
@@ -221,7 +221,7 @@ month	Dec	12.
 	Version {version} installed	Nainstalována verze {version}
 	Version {latest}	Verze {latest}
 	No release published yet	Zatím nebylo zveřejněno žádné vydání
-	ArtCraft Launcher	ArtCraft Launcher
+	Craft Fork Launcher	Craft Fork Launcher
 	App	Aplikace
 	Latest	Nejnovější
 	Released	Vydáno
@@ -256,7 +256,7 @@ month	Dec	12.
 	Full changelog	Úplný přehled změn
 	link	odkaz
 	No apps match	Žádné aplikace neodpovídají hledání
-	Open ArtCraft Launcher to update.	Aktualizujte otevřením aplikace ArtCraft Launcher.
+	Open Craft Fork Launcher to update.	Aktualizujte otevřením aplikace Craft Fork Launcher.
 	{name} {v} is available	Je k dispozici {name} {v}
 	{count} updates are available	Počet dostupných aktualizací: {count}
 	These notes weren't fetched (GitHub's request limit was reached). They're on the release page.	Tyto poznámky se nepodařilo načíst (byl dosažen limit požadavků GitHubu). Najdete je na stránce vydání.
@@ -287,7 +287,7 @@ filter	Installed	Nainstalováno
 @plural	{n} h ago|{n} h ago	před {n} h|před {n} h|před {n} h
 @plural	{n} day ago|{n} days ago	před {n} dnem|před {n} dny|před {n} dny
 @msg	Couldn't open {name}: {e}	{name} nelze otevřít: {e}
-@msg	ArtCraft Launcher couldn't start its window on {backend}: {e}	ArtCraft Launcher nemohl spustit své okno na {backend}: {e}
+@msg	Craft Fork Launcher couldn't start its window on {backend}: {e}	Craft Fork Launcher nemohl spustit své okno na {backend}: {e}
 @msg	Download cancelled	Stahování zrušeno
 @msg	{name} updated to {version}	Aplikace {name} byla aktualizována na verzi {version}
 @msg	{name} installed: {version}	Aplikace {name} byla nainstalována ve verzi {version}
@@ -315,7 +315,7 @@ filter	Installed	Nainstalováno
 @id	launcher.notes	Co je nového
 @id	launcher.dismiss	Zavřít
 @id	settings.open	Nastavení
-@id	settings.quit	Ukončit ArtCraft Launcher
+@id	settings.quit	Ukončit Craft Fork Launcher
 @id	view.grid	Mřížka
 @id	view.table	Tabulka
 @id	filter.all	Vše
@@ -339,14 +339,14 @@ filter	Installed	Nainstalováno
 @id	linux.preferred_kind	Instalovat nové aplikace jako
 @id	tray.close_to_tray	Po zavření okna ponechat spuštěné v oznamovací oblasti
 @id	tray.show_on_current_desktop	Zobrazit okno na aktuální ploše
-@id	tray.login_item	Spouštět ArtCraft Launcher po přihlášení
+@id	tray.login_item	Spouštět Craft Fork Launcher po přihlášení
 @id	appearance.theme	Vzhled
-	Show ArtCraft Launcher	Zobrazit ArtCraft Launcher
+	Show Craft Fork Launcher	Zobrazit Craft Fork Launcher
 	Check for Updates	Zkontrolovat aktualizace
 	Visit getartcraft.com	Navštívit getartcraft.com
 	ArtCraft on GitHub	ArtCraft na GitHubu
 	Join the ArtCraft Discord	Připojit se na ArtCraft Discord
-@plural	ArtCraft Launcher · {n} update available|ArtCraft Launcher · {n} updates available	ArtCraft Launcher · {n} dostupná aktualizace|ArtCraft Launcher · {n} dostupné aktualizace|ArtCraft Launcher · {n} dostupných aktualizací
+@plural	Craft Fork Launcher · {n} update available|Craft Fork Launcher · {n} updates available	Craft Fork Launcher · {n} dostupná aktualizace|Craft Fork Launcher · {n} dostupné aktualizace|Craft Fork Launcher · {n} dostupných aktualizací
 
 	Download size: {size}	Velikost ke stažení: {size}
 	Install folder	Instalační složka
@@ -361,7 +361,7 @@ filter	Installed	Nainstalováno
 @msg	couldn't use install folder {path}: {reason}	instalační složku {path} nelze použít: {reason}
 @msg	this release has no AppImage for a custom install folder	toto vydání nemá AppImage pro vlastní instalační složku
 @msg	custom install folders aren't supported on this system	vlastní instalační složky nejsou v tomto systému podporovány
-@msg	{path} already exists and wasn't installed by ArtCraft Launcher	{path} již existuje a nebylo nainstalováno aplikací ArtCraft Launcher
+@msg	{path} already exists and wasn't installed by Craft Fork Launcher	{path} již existuje a nebylo nainstalováno aplikací Craft Fork Launcher
 @msg	couldn't move {path} to Trash ({reason}). Remove it in Finder instead.	{path} nelze přesunout do koše ({reason}). Odstraňte položku ve Finderu.
 	Apps are placed inside this folder.	Aplikace se umístí do této složky.
 	Replace what's there?	Nahradit, co tam je?

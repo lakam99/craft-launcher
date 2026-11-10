@@ -1,4 +1,4 @@
-//! "Start ArtCraft Launcher when I log in".
+//! "Start Craft Fork Launcher when I log in".
 //!
 //! - macOS: a LaunchAgent in `~/Library/LaunchAgents`.
 //! - Windows: a value under `HKCU\…\CurrentVersion\Run`.
@@ -40,7 +40,7 @@ pub fn is_enabled() -> bool {
     #[cfg(target_os = "macos")]
     return agent().is_ok_and(|p| p.exists());
     #[cfg(windows)]
-    return windows_run().and_then(|k| k.get_value::<String, _>("ArtCraft Launcher").ok()).is_some();
+    return windows_run().and_then(|k| k.get_value::<String, _>("Craft Fork Launcher").ok()).is_some();
     #[cfg(not(any(target_os = "macos", windows)))]
     return {
         let flatpak = this_flatpak();
@@ -78,9 +78,9 @@ pub fn set_enabled(on: bool) -> Result<(), String> {
             .map_err(|e| format!("couldn't change the startup list ({e})"))?;
         if on {
             let value = format!("\"{}\" {HIDDEN_FLAG}", program()?.display());
-            key.set_value("ArtCraft Launcher", &value).map_err(|e| format!("couldn't change the startup list ({e})"))
+            key.set_value("Craft Fork Launcher", &value).map_err(|e| format!("couldn't change the startup list ({e})"))
         } else {
-            match key.delete_value("ArtCraft Launcher") {
+            match key.delete_value("Craft Fork Launcher") {
                 Ok(()) => Ok(()),
                 Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(()),
                 Err(e) => Err(format!("couldn't change the startup list ({e})")),
@@ -223,7 +223,7 @@ fn flatpak_exec(app_id: &str) -> String {
 #[cfg_attr(any(target_os = "macos", windows), allow(dead_code))]
 fn entry_text(exec: &str, extra: &str) -> String {
     format!(
-        "[Desktop Entry]\nType=Application\nName=ArtCraft Launcher\nComment=Install and update the Craft App Suite\nExec={exec} {HIDDEN_FLAG}\nIcon={ID}\nTerminal=false\nX-GNOME-Autostart-enabled=true\n{extra}"
+        "[Desktop Entry]\nType=Application\nName=Craft Fork Launcher\nComment=Install and update the Craft App Suite\nExec={exec} {HIDDEN_FLAG}\nIcon={ID}\nTerminal=false\nX-GNOME-Autostart-enabled=true\n{extra}"
     )
 }
 
@@ -407,7 +407,7 @@ mod tests {
         assert_eq!(
             autostart_entry(Path::new("/usr/bin/artcraft-launcher")).as_deref(),
             Some(
-                "[Desktop Entry]\nType=Application\nName=ArtCraft Launcher\nComment=Install and update the Craft App Suite\nExec=\"/usr/bin/artcraft-launcher\" --hidden\nIcon=ai.storyteller.artcraft-launcher\nTerminal=false\nX-GNOME-Autostart-enabled=true\n"
+                "[Desktop Entry]\nType=Application\nName=Craft Fork Launcher\nComment=Install and update the Craft App Suite\nExec=\"/usr/bin/artcraft-launcher\" --hidden\nIcon=ai.storyteller.artcraft-launcher\nTerminal=false\nX-GNOME-Autostart-enabled=true\n"
             )
         );
     }

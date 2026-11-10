@@ -5,14 +5,14 @@
   <id>ai.storyteller.artcraft-launcher</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>MIT OR Apache-2.0</project_license>
-  <name>ArtCraft Launcher</name>
+  <name>Craft Fork Launcher</name>
   <summary>Install, update and launch the Craft App Suite</summary>
   <developer id="ai.storyteller">
     <name>Learning Machines LLC</name>
   </developer>
   <description>
     <p>
-      ArtCraft Launcher lists every app in the Craft App Suite (PhotoCraft, LightCraft, FilmCraft,
+      Craft Fork Launcher lists every app in the Craft App Suite (PhotoCraft, LightCraft, FilmCraft,
       DesignCraft, VectorCraft, PdfCraft, EffectCraft, WordCraft, DeckCraft, GridCraft, CADCraft,
       SoundCraft and FigCraft), installs the right build for your computer, and keeps them up to date.
     </p>

@@ -1,4 +1,4 @@
-//! ArtCraft Launcher updating itself.
+//! Craft Fork Launcher updating itself.
 //!
 //! Delegated to [`craft_update::self_update`].
 
@@ -15,14 +15,22 @@ use crate::paths::Paths;
 
 pub use craft_update::self_update::{FINISH_FLAG, Install, PRETEND_VAR, is_self_updating};
 
+/// Use the same fork for the launcher's release lookup, download and restart helper.
+const UPDATE_APP: craft_update::App = craft_update::App {
+    name: artcraft_launcher_core::catalog::LAUNCHER.name,
+    repo: artcraft_launcher_core::catalog::LAUNCHER_REPO,
+    developer: "lakam99",
+    ..craft_update::suite::LAUNCHER
+};
+
 /// The version this launcher counts as (see [`PRETEND_VAR`]).
 pub fn current_version() -> Option<Version> {
-    craft_update::self_update::current_version(&craft_update::suite::LAUNCHER, env!("CARGO_PKG_VERSION"))
+    craft_update::self_update::current_version(&UPDATE_APP, env!("CARGO_PKG_VERSION"))
 }
 
 /// How this copy is installed, if it's one the launcher knows how to replace.
 pub fn current() -> Option<Install> {
-    craft_update::self_update::current(&craft_update::suite::LAUNCHER)
+    craft_update::self_update::current(&UPDATE_APP)
 }
 
 fn to_update_paths(paths: &Paths) -> craft_update::Paths {
@@ -105,7 +113,7 @@ pub fn update(
         });
     };
     craft_update::self_update::update(
-        &craft_update::suite::LAUNCHER,
+        &UPDATE_APP,
         install,
         &update_release,
         update_platform,
@@ -145,12 +153,20 @@ pub fn kind(install: &Install) -> PackageKind {
 
 /// Finishes an update when this program was started as the update helper.
 pub fn finish(args: &[OsString]) -> Option<Result<(), String>> {
-    craft_update::self_update::finish(&craft_update::suite::LAUNCHER, args)
+    craft_update::self_update::finish(&UPDATE_APP, args)
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn self_update_and_catalog_use_the_same_fork() {
+        assert_eq!(UPDATE_APP.repo, artcraft_launcher_core::catalog::LAUNCHER_REPO);
+        assert_eq!(UPDATE_APP.repo, "lakam99/craft-launcher");
+        assert_eq!(UPDATE_APP.developer, "lakam99");
+        assert_eq!(UPDATE_APP.name, "Craft Fork Launcher");
+    }
 
     #[test]
     fn a_development_build_does_not_update_itself() {

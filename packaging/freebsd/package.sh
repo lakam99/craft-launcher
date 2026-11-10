@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build and package ArtCraft Launcher for FreeBSD:
+# Build and package Craft Fork Launcher for FreeBSD:
 #
 #   $DIST/artcraft-launcher-<version>-freebsd-x86_64.tar.gz   a /usr/local-style tree:
 #       artcraft-launcher-<version>-freebsd-x86_64/{bin, share/applications, share/icons,
@@ -53,7 +53,7 @@ if [[ "$DRY_RUN" = 0 ]] && [[ "$(uname -s)" != FreeBSD ]]; then
 fi
 BASENAME="$PKG-$VERSION-freebsd-$ARCH"
 
-echo "==> ArtCraft Launcher $VERSION for FreeBSD $ARCH"
+echo "==> Craft Fork Launcher $VERSION for FreeBSD $ARCH"
 
 export CARGO_BUILD_JOBS="${CARGO_BUILD_JOBS:-4}"
 if [[ "$SKIP_BUILD" = 0 ]]; then

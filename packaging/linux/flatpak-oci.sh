@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build ArtCraft Launcher as an OCI container layout and push it to GitHub Container Registry (GHCR)
+# Build Craft Fork Launcher as an OCI container layout and push it to GitHub Container Registry (GHCR)
 # for consumption by Flatpak OCI clients (flatpak-oci-specs).
 #
 # Usage:

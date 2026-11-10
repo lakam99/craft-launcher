@@ -1,4 +1,4 @@
-# Incident: antivirus flagged ArtCraft Launcher during Update all on Windows
+# Incident: antivirus flagged Craft Fork Launcher during Update all on Windows
 
 Status (2026-10-31): the Update all route is reverted on `main` (#1077) but not yet released. The
 same elevated PowerShell route is still used by all-users downgrades, and no test has confirmed
@@ -10,7 +10,7 @@ Since v0.10.0, updating two or more all-users apps together normally ran install
 elevated PowerShell with a Base64 script. Users soon reported antivirus flags during Update all.
 Kaspersky's report in #1045 shows a behavioural `PDM:Trojan.Win32.Generic` detection. It killed
 and deleted `artcraft-launcher.exe` and removed its shortcut and registry entry, and the reporter
-had to reinstall ArtCraft Launcher and every app.
+had to reinstall Craft Fork Launcher and every app.
 
 Nothing found so far suggests malicious intent: this code only ran `msiexec` on packages checked
 against their release checksums, and Windows still showed a permission prompt. The route is treated
@@ -20,7 +20,7 @@ as the cause because the evidence below points to it, not because the detection 
 
 #974 added one permission prompt for an Update all of all-users apps. For two or more apps, unless
 the batch was too long or PowerShell could not start (each app then got its own `msiexec` prompt),
-ArtCraft Launcher:
+Craft Fork Launcher:
 
 1. started a hidden `powershell.exe`;
 2. asked for elevation with `Start-Process -Verb RunAs -WindowStyle Hidden`;
@@ -49,7 +49,7 @@ Pointing to this route:
 
 - The Update all reports began about three hours after v0.10.0 was released.
 - #1027 separates the two routes: one at a time works, and Update all gets flagged.
-- The #1045 detection is behavioural, so it depends on what ArtCraft Launcher does when it runs.
+- The #1045 detection is behavioural, so it depends on what Craft Fork Launcher does when it runs.
 
 Not established:
 
@@ -107,7 +107,7 @@ the route.
 
 ## For next time
 
-- Don't start hidden, elevated or encoded PowerShell from ArtCraft Launcher. Prefer one prompt per app
+- Don't start hidden, elevated or encoded PowerShell from Craft Fork Launcher. Prefer one prompt per app
   to a script that behaves like malware. Bringing back a single prompt needs a different design,
   such as a signed helper.
 - Before releasing a change to how Windows installs run, try it on a machine with behavioural

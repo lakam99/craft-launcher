@@ -1,14 +1,10 @@
-ArtCraft Launcher
+Craft Fork Launcher
 Copyright (c) 2026 ArtCraft Team and the ArtCraft Launcher contributors.
 Licensed under the MIT License or the Apache License, Version 2.0, at your option
 (LICENSE-MIT, LICENSE-APACHE).
 
-The ArtCraft name, wordmark, logo and "A" mark (docs/brand/) are trademarks of the ArtCraft Team.
-They are NOT open source and are NOT covered by the MIT or Apache-2.0 license above. This includes
-everywhere ArtCraft Launcher shows them: the app icon (assets/app-icon/, the blue "A" mark), the
-ArtCraft logo in the window header and the "A" mark used as the tray / menu-bar icon
-(docs/brand/artcraft-mark-64.png, artcraft-mark-black-44.png).
-Their terms are in docs/brand/LICENSE-brand.txt; forks and modified versions must remove them.
+This independent fork is based on ArtCraft Launcher by the ArtCraft team and community.
+Restricted ArtCraft marks have been removed and replaced with original artwork under MIT OR Apache-2.0.
 
 Third-party material
 

@@ -1,4 +1,4 @@
-# egui 0.37 migration plan for ArtCraft Launcher
+# egui 0.37 migration plan for Craft Fork Launcher
 
 Current review candidate (2026-10-25): reconciles main `f0cb3b0439d15cae02d806e5ddc0132fd487c89c`. Managed run `egui037-launcher-review-ci-20261025-0816` passed all four CI stages including WASM: 442 passing test executions, zero failures and five ignored across 22 summaries. Unicode credential redaction uses byte boundaries; regression run 0821 reproduced the previous panic and run 0823 passed on the restored fixed source. External-link buttons share the validated opener, and terminal text sanitizes C1 controls and Unicode line separators. Independent review covered the reconciliation and fixes. Old v0.7 single-instance interoperability remains unqualified; quit the existing tray process before upgrading. Current-source native/browser/package and paired performance acceptance remain open. Publication requires explicit approval; human review and human merge are required.
 
@@ -26,7 +26,7 @@ at that baseline. The status above and the dated implementation amendments at th
 their stale status and decision statements. F1's dependency-publication gate is now closed by the canonical pins and generated lock;
 the original plan's emoji-font decision was revised on 2026-10-24.
 
-This plan covers only `storytold/craft-launcher` (the ArtCraft Launcher repository). It records the
+This plan covers only `storytold/craft-launcher` (the Craft Fork Launcher repository). It records the
 app-specific migration, not a generic egui compatibility layer. `craft-libs`, the individual Craft
 apps, the egui fork and the winit fork each keep their own plans.
 
@@ -776,7 +776,7 @@ Implementation details:
 The launcher uses no fork-only API today. It benefits from these fork behaviours without source
 changes:
 
-| Patch | Relevance to ArtCraft Launcher | Decision |
+| Patch | Relevance to Craft Fork Launcher | Decision |
 | --- | --- | --- |
 | E1 `ViewportHooks` | none; one root viewport | keep in dependency; compile only |
 | E2+E3 surface fit / error scopes | large or multi-monitor windows | keep; measure oversized window and error path |

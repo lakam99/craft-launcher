@@ -105,7 +105,7 @@ impl LauncherUi {
     /// have). The button can't explain on click, so its hover does.
     pub(crate) fn version_refusal(&self, entry: &crate::model::AppEntry, tag: &str) -> Option<String> {
         (entry.installed.is_some() && self.version_installs(entry, tag) == Some(false))
-            .then(|| crate::fmt(tl!("ArtCraft Launcher can't install version {version} over this copy."), &[("version", tag)]))
+            .then(|| crate::fmt(tl!("Craft Fork Launcher can't install version {version} over this copy."), &[("version", tag)]))
     }
 
     pub(crate) fn version_combo(&mut self, ui: &mut Ui, id: &str, app: &CraftApp, width: f32, label: egui::Id) -> bool {

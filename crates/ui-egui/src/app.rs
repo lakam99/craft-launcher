@@ -712,7 +712,7 @@ impl LauncherUi {
         if self.settings.notify {
             let (title, body) = match fresh.as_slice() {
                 [(_, name, v)] => {
-                    let body: String = tl!("Open ArtCraft Launcher to update.").to_string();
+                    let body: String = tl!("Open Craft Fork Launcher to update.").to_string();
                     (crate::i18n::fmt(tl!("{name} {v} is available"), &[("name", name), ("v", v)]), body)
                 }
                 many => {
@@ -736,7 +736,7 @@ impl LauncherUi {
         }
         self.settings.tray_hint_shown = true;
         host.notify(
-            tl!("ArtCraft Launcher is still running"),
+            tl!("Craft Fork Launcher is still running"),
             tl!("It's in the tray: open it or quit it from the tray icon, or turn this off in the settings."),
         );
     }

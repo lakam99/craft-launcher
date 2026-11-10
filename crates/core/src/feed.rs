@@ -159,6 +159,11 @@ impl Feed {
 
     /// What the feed says about `app` at `now`.
     pub fn answer(&self, app: &CraftApp, now: i64) -> FeedAnswer {
+        // The upstream aggregator does not track these forks. Even a fresh empty entry must
+        // fall through to their pinned GitHub repository, rather than hide a fork's release.
+        if matches!(app.repo, "lakam99/filmcraft" | "lakam99/effectcraft" | "lakam99/craft-launcher") {
+            return FeedAnswer::AskGitHub;
+        }
         let Some(entry) = self.apps.get(app.id) else { return FeedAnswer::AskGitHub };
         let Some(fetched_at) = entry.fetched_at else { return FeedAnswer::AskGitHub };
         // A timestamp from the future (clock skew) counts as just now; one too old doesn't count.

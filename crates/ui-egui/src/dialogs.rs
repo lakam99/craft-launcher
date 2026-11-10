@@ -155,7 +155,7 @@ impl LauncherUi {
     fn launcher_update_dialog(&mut self, ui: &mut egui::Ui, r: &artcraft_launcher_core::Release) -> bool {
         let t = Tokens::get(ui.ctx());
         ui.set_width(480.0f32.min(ui.ctx().content_rect().width() - 80.0));
-        let title = fmt(tl!("ArtCraft Launcher {version} is available."), &[("version", &r.version_label())]);
+        let title = fmt(tl!("Craft Fork Launcher {version} is available."), &[("version", &r.version_label())]);
         Self::title(ui, Some(crate::icons::artcraft_mark()), &title, "");
         let message = if self.caps.self_update {
             tl!("A new version is available. Would you like to relaunch with the updated version?")

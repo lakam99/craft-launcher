@@ -1,6 +1,6 @@
 {
   "id": "artcraft-launcher",
-  "name": "ArtCraft Launcher",
+  "name": "Craft Fork Launcher",
   "mode": "perUser",
   "upgradeCode": "1AC08DBF-D4CF-4BA4-A81E-CAA5C1004974",
   "sources": [
@@ -21,13 +21,13 @@
   "registry": [
     [
       "1",
-      "Software\\Learning Machines LLC\\ArtCraft Launcher",
+      "Software\\Learning Machines LLC\\Craft Fork Launcher",
       "InstallDir",
       "[INSTALLFOLDER]"
     ],
     [
       "1",
-      "Software\\Learning Machines LLC\\ArtCraft Launcher",
+      "Software\\Learning Machines LLC\\Craft Fork Launcher",
       "DesktopShortcutChoice",
       "[DESKTOPSHORTCUTCHOICE]"
     ],
@@ -39,13 +39,13 @@
     ],
     [
       "1",
-      "Software\\Learning Machines LLC\\ArtCraft Launcher",
+      "Software\\Learning Machines LLC\\Craft Fork Launcher",
       "StartMenuShortcut",
       "#1"
     ],
     [
       "1",
-      "Software\\Learning Machines LLC\\ArtCraft Launcher",
+      "Software\\Learning Machines LLC\\Craft Fork Launcher",
       "DesktopShortcut",
       "#1"
     ]

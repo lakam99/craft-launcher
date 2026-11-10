@@ -8,7 +8,7 @@
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 
-/// Where the settings file is. In portable mode it is inside `ArtCraftLauncherData`, so a suite
+/// Where the settings file is. In portable mode it is inside `CraftForkLauncherData`, so a suite
 /// carried on a stick keeps its settings when it is plugged into another computer. Without
 /// `portable.txt` it is eframe's own folder, which is in the user's profile and cannot travel.
 pub fn path(app_id: &str) -> Option<PathBuf> {
@@ -103,7 +103,7 @@ mod tests {
     #[test]
     fn a_portable_suite_keeps_its_settings_inside_itself() {
         // Built with `join` so the test reads the same on Windows and on Linux CI.
-        let root = PathBuf::from("Suite").join("ArtCraftLauncherData");
+        let root = PathBuf::from("Suite").join("CraftForkLauncherData");
         assert_eq!(portable_settings(&root), root.join("data").join("app.ron"));
     }
 

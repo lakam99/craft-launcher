@@ -73,7 +73,7 @@ fn events() -> Vec<Event> {
         ("filmcraft", "0.4.0"),
         ("lightcraft", "0.4.0"),
         ("pdfcraft", "0.4.0"),
-        ("effectcraft", "0.6.0"),
+        ("figcraft", "0.6.0"),
         ("designcraft", "0.4.0"),
         ("wordcraft", "0.3.0"),
         ("deckcraft", "0.3.0"),
@@ -88,7 +88,7 @@ fn events() -> Vec<Event> {
         });
     }
     ev.push(Event::Latest { app: "soundcraft".into(), latest: LatestRelease::None, from: Origin::ArtCraftApi });
-    let installed = [("photocraft", "0.4.1"), ("lightcraft", "0.4.0"), ("wordcraft", "0.3.0"), ("effectcraft", "0.5.0")];
+    let installed = [("photocraft", "0.4.1"), ("lightcraft", "0.4.0"), ("wordcraft", "0.3.0"), ("figcraft", "0.5.0")];
     for app in &SUITE {
         let inst = installed.iter().find(|(id, _)| *id == app.id).map(|(_, v)| Installed {
             version: version::parse(v),
@@ -220,7 +220,7 @@ fn simplified_chinese_switches_persists_and_keeps_install_actions() {
     h.get_by_label("全部更新（2）").click();
     h.run_steps(2);
     let installs: Vec<_> = sent.borrow().iter().filter_map(|c| if let Command::Install { app } = c { Some(app.clone()) } else { None }).collect();
-    assert_eq!(installs, ["photocraft", "effectcraft"]);
+    assert_eq!(installs, ["photocraft", "figcraft"]);
 
     let (mut table, _) = harness_language(ViewMode::Table, egui::Theme::Light, true, &restored.language);
     table.run_steps(6);

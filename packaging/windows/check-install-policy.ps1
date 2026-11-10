@@ -77,7 +77,7 @@ try {
         $execute['CraftRestoreLauncherFolder'] -lt $execute['CostInitialize'])) {
       throw 'Silent updates must restore the launcher folder after AppSearch and before directory costing.'
     }
-    Write-Output 'PASS ArtCraft Launcher: per-user scope, suite folder, remembered/custom paths and existing registration. No installation performed.'
+    Write-Output 'PASS Craft Fork Launcher: per-user scope, suite folder, remembered/custom paths and existing registration. No installation performed.'
     return
   }
   if ($properties['ALLUSERS'] -ne '2' -or $properties['MSIINSTALLPERUSER'] -ne '1') {

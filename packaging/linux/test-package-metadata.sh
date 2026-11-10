@@ -14,7 +14,7 @@ check_packages() {
   local arch="$1" target="$2" floor="$3" expected="$4" deb_arch="$5"
   local work="$TMP/$arch-${floor:-default}" deb actual_arch deb_requires rpm_requires
   mkdir -p "$work/target/$target/release"
-  printf '#!/bin/sh\necho "ArtCraft Launcher packaging fixture"\n' >"$work/target/$target/release/artcraft-launcher"
+  printf '#!/bin/sh\necho "Craft Fork Launcher packaging fixture"\n' >"$work/target/$target/release/artcraft-launcher"
   chmod +x "$work/target/$target/release/artcraft-launcher"
   # A set cross target skips the version smoke execution; no target binary is run.
   (

@@ -1,4 +1,4 @@
-# Japanese (ja) catalog for ArtCraft Launcher.
+# Japanese (ja) catalog for Craft Fork Launcher.
 # Format: context<TAB>source<TAB>translation
 # Empty context = plain UI string (tl!, t).
 # @id = command-id keyed (tr_id).
@@ -6,12 +6,12 @@
 # @msg = status/error message template (message, msg).
 # Other context = disambiguation for tr_ctx.
 #
-# Clean-room: written from the meaning of ArtCraft Launcher's English labels in neutral Japanese,
+# Clean-room: written from the meaning of Craft Fork Launcher's English labels in neutral Japanese,
 # using the terms Japanese-speaking users of creative software know. The user is addressed with
 # the neutral polite form (です・ます), as in most current Japanese software.
 #
 # Coverage: the whole interface — every menu string and tl! literal (complete_menus = true).
-# Left in English on purpose: product name "ArtCraft Launcher" (and its "Launcher" tag), suite
+# Left in English on purpose: product name "Craft Fork Launcher" (and its "Launcher" tag), suite
 # name "Craft App Suite",
 # app names (PhotoCraft, LightCraft, FilmCraft, DesignCraft, VectorCraft, PdfCraft, EffectCraft,
 # WordCraft, DeckCraft, GridCraft, CADCraft, SoundCraft, FigCraft), "GitHub", "Discord".
@@ -54,8 +54,8 @@
 	Open	開く
 	Open {version}	{version} を開く
 	Open {installed} without updating. {latest} stays available.	更新せずに {installed} を開きます。{latest} は後からでもインストールできます。
-	{latest} is out, but ArtCraft Launcher can't install it over this copy.	{latest} が公開されていますが、ArtCraft Launcher はこのコピーに上書きしてインストールできません。
-	ArtCraft Launcher can't install version {version} over this copy.	ArtCraft Launcher はバージョン {version} をこのコピーに上書きしてインストールできません。
+	{latest} is out, but Craft Fork Launcher can't install it over this copy.	{latest} が公開されていますが、Craft Fork Launcher はこのコピーに上書きしてインストールできません。
+	Craft Fork Launcher can't install version {version} over this copy.	Craft Fork Launcher はバージョン {version} をこのコピーに上書きしてインストールできません。
 	Download for {os}	{os} 版をダウンロード
 	Download	ダウンロード
 	Coming soon	近日公開
@@ -87,7 +87,7 @@
 	{name} wasn't opened: a quote in its launch options isn't closed.	{name} を開けませんでした: 起動オプションの引用符が閉じられていません。
 	Save	保存
 	All releases	すべてのリリース
-	ArtCraft Launcher {version} is available.	ArtCraft Launcher {version} が利用可能です。
+	Craft Fork Launcher {version} is available.	Craft Fork Launcher {version} が利用可能です。
 	Dismiss	閉じる
 	Update and restart	更新して再起動
 	A new version is available. Would you like to relaunch with the updated version?	新しいバージョンがあります。更新後のバージョンで再起動しますか？
@@ -98,7 +98,7 @@
 	Released {date}	{date} 公開
 	Open on GitHub	GitHub で開く
 	Close	閉じる
-	ArtCraft Launcher {version}	ArtCraft Launcher {version}
+	Craft Fork Launcher {version}	Craft Fork Launcher {version}
 	Only when I ask	手動で確認したときのみ
 	Automatically download and install updates	更新を自動でダウンロードしてインストール
 	Ask for permission once when updating all apps	すべてのアプリを更新するときは権限を一度だけ求める
@@ -111,14 +111,14 @@
 	Updates always use the format an app was installed with.	更新は常に、アプリをインストールしたときの形式で行われます。
 	Running in the background	バックグラウンドで実行
 	Keep running in the tray when the window is closed	ウィンドウを閉じてもトレイで実行し続ける
-	ArtCraft Launcher is still running	ArtCraft Launcher は実行中です
+	Craft Fork Launcher is still running	Craft Fork Launcher は実行中です
 	It's in the tray: open it or quit it from the tray icon, or turn this off in the settings.	トレイに入りました。トレイのアイコンから開くか終了できます。設定でこの動作を無効にすることもできます。
 	Show the window on the current desktop	現在のデスクトップにウィンドウを表示
-	Start ArtCraft Launcher when I log in	ログイン時に ArtCraft Launcher を起動
+	Start Craft Fork Launcher when I log in	ログイン時に Craft Fork Launcher を起動
 	Community	コミュニティ
 	Questions, ideas and news from the ArtCraft team	ArtCraft チームからの質問、アイデア、ニュース
 	Appearance	外観
-	Quit ArtCraft Launcher	ArtCraft Launcher を終了
+	Quit Craft Fork Launcher	Craft Fork Launcher を終了
 	Done	完了
 	Uninstall {name}?	{name} をアンインストールしますか？
 	The app will be moved to the Trash. Your documents and settings stay.	アプリはゴミ箱に移動されます。ドキュメントと設定はそのまま残ります。
@@ -159,7 +159,7 @@
 	Open link	リンクを開く
 	Update	更新
 	{name} icon	{name} のアイコン
-	Loading ArtCraft Launcher…	ArtCraft Launcher を読み込み中…
+	Loading Craft Fork Launcher…	Craft Fork Launcher を読み込み中…
 	Cancel update	更新をキャンセル
 	Stop waiting; the update can be started again later	待機を中止します。更新は後で再開できます
 	Download again	再ダウンロード
@@ -243,7 +243,7 @@ month	Dec	12月
 	Version {version} installed	バージョン {version} インストール済み
 	Version {latest}	バージョン {latest}
 	No release published yet	まだリリースがありません
-	ArtCraft Launcher	ArtCraft Launcher
+	Craft Fork Launcher	Craft Fork Launcher
 	App	アプリ
 	Latest	最新
 	Released	公開日
@@ -278,7 +278,7 @@ month	Dec	12月
 	Full changelog	完全な変更履歴
 	link	リンク
 	No apps match	一致するアプリがありません
-	Open ArtCraft Launcher to update.	更新するには ArtCraft Launcher を開いてください。
+	Open Craft Fork Launcher to update.	更新するには Craft Fork Launcher を開いてください。
 	{name} {v} is available	{name} {v} が利用可能です
 	{count} updates are available	{count} 件の更新があります
 	These notes weren't fetched (GitHub's request limit was reached). They're on the release page.	このリリースノートは取得できませんでした（GitHub のリクエスト上限に達しました）。リリースページにあります。
@@ -317,7 +317,7 @@ filter	Installed	インストール済み
 
 # Message templates (@msg): toasts from the backend. {placeholders} match any text.
 @msg	Couldn't open {name}: {e}	{name} を開けませんでした: {e}
-@msg	ArtCraft Launcher couldn't start its window on {backend}: {e}	ArtCraft Launcher のウィンドウを {backend} で起動できませんでした: {e}
+@msg	Craft Fork Launcher couldn't start its window on {backend}: {e}	Craft Fork Launcher のウィンドウを {backend} で起動できませんでした: {e}
 @msg	Download cancelled	ダウンロードをキャンセルしました
 @msg	{name} updated to {version}	{name} を {version} に更新しました
 @msg	{name} installed: {version}	{name} をインストールしました: {version}
@@ -348,7 +348,7 @@ filter	Installed	インストール済み
 @id	launcher.notes	新着情報
 @id	launcher.dismiss	閉じる
 @id	settings.open	設定
-@id	settings.quit	ArtCraft Launcher を終了
+@id	settings.quit	Craft Fork Launcher を終了
 @id	view.grid	グリッド
 @id	view.table	テーブル
 @id	filter.all	すべて
@@ -372,16 +372,16 @@ filter	Installed	インストール済み
 @id	linux.preferred_kind	新しいアプリのインストール形式
 @id	tray.close_to_tray	ウィンドウを閉じてもトレイで実行し続ける
 @id	tray.show_on_current_desktop	現在のデスクトップにウィンドウを表示
-@id	tray.login_item	ログイン時に ArtCraft Launcher を起動
+@id	tray.login_item	ログイン時に Craft Fork Launcher を起動
 @id	appearance.theme	外観
 
 # Tray (menu bar) menu and tooltip
-	Show ArtCraft Launcher	ArtCraft Launcher を表示
+	Show Craft Fork Launcher	Craft Fork Launcher を表示
 	Check for Updates	更新を確認
 	Visit getartcraft.com	getartcraft.com を開く
 	ArtCraft on GitHub	GitHub の ArtCraft
 	Join the ArtCraft Discord	ArtCraft Discord に参加
-@plural	ArtCraft Launcher · {n} update available|ArtCraft Launcher · {n} updates available	ArtCraft Launcher · {n} 件の更新があります
+@plural	Craft Fork Launcher · {n} update available|Craft Fork Launcher · {n} updates available	Craft Fork Launcher · {n} 件の更新があります
 
 	Download size: {size}	ダウンロードサイズ: {size}
 	Install folder	インストール先フォルダー
@@ -396,7 +396,7 @@ filter	Installed	インストール済み
 @msg	couldn't use install folder {path}: {reason}	インストール先フォルダー {path} を使用できませんでした: {reason}
 @msg	this release has no AppImage for a custom install folder	このリリースには任意のインストール先フォルダーで使用できる AppImage がありません
 @msg	custom install folders aren't supported on this system	このシステムではインストール先フォルダーの変更に対応していません
-@msg	{path} already exists and wasn't installed by ArtCraft Launcher	{path} は既に存在し、ArtCraft Launcher でインストールされたものではありません
+@msg	{path} already exists and wasn't installed by Craft Fork Launcher	{path} は既に存在し、Craft Fork Launcher でインストールされたものではありません
 @msg	couldn't move {path} to Trash ({reason}). Remove it in Finder instead.	{path} をゴミ箱に移動できませんでした（{reason}）。Finder で削除してください。
 	Apps are placed inside this folder.	アプリはこのフォルダー内に配置されます。
 	Replace what's there?	既存の項目を置き換えますか？

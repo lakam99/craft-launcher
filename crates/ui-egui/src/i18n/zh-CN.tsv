@@ -1,6 +1,6 @@
-# Simplified Chinese (zh-CN) catalog for ArtCraft Launcher.
+# Simplified Chinese (zh-CN) catalog for Craft Fork Launcher.
 # Format: context<TAB>English source<TAB>translation.
-# Original translations from the English UI. Product and app names (ArtCraft Launcher and its
+# Original translations from the English UI. Product and app names (Craft Fork Launcher and its
 # "Launcher" tag, Craft App Suite, PhotoCraft…) and third-party names stay unchanged.
 # Shown with the system's Chinese font (PingFang, Microsoft YaHei, Noto Sans CJK…): see cjk_font.rs.
 # Chinese has one plural form. Placeholders and trailing ellipses are preserved.
@@ -37,8 +37,8 @@
 	Open	打开
 	Open {version}	打开 {version}
 	Open {installed} without updating. {latest} stays available.	打开 {installed}，不更新。{latest} 仍可稍后安装。
-	{latest} is out, but ArtCraft Launcher can't install it over this copy.	{latest} 已发布，但 ArtCraft Launcher 无法用它替换此副本。
-	ArtCraft Launcher can't install version {version} over this copy.	ArtCraft Launcher 无法用版本 {version} 替换此副本。
+	{latest} is out, but Craft Fork Launcher can't install it over this copy.	{latest} 已发布，但 Craft Fork Launcher 无法用它替换此副本。
+	Craft Fork Launcher can't install version {version} over this copy.	Craft Fork Launcher 无法用版本 {version} 替换此副本。
 	Download for {os}	下载 {os} 版
 	Download	下载
 	Coming soon	即将推出
@@ -67,7 +67,7 @@
 	{name} wasn't opened: a quote in its launch options isn't closed.	未打开 {name}：其启动选项中有引号未闭合。
 	Save	保存
 	All releases	所有版本
-	ArtCraft Launcher {version} is available.	ArtCraft Launcher {version} 已可更新。
+	Craft Fork Launcher {version} is available.	Craft Fork Launcher {version} 已可更新。
 	Dismiss	忽略
 	Update and restart	更新并重启
 	A new version is available. Would you like to relaunch with the updated version?	有新版本可用。是否使用更新后的版本重新启动？
@@ -78,7 +78,7 @@
 	Released {date}	发布于 {date}
 	Open on GitHub	在 GitHub 上打开
 	Close	关闭
-	ArtCraft Launcher {version}	ArtCraft Launcher {version}
+	Craft Fork Launcher {version}	Craft Fork Launcher {version}
 	Only when I ask	仅手动检查
 	Automatically download and install updates	自动下载并安装更新
 	Ask for permission once when updating all apps	更新所有应用时仅请求一次授权
@@ -91,14 +91,14 @@
 	Updates always use the format an app was installed with.	更新时始终使用应用原来的安装格式。
 	Running in the background	后台运行
 	Keep running in the tray when the window is closed	关闭窗口后继续在系统托盘中运行
-	ArtCraft Launcher is still running	ArtCraft Launcher 仍在运行
+	Craft Fork Launcher is still running	Craft Fork Launcher 仍在运行
 	It's in the tray: open it or quit it from the tray icon, or turn this off in the settings.	它已进入系统托盘：可通过托盘图标打开或退出，也可在设置中关闭此行为。
 	Show the window on the current desktop	在当前桌面显示窗口
-	Start ArtCraft Launcher when I log in	登录时启动 ArtCraft Launcher
+	Start Craft Fork Launcher when I log in	登录时启动 Craft Fork Launcher
 	Community	社区
 	Questions, ideas and news from the ArtCraft team	与 ArtCraft 团队交流问题、想法和动态
 	Appearance	外观
-	Quit ArtCraft Launcher	退出 ArtCraft Launcher
+	Quit Craft Fork Launcher	退出 Craft Fork Launcher
 	Done	完成
 	Uninstall {name}?	卸载 {name}？
 	The app will be moved to the Trash. Your documents and settings stay.	应用将移到废纸篓。你的文档和设置会保留。
@@ -147,7 +147,7 @@ month	Dec	12月
 	Version {version} installed	已安装版本 {version}
 	Version {latest}	版本 {latest}
 	No release published yet	尚未发布版本
-	ArtCraft Launcher	ArtCraft Launcher
+	Craft Fork Launcher	Craft Fork Launcher
 	App	应用
 	Latest	最新
 	Released	发布日期
@@ -180,7 +180,7 @@ month	Dec	12月
 	Full changelog	完整更新日志
 	link	链接
 	No apps match	没有匹配的应用
-	Open ArtCraft Launcher to update.	打开 ArtCraft Launcher 进行更新。
+	Open Craft Fork Launcher to update.	打开 Craft Fork Launcher 进行更新。
 	{name} {v} is available	{name} {v} 已可更新
 	{count} updates are available	有 {count} 个可用更新
 	These notes weren't fetched (GitHub's request limit was reached). They're on the release page.	未能获取更新说明（已达到 GitHub 请求上限）。可前往版本发布页面查看。
@@ -211,7 +211,7 @@ filter	Installed	已安装
 @id	launcher.notes	更新内容
 @id	launcher.dismiss	忽略
 @id	settings.open	设置
-@id	settings.quit	退出 ArtCraft Launcher
+@id	settings.quit	退出 Craft Fork Launcher
 @id	view.grid	网格
 @id	view.table	表格
 @id	filter.all	全部
@@ -234,7 +234,7 @@ filter	Installed	已安装
 @id	linux.preferred_kind	新应用安装格式
 @id	tray.close_to_tray	关闭窗口后继续在系统托盘中运行
 @id	tray.show_on_current_desktop	在当前桌面显示窗口
-@id	tray.login_item	登录时启动 ArtCraft Launcher
+@id	tray.login_item	登录时启动 Craft Fork Launcher
 @id	appearance.theme	外观
 	Update	更新
 	New	新
@@ -245,12 +245,12 @@ filter	Installed	已安装
 	Restore	还原
 	Show in Finder	在访达中显示
 	Show in Explorer	在资源管理器中显示
-	Show ArtCraft Launcher	显示 ArtCraft Launcher
+	Show Craft Fork Launcher	显示 Craft Fork Launcher
 	Check for Updates	检查更新
 	Visit getartcraft.com	访问 getartcraft.com
 	ArtCraft on GitHub	ArtCraft 的 GitHub 主页
 	Join the ArtCraft Discord	加入 ArtCraft Discord 社区
-@plural	ArtCraft Launcher · {n} update available|ArtCraft Launcher · {n} updates available	ArtCraft Launcher · 有 {n} 个可用更新
+@plural	Craft Fork Launcher · {n} update available|Craft Fork Launcher · {n} updates available	Craft Fork Launcher · 有 {n} 个可用更新
 @plural	{n} app|{n} apps	{n} 个应用
 artcraft	AI image and video creation	AI 图像与视频创作
 photocraft	Image editing	图像编辑
@@ -271,7 +271,7 @@ soundcraft	Recording, editing and mixing audio	音频录制、编辑与混音
 figcraft	Interface design and prototyping	界面设计与原型制作
 
 	Show in Files	在文件管理器中显示
-	Loading ArtCraft Launcher…	正在加载 ArtCraft Launcher…
+	Loading Craft Fork Launcher…	正在加载 Craft Fork Launcher…
 	Download cancelled	下载已取消
 	Automatically	自动
 	Checked {ago} · using {sources}	上次检查：{ago} · 来源：{sources}
@@ -335,7 +335,7 @@ figcraft	Interface design and prototyping	界面设计与原型制作
 
 # Message templates (@msg): toasts from the backend. {placeholders} match any text.
 @msg	Couldn't open {name}: {e}	无法打开 {name}：{e}
-@msg	ArtCraft Launcher couldn't start its window on {backend}: {e}	无法在 {backend} 上启动 ArtCraft Launcher 的窗口：{e}
+@msg	Craft Fork Launcher couldn't start its window on {backend}: {e}	无法在 {backend} 上启动 Craft Fork Launcher 的窗口：{e}
 @msg	Download cancelled	下载已取消
 @msg	{name} updated to {version}	{name} 已更新至 {version}
 @msg	{name} installed: {version}	{name} 已安装：{version}
@@ -361,7 +361,7 @@ figcraft	Interface design and prototyping	界面设计与原型制作
 @msg	couldn't use install folder {path}: {reason}	无法使用安装文件夹 {path}：{reason}
 @msg	this release has no AppImage for a custom install folder	此版本没有可用于自定义安装文件夹的 AppImage
 @msg	custom install folders aren't supported on this system	此系统不支持自定义安装文件夹
-@msg	{path} already exists and wasn't installed by ArtCraft Launcher	{path} 已存在，且并非由 ArtCraft Launcher 安装
+@msg	{path} already exists and wasn't installed by Craft Fork Launcher	{path} 已存在，且并非由 Craft Fork Launcher 安装
 @msg	couldn't move {path} to Trash ({reason}). Remove it in Finder instead.	无法将 {path} 移到废纸篓（{reason}）。请在 Finder 中移除。
 	Apps are placed inside this folder.	应用会放置在此文件夹内。
 	Replace what's there?	替换现有内容？

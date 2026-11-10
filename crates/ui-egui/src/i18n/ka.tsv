@@ -1,4 +1,4 @@
-# Georgian (ka) catalog for ArtCraft Launcher.
+# Georgian (ka) catalog for Craft Fork Launcher.
 # Format: context<TAB>source<TAB>translation
 # Empty context = plain UI string (tl!, t).
 # @id = command-id keyed (tr_id).
@@ -6,14 +6,14 @@
 # @msg = status/error message template (message, msg).
 # Other context = disambiguation for tr_ctx.
 #
-# Clean-room: written from the meaning of ArtCraft Launcher's English labels in neutral Georgian,
+# Clean-room: written from the meaning of Craft Fork Launcher's English labels in neutral Georgian,
 # with the terms the other Craft apps use in Georgian. The user is addressed with the polite
 # plural (თქვენ), as in Georgian system software. Commands are verbal nouns (ინსტალაცია,
 # განახლება, გახსნა). Georgian has no letter case: no Mtavruli capitals, even where the English
 # uses capitals ("NEW").
 #
 # Coverage: the whole interface — every menu string and tl! literal (complete_menus = true).
-# Left in English on purpose: product name "ArtCraft Launcher" (and its "Launcher" tag), suite
+# Left in English on purpose: product name "Craft Fork Launcher" (and its "Launcher" tag), suite
 # name "Craft App Suite", app names (PhotoCraft, LightCraft, FilmCraft, DesignCraft, VectorCraft,
 # PdfCraft, EffectCraft, WordCraft, DeckCraft, GridCraft, CADCraft, SoundCraft, FigCraft), "GitHub",
 # "Discord". Georgian case endings attach to them with a hyphen (GitHub-ზე, ArtCraft-ის).
@@ -55,8 +55,8 @@
 	Open	გახსნა
 	Open {version}	{version} ვერსიის გახსნა
 	Open {installed} without updating. {latest} stays available.	{installed} ვერსიის გახსნა განახლების გარეშე. {latest} ვერსია ხელმისაწვდომი რჩება.
-	{latest} is out, but ArtCraft Launcher can't install it over this copy.	{latest} უკვე გამოვიდა, მაგრამ ArtCraft Launcher ვერ დააინსტალირებს მას ამ ასლის ნაცვლად.
-	ArtCraft Launcher can't install version {version} over this copy.	ArtCraft Launcher ვერ დააინსტალირებს {version} ვერსიას ამ ასლის ნაცვლად.
+	{latest} is out, but Craft Fork Launcher can't install it over this copy.	{latest} უკვე გამოვიდა, მაგრამ Craft Fork Launcher ვერ დააინსტალირებს მას ამ ასლის ნაცვლად.
+	Craft Fork Launcher can't install version {version} over this copy.	Craft Fork Launcher ვერ დააინსტალირებს {version} ვერსიას ამ ასლის ნაცვლად.
 	Download for {os}	ჩამოტვირთვა {os}-ისთვის
 	Download	ჩამოტვირთვა
 	Coming soon	მალე
@@ -81,7 +81,7 @@
 	Reinstall	ხელახლა ინსტალაცია
 	Uninstall…	დეინსტალაცია…
 	All releases	ყველა გამოშვება
-	ArtCraft Launcher {version} is available.	ხელმისაწვდომია ArtCraft Launcher {version}.
+	Craft Fork Launcher {version} is available.	ხელმისაწვდომია Craft Fork Launcher {version}.
 	Dismiss	უგულებელყოფა
 	Update and restart	განახლება და გადატვირთვა
 	A new version is available. Would you like to relaunch with the updated version?	ხელმისაწვდომია ახალი ვერსია. გსურთ განახლებული ვერსიით ხელახლა გაშვება?
@@ -92,7 +92,7 @@
 	Released {date}	გამოშვების თარიღი: {date}
 	Open on GitHub	GitHub-ზე გახსნა
 	Close	დახურვა
-	ArtCraft Launcher {version}	ArtCraft Launcher {version}
+	Craft Fork Launcher {version}	Craft Fork Launcher {version}
 	Only when I ask	მხოლოდ მოთხოვნისას
 	Automatically download and install updates	განახლებების ავტომატური ჩამოტვირთვა და ინსტალაცია
 	Ask for permission once when updating all apps	ყველა აპლიკაციის განახლებისას ნებართვის მოთხოვნა მხოლოდ ერთხელ
@@ -105,14 +105,14 @@
 	Updates always use the format an app was installed with.	განახლება ყოველთვის იმ ფორმატს იყენებს, რომლითაც აპლიკაცია დაინსტალირდა.
 	Running in the background	ფონურ რეჟიმში მუშაობა
 	Keep running in the tray when the window is closed	ფანჯრის დახურვის შემდეგ მუშაობის გაგრძელება შეტყობინებების არეში
-	ArtCraft Launcher is still running	ArtCraft Launcher კვლავ მუშაობს
+	Craft Fork Launcher is still running	Craft Fork Launcher კვლავ მუშაობს
 	It's in the tray: open it or quit it from the tray icon, or turn this off in the settings.	ის შეტყობინებების არეშია: გახსენით ან დახურეთ მისი ხატულით, ან გამორთეთ ეს ფუნქცია პარამეტრებში.
 	Show the window on the current desktop	ფანჯრის ჩვენება მიმდინარე სამუშაო მაგიდაზე
-	Start ArtCraft Launcher when I log in	ArtCraft Launcher-ის გაშვება სისტემაში შესვლისას
+	Start Craft Fork Launcher when I log in	Craft Fork Launcher-ის გაშვება სისტემაში შესვლისას
 	Community	საზოგადოება
 	Questions, ideas and news from the ArtCraft team	კითხვები, იდეები და სიახლეები ArtCraft-ის გუნდისგან
 	Appearance	იერსახე
-	Quit ArtCraft Launcher	ArtCraft Launcher-იდან გასვლა
+	Quit Craft Fork Launcher	Craft Fork Launcher-იდან გასვლა
 	Done	მზადაა
 	Uninstall {name}?	{name}-ის დეინსტალაცია?
 	The app will be moved to the Trash. Your documents and settings stay.	აპლიკაცია ნაგავში გადავა. თქვენი დოკუმენტები და პარამეტრები შენარჩუნდება.
@@ -155,7 +155,7 @@
 	Update	განახლება
 	{name} icon	{name}-ის ხატულა
 	by {name}	ავტორი: {name}
-	Loading ArtCraft Launcher…	ArtCraft Launcher იტვირთება…
+	Loading Craft Fork Launcher…	Craft Fork Launcher იტვირთება…
 	Cancel update	განახლების გაუქმება
 	Stop waiting; the update can be started again later	ლოდინის შეწყვეტა; განახლების დაწყება მოგვიანებითაც შეიძლება
 	Download again	ხელახლა ჩამოტვირთვა
@@ -245,7 +245,7 @@ month	Dec	დეკ
 	Version {version} installed	დაინსტალირებულია ვერსია {version}
 	Version {latest}	ვერსია {latest}
 	No release published yet	გამოშვება ჯერ არ გამოქვეყნებულა
-	ArtCraft Launcher	ArtCraft Launcher
+	Craft Fork Launcher	Craft Fork Launcher
 	App	აპლიკაცია
 	Latest	უახლესი
 	Released	გამოვიდა
@@ -279,11 +279,11 @@ month	Dec	დეკ
 	Full changelog	ცვლილებების სრული სია
 	link	ბმული
 	No apps match	შესაბამისი აპლიკაცია ვერ მოიძებნა
-	Open ArtCraft Launcher to update.	განახლებისთვის გახსენით ArtCraft Launcher.
+	Open Craft Fork Launcher to update.	განახლებისთვის გახსენით Craft Fork Launcher.
 	{name} {v} is available	ხელმისაწვდომია {name} {v}
 	{count} updates are available	ხელმისაწვდომია {count} განახლება
 	These notes weren't fetched (GitHub's request limit was reached). They're on the release page.	ეს შენიშვნები ვერ ჩაიტვირთა (GitHub-ის მოთხოვნების ლიმიტი ამოიწურა). ისინი გამოშვების გვერდზეა.
-	When on, opening the launcher from the menu bar brings its window to the desktop you're on. When off, macOS switches you to the desktop the window was on.	ჩართვისას მენიუს ზოლიდან გახსნილი ArtCraft Launcher-ის ფანჯარა იმ სამუშაო მაგიდაზე გამოჩნდება, რომელზეც ახლა ხართ. გამორთვისას macOS გადაგიყვანთ იმ სამუშაო მაგიდაზე, სადაც ფანჯარა იყო.
+	When on, opening the launcher from the menu bar brings its window to the desktop you're on. When off, macOS switches you to the desktop the window was on.	ჩართვისას მენიუს ზოლიდან გახსნილი Craft Fork Launcher-ის ფანჯარა იმ სამუშაო მაგიდაზე გამოჩნდება, რომელზეც ახლა ხართ. გამორთვისას macOS გადაგიყვანთ იმ სამუშაო მაგიდაზე, სადაც ფანჯარა იყო.
 	Couldn't change the login item: {e}	სისტემაში შესვლისას გაშვების შეცვლა ვერ მოხერხდა: {e}
 
 # Contextual: table column headers
@@ -318,7 +318,7 @@ filter	Installed	დაინსტალირებული
 
 # Message templates (@msg): toasts from the backend. {placeholders} match any text.
 @msg	Couldn't open {name}: {e}	{name} ვერ გაიხსნა: {e}
-@msg	ArtCraft Launcher couldn't start its window on {backend}: {e}	ArtCraft Launcher-ის ფანჯარა ვერ გაეშვა {backend}-ზე: {e}
+@msg	Craft Fork Launcher couldn't start its window on {backend}: {e}	Craft Fork Launcher-ის ფანჯარა ვერ გაეშვა {backend}-ზე: {e}
 @msg	Download cancelled	ჩამოტვირთვა გაუქმდა
 @msg	{name} updated to {version}	{name} განახლდა ვერსიამდე {version}
 @msg	{name} installed: {version}	{name} დაინსტალირდა: {version}
@@ -349,7 +349,7 @@ filter	Installed	დაინსტალირებული
 @id	launcher.notes	რა არის ახალი
 @id	launcher.dismiss	უგულებელყოფა
 @id	settings.open	პარამეტრები
-@id	settings.quit	ArtCraft Launcher-იდან გასვლა
+@id	settings.quit	Craft Fork Launcher-იდან გასვლა
 @id	view.grid	ბადე
 @id	view.table	ცხრილი
 @id	filter.all	ყველა
@@ -373,16 +373,16 @@ filter	Installed	დაინსტალირებული
 @id	linux.preferred_kind	ახალი აპლიკაციების ინსტალაციის ფორმატი
 @id	tray.close_to_tray	ფანჯრის დახურვის შემდეგ მუშაობის გაგრძელება შეტყობინებების არეში
 @id	tray.show_on_current_desktop	ფანჯრის ჩვენება მიმდინარე სამუშაო მაგიდაზე
-@id	tray.login_item	ArtCraft Launcher-ის გაშვება სისტემაში შესვლისას
+@id	tray.login_item	Craft Fork Launcher-ის გაშვება სისტემაში შესვლისას
 @id	appearance.theme	იერსახე
 
 # Tray (menu bar) menu and tooltip
-	Show ArtCraft Launcher	ArtCraft Launcher-ის ჩვენება
+	Show Craft Fork Launcher	Craft Fork Launcher-ის ჩვენება
 	Check for Updates	განახლებების შემოწმება
 	Visit getartcraft.com	getartcraft.com-ის გახსნა
 	ArtCraft on GitHub	ArtCraft GitHub-ზე
 	Join the ArtCraft Discord	შემოუერთდით ArtCraft-ის Discord-ს
-@plural	ArtCraft Launcher · {n} update available|ArtCraft Launcher · {n} updates available	ArtCraft Launcher · ხელმისაწვდომია {n} განახლება|ArtCraft Launcher · ხელმისაწვდომია {n} განახლება
+@plural	Craft Fork Launcher · {n} update available|Craft Fork Launcher · {n} updates available	Craft Fork Launcher · ხელმისაწვდომია {n} განახლება|Craft Fork Launcher · ხელმისაწვდომია {n} განახლება
 	Install folder	ინსტალაციის საქაღალდე
 	Default install folder	ნაგულისხმევი ინსტალაციის საქაღალდე
 	System default	სისტემის ნაგულისხმევი
@@ -395,7 +395,7 @@ filter	Installed	დაინსტალირებული
 @msg	couldn't use install folder {path}: {reason}	ინსტალაციის საქაღალდის ({path}) გამოყენება ვერ მოხერხდა: {reason}
 @msg	this release has no AppImage for a custom install folder	ამ გამოშვებას არჩეული ინსტალაციის საქაღალდისთვის AppImage არ აქვს
 @msg	custom install folders aren't supported on this system	ამ სისტემაზე ინსტალაციის საქაღალდის არჩევა არ არის მხარდაჭერილი
-@msg	{path} already exists and wasn't installed by ArtCraft Launcher	{path} უკვე არსებობს და ის ArtCraft Launcher-ს არ დაუინსტალირებია
+@msg	{path} already exists and wasn't installed by Craft Fork Launcher	{path} უკვე არსებობს და ის Craft Fork Launcher-ს არ დაუინსტალირებია
 @msg	couldn't move {path} to Trash ({reason}). Remove it in Finder instead.	{path} ნაგავში ვერ გადავიდა ({reason}). წაშალეთ ის Finder-ში.
 	Apps are placed inside this folder.	აპლიკაციები ამ საქაღალდეში განთავსდება.
 	Replace what's there?	ჩანაცვლდეს არსებული?

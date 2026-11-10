@@ -69,6 +69,9 @@ impl CraftApp {
 
     /// The app's website: its page on getartcraft.com, or a community app's own site.
     pub fn website(&self) -> String {
+        if self.publisher == "lakam99" {
+            return self.repo_url();
+        }
         self.site.map_or_else(|| format!("https://getartcraft.com/apps/{}", self.id), str::to_string)
     }
 
@@ -146,17 +149,25 @@ const fn app(
     }
 }
 
+/// A user-maintained fork: keep its release origin pinned independently of the suite feed.
+const fn fork_app(mut app: CraftApp) -> CraftApp {
+    app.kind = AppKind::Community;
+    app.publisher = "lakam99";
+    app.mac_team = None;
+    app
+}
+
 /// The Craft App Suite, in display order matching getartcraft.com, then the community apps:
 pub const SUITE: [CraftApp; 19] = [
     app("photocraft", "PhotoCraft", "Image editing", [[0x2f, 0x7b, 0xf5], [0x1a, 0x5b, 0xc4], [0x7f, 0xb0, 0xff]], "storytold/photocraft"),
     app("vectorcraft", "VectorCraft", "Vector illustration", [[0xe8, 0x57, 0x3f], [0xb8, 0x3a, 0x24], [0xff, 0x8a, 0x70]], "storytold/vectorcraft"),
-    app(
+    fork_app(app(
         "filmcraft",
         "FilmCraft",
         "Video editing, color and sound",
         [[0x8b, 0x5c, 0xf6], [0x6a, 0x3f, 0xd6], [0xb6, 0x9c, 0xff]],
-        "storytold/filmcraft",
-    ),
+        "lakam99/filmcraft",
+    )),
     app(
         "lightcraft",
         "LightCraft",
@@ -175,13 +186,13 @@ pub const SUITE: [CraftApp; 19] = [
             "storytold/pdfcraft",
         )
     },
-    app(
+    fork_app(app(
         "effectcraft",
         "EffectCraft",
         "Motion graphics and visual effects",
         [[0xe0, 0x36, 0x8f], [0xb0, 0x20, 0x6c], [0xff, 0x7a, 0xb8]],
-        "storytold/effectcraft",
-    ),
+        "lakam99/effectcraft",
+    )),
     CraftApp {
         // Use the project repository until its getartcraft.com page is published.
         site: Some("https://github.com/storytold/anicraft"),
@@ -286,7 +297,7 @@ pub const SUITE: [CraftApp; 19] = [
     },
 ];
 
-/// The Apple Developer team that signs every official Craft App and ArtCraft Launcher (Learning
+/// The Apple Developer team that signs every official Craft App and Craft Fork Launcher (Learning
 /// Machines LLC): the macOS side of the Windows publisher check.
 pub const ARTCRAFT_TEAM_ID: &str = "DJ6XS33FX8";
 
@@ -296,7 +307,7 @@ pub const WEBSITE_URL: &str = "https://getartcraft.com";
 /// only move an app within it; a community app installs from its own repo, pinned in [`SUITE`].
 pub const GITHUB_OWNER: &str = "storytold";
 /// ArtCraft on GitHub: every Craft App's source.
-pub const GITHUB_URL: &str = "https://github.com/storytold";
+pub const GITHUB_URL: &str = "https://github.com/lakam99/craft-launcher";
 /// ArtCraft's social accounts: (service, URL). Shown as small icons, less prominent than Discord.
 pub const SOCIAL: [(&str, &str); 5] = [
     ("X", "https://x.com/get_artcraft"),
@@ -311,19 +322,19 @@ pub const DISCORD_URL: &str = "https://discord.gg/artcraft";
 /// Deep link into the Discord application for the ArtCraft server invite.
 pub const DISCORD_APP_URL: &str = "discord://-/invite/artcraft";
 
-/// ArtCraft Launcher itself, described like a Craft App so it can update itself with the same
+/// Craft Fork Launcher itself, described like a Craft App so it can update itself with the same
 /// machinery (asset names `artcraft-launcher-<ver>-…`, bundle id `ai.storyteller.artcraft-launcher`,
-/// `ArtCraft Launcher.app`). Not part of [`SUITE`].
-pub const LAUNCHER: CraftApp = app(
+/// `Craft Fork Launcher.app`). Not part of [`SUITE`].
+pub const LAUNCHER: CraftApp = fork_app(app(
     "artcraft-launcher",
-    "ArtCraft Launcher",
+    "Craft Fork Launcher",
     "Installs and updates the Craft App Suite",
     [[0x0b, 0x0b, 0x0c], [0x0b, 0x0b, 0x0c], [0xf2, 0xf1, 0xee]],
-    "storytold/craft-launcher",
-);
+    "lakam99/craft-launcher",
+));
 
 /// The launcher's own repo, checked so it can say when a newer launcher is out.
-pub const LAUNCHER_REPO: &str = "storytold/craft-launcher";
+pub const LAUNCHER_REPO: &str = LAUNCHER.repo;
 /// The launcher's own asset stem.
 pub const LAUNCHER_ID: &str = "artcraft-launcher";
 

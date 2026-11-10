@@ -182,7 +182,7 @@ fn events() -> Vec<Event> {
         ("filmcraft", "0.4.0"),
         ("lightcraft", "0.4.0"),
         ("pdfcraft", "0.4.0"),
-        ("effectcraft", "0.6.0"),
+        ("figcraft", "0.6.0"),
         ("designcraft", "0.4.0"),
         ("wordcraft", "0.3.0"),
         ("deckcraft", "0.3.0"),
@@ -197,7 +197,7 @@ fn events() -> Vec<Event> {
         });
     }
     ev.push(Event::Latest { app: "soundcraft".into(), latest: LatestRelease::None, from: Origin::ArtCraftApi });
-    let installed = [("photocraft", "0.4.1"), ("lightcraft", "0.4.0"), ("wordcraft", "0.3.0"), ("effectcraft", "0.5.0")];
+    let installed = [("photocraft", "0.4.1"), ("lightcraft", "0.4.0"), ("wordcraft", "0.3.0"), ("figcraft", "0.5.0")];
     for app in &SUITE {
         let inst = installed.iter().find(|(id, _)| *id == app.id).map(|(_, v)| Installed {
             version: version::parse(v),
@@ -1409,11 +1409,11 @@ fn an_update_can_open_the_installed_copy_without_updating() {
 /// split too.
 fn only_a_waiting_update_splits_the_main_button() {
     let mut ev = events();
-    ev.push(Event::ReadyToInstall { app: "effectcraft".into(), ready: true });
+    ev.push(Event::ReadyToInstall { app: "figcraft".into(), ready: true });
     let (mut h, sent) = harness_with(ev, ViewMode::Grid, egui::Theme::Dark, true, 1.0);
     h.run_steps(8);
     let splits: Vec<String> = h.query_all_by_label_contains("without updating").filter_map(|n| n.accesskit_node().label()).collect();
-    assert_eq!(splits.len(), 2, "PhotoCraft and EffectCraft wait for updates: {splits:?}");
+    assert_eq!(splits.len(), 2, "PhotoCraft and FigCraft wait for updates: {splits:?}");
     assert!(splits.iter().any(|l| l == "Open 0.5.0 without updating. 0.6.0 stays available."), "{splits:?}");
     // LightCraft and WordCraft are up to date: each still has one plain Open.
     assert!(h.query_all_by_label("Open").count() >= 2);
@@ -1422,7 +1422,7 @@ fn only_a_waiting_update_splits_the_main_button() {
     sent.borrow_mut().clear();
     h.get_by_label("Retry update to 0.6.0").click();
     h.run_steps(2);
-    assert_eq!(launches_and_installs(&sent, "effectcraft"), (0, 1), "{:?}", sent.borrow());
+    assert_eq!(launches_and_installs(&sent, "figcraft"), (0, 1), "{:?}", sent.borrow());
 }
 
 #[test]
@@ -1468,7 +1468,7 @@ fn the_backends_installability_answer_decides_an_update() {
 }
 
 /// The tooltip on the note beside a copy behind a release it can't take.
-const OUT_OF_REACH_TIP: &str = "0.5.0 is out, but ArtCraft Launcher can't install it over this copy.";
+const OUT_OF_REACH_TIP: &str = "0.5.0 is out, but Craft Fork Launcher can't install it over this copy.";
 
 #[test]
 /// The note beside a copy behind a release it can't take shows in the table too.
@@ -1764,7 +1764,7 @@ fn grid_shows_every_status_and_installs_on_click() {
     h.run_steps(2);
     let installs: Vec<_> = sent.borrow().iter().filter_map(|c| if let Command::Install { app } = c { Some(app.clone()) } else { None }).collect();
     assert_eq!(installs.len(), 2, "{installs:?}");
-    assert!(installs.contains(&"photocraft".to_string()) && installs.contains(&"effectcraft".to_string()));
+    assert!(installs.contains(&"photocraft".to_string()) && installs.contains(&"figcraft".to_string()));
 }
 
 #[test]
@@ -1854,7 +1854,7 @@ fn a_dismissed_install_prompt_is_not_called_a_cancelled_download() {
 /// Download again.
 fn a_kept_update_installs_on_retry_and_an_up_to_date_app_is_not_downloaded_again() {
     let mut ev = events();
-    for app in ["effectcraft", "wordcraft"] {
+    for app in ["figcraft", "wordcraft"] {
         ev.push(Event::ReadyToInstall { app: app.into(), ready: true });
     }
     let (mut h, sent) = harness_with(ev, ViewMode::Table, egui::Theme::Dark, true, 1.0);
@@ -1864,7 +1864,7 @@ fn a_kept_update_installs_on_retry_and_an_up_to_date_app_is_not_downloaded_again
     assert!(h.query_by_label("Update to 0.6.0").is_none());
     h.get_by_label("Retry update to 0.6.0").click();
     h.run_steps(2);
-    assert_eq!(*sent.borrow(), [Command::Install { app: "effectcraft".into() }]);
+    assert_eq!(*sent.borrow(), [Command::Install { app: "figcraft".into() }]);
     // WordCraft is up to date: its menu offers Reinstall, which uses the kept file.
     let row = h.get_by_role_and_label(egui::accesskit::Role::Label, "WordCraft").rect().center().y;
     h.get_all_by_label_contains("More actions").find(|n| (n.rect().center().y - row).abs() < 25.0).unwrap().click();
@@ -1883,16 +1883,16 @@ fn a_retry_update_button_keeps_to_its_slot_and_leaves_room_for_the_menu() {
         let mut ev = events();
         // Two-digit minor, as in the report: "Retry update to 0.12.0".
         ev.push(Event::Latest {
-            app: "effectcraft".into(),
-            latest: LatestRelease::Found(release("effectcraft", "0.12.0", NOW)),
+            app: "figcraft".into(),
+            latest: LatestRelease::Found(release("figcraft", "0.12.0", NOW)),
             from: Origin::ArtCraftApi,
         });
-        ev.push(Event::ReadyToInstall { app: "effectcraft".into(), ready: true });
+        ev.push(Event::ReadyToInstall { app: "figcraft".into(), ready: true });
         let (mut h, _) = harness_with(ev, view, egui::Theme::Dark, true, 1.0);
         h.run_steps(8);
         let retry = h.get_by_label("Retry update to 0.12.0").rect();
         let install = h.query_all_by_label("Install").next().unwrap().rect();
-        let menu = h.get_by_label("More actions for EffectCraft").rect();
+        let menu = h.get_by_label("More actions for FigCraft").rect();
         assert!(retry.width() <= install.width() + 0.5, "{view:?}: retry {retry:?} wider than install {install:?}");
         assert!(retry.right() <= menu.left(), "{view:?}: retry {retry:?} overlaps menu {menu:?}");
     }
@@ -1903,7 +1903,7 @@ fn an_install_waiting_for_another_says_so_and_can_be_cancelled() {
     let mut events = events();
     // Two updates reached the system's installer together: one runs, the other waits its turn.
     events.push(Event::Progress { app: "photocraft".into(), phase: JobPhase::Installing });
-    events.push(Event::Progress { app: "effectcraft".into(), phase: JobPhase::Waiting });
+    events.push(Event::Progress { app: "figcraft".into(), phase: JobPhase::Waiting });
     let (mut h, sent) = harness_with(events, ViewMode::Grid, egui::Theme::Dark, true, 1.0);
     h.run_steps(6);
     snapshot(&mut h, "grid-waiting-dark");
@@ -1913,7 +1913,7 @@ fn an_install_waiting_for_another_says_so_and_can_be_cancelled() {
     h.get_by_label("Cancel").click();
     h.run_steps(2);
     let cancels: Vec<_> = sent.borrow().iter().filter(|c| matches!(c, Command::Cancel { .. })).cloned().collect();
-    assert_eq!(cancels, [Command::Cancel { app: "effectcraft".into() }]);
+    assert_eq!(cancels, [Command::Cancel { app: "figcraft".into() }]);
 }
 
 #[test]
@@ -2336,13 +2336,13 @@ fn every_table_column_sorts_both_ways() {
     h.get_by_label("Status").click();
     h.run_steps(3);
     let o = order(&h);
-    assert_eq!(&o[..4], ["PhotoCraft", "EffectCraft", "LightCraft", "WordCraft"], "{o:?}");
+    assert_eq!(&o[..4], ["PhotoCraft", "FigCraft", "LightCraft", "WordCraft"], "{o:?}");
     // Reversed: the apps not installed first, then up to date, then the updates last. The table
     // keeps its column's order; only the grid puts installed apps above the rest.
     h.get_by_label("Status").click();
     h.run_steps(3);
     let o = order(&h);
-    assert_eq!(&o[o.len().saturating_sub(4)..], ["LightCraft", "WordCraft", "PhotoCraft", "EffectCraft"], "{o:?}");
+    assert_eq!(&o[o.len().saturating_sub(4)..], ["LightCraft", "WordCraft", "PhotoCraft", "FigCraft"], "{o:?}");
     // The old Installed and Latest columns are gone; Version shows the number, and from and to for an update.
     assert!(h.query_by_label("Latest").is_none());
     h.get_by_label("Version");
@@ -2377,7 +2377,7 @@ fn the_first_close_to_the_tray_is_explained_once() {
     l.hidden_to_tray(&mut host);
     assert!(l.settings.tray_hint_shown);
     assert_eq!(host.0.len(), 1, "{:?}", host.0);
-    assert_eq!(host.0[0].0, "ArtCraft Launcher is still running");
+    assert_eq!(host.0[0].0, "Craft Fork Launcher is still running");
     assert!(host.0[0].1.contains("tray icon"), "{}", host.0[0].1);
 }
 
@@ -2524,9 +2524,10 @@ fn links_open_the_right_pages() {
     let (mut h, _) = harness(ViewMode::Grid, egui::Theme::Dark, true);
     h.run_steps(6);
     assert_eq!(click_opens(&mut h, "Discord").as_deref(), Some("https://discord.gg/artcraft"));
-    // The footer's ArtCraft links and each card's own pages.
+    // The footer identifies this fork; each card keeps its own repository.
     let github = all_opened(&mut h, "GitHub");
-    assert!(github.contains(&"https://github.com/storytold".to_string()), "{github:?}");
+    assert!(github.contains(&"https://github.com/lakam99/craft-launcher".to_string()), "{github:?}");
+    assert!(github.contains(&"https://github.com/lakam99/effectcraft".to_string()), "{github:?}");
     assert!(github.contains(&"https://github.com/storytold/photocraft".to_string()), "{github:?}");
     let sites = all_opened(&mut h, "Website");
     assert!(sites.contains(&"https://getartcraft.com".to_string()), "{sites:?}");
@@ -2689,9 +2690,9 @@ fn the_launcher_updates_itself_and_quits_to_restart() {
         None,
     );
     h.run_steps(6);
-    h.get_by_role_and_label(egui::accesskit::Role::Label, "ArtCraft Launcher 0.2.0 is available.");
+    h.get_by_role_and_label(egui::accesskit::Role::Label, "Craft Fork Launcher 0.2.0 is available.");
     assert_eq!(
-        h.query_all_by_label_contains("ArtCraft Launcher 0.2.0 is available").count(),
+        h.query_all_by_label_contains("Craft Fork Launcher 0.2.0 is available").count(),
         1,
         "the update title is announced once, not once by the icon and once by the heading"
     );
@@ -2720,9 +2721,9 @@ fn launcher_update_prompts_to_relaunch_with_updated_version() {
     let (mut h, _) = harness_with(ev, ViewMode::Grid, egui::Theme::Dark, true, 1.0);
     h.run_steps(6);
     // Dialog pops up on launch with the update prompt
-    h.get_by_role_and_label(egui::accesskit::Role::Label, "ArtCraft Launcher 0.2.0 is available.");
+    h.get_by_role_and_label(egui::accesskit::Role::Label, "Craft Fork Launcher 0.2.0 is available.");
     assert_eq!(
-        h.query_all_by_label_contains("ArtCraft Launcher 0.2.0 is available").count(),
+        h.query_all_by_label_contains("Craft Fork Launcher 0.2.0 is available").count(),
         1,
         "the update title is announced once, not once by the icon and once by the heading"
     );
@@ -2849,7 +2850,7 @@ fn automatic_updates_queue_installs_for_outdated_apps_and_launcher() {
     h.run_steps(4);
     let commands = sent.borrow().clone();
     assert!(commands.contains(&Command::Install { app: "photocraft".into() }), "outdated photocraft should be queued for install: {commands:?}");
-    assert!(commands.contains(&Command::Install { app: "effectcraft".into() }), "outdated effectcraft should be queued for install: {commands:?}");
+    assert!(commands.contains(&Command::Install { app: "figcraft".into() }), "outdated figcraft should be queued for install: {commands:?}");
     assert!(commands.contains(&Command::UpdateLauncher), "launcher update should be queued: {commands:?}");
 }
 
@@ -2885,9 +2886,9 @@ fn automatic_updates_skip_a_release_without_a_download_here() {
     );
     h.run_steps(4);
     assert_eq!(launches_and_installs(&sent, "photocraft"), (0, 0), "{:?}", sent.borrow());
-    assert_eq!(launches_and_installs(&sent, "effectcraft"), (0, 1), "{:?}", sent.borrow());
+    assert_eq!(launches_and_installs(&sent, "figcraft"), (0, 1), "{:?}", sent.borrow());
     let notified = &h.state().as_ref().expect("the harness built the launcher").settings.notified;
-    assert!(!notified.contains_key("photocraft") && notified.contains_key("effectcraft"), "{notified:?}");
+    assert!(!notified.contains_key("photocraft") && notified.contains_key("figcraft"), "{notified:?}");
 }
 
 #[test]

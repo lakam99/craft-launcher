@@ -72,7 +72,7 @@ fn events() -> Vec<Event> {
         ("filmcraft", "0.4.0"),
         ("lightcraft", "0.4.0"),
         ("pdfcraft", "0.4.0"),
-        ("effectcraft", "0.6.0"),
+        ("figcraft", "0.6.0"),
         ("designcraft", "0.4.0"),
         ("wordcraft", "0.3.0"),
         ("deckcraft", "0.3.0"),
@@ -87,7 +87,7 @@ fn events() -> Vec<Event> {
         });
     }
     ev.push(Event::Latest { app: "soundcraft".into(), latest: LatestRelease::None, from: Origin::ArtCraftApi });
-    let installed = [("photocraft", "0.4.1"), ("lightcraft", "0.4.0"), ("wordcraft", "0.3.0"), ("effectcraft", "0.5.0")];
+    let installed = [("photocraft", "0.4.1"), ("lightcraft", "0.4.0"), ("wordcraft", "0.3.0"), ("figcraft", "0.5.0")];
     for app in &SUITE {
         let inst = installed.iter().find(|(id, _)| *id == app.id).map(|(_, v)| Installed {
             version: version::parse(v),
@@ -180,7 +180,7 @@ fn german_switches_persists_and_keeps_install_actions() {
     h.get_by_label("Alle aktualisieren (2)").click();
     h.run_steps(2);
     let installs: Vec<_> = sent.borrow().iter().filter_map(|c| if let Command::Install { app } = c { Some(app.clone()) } else { None }).collect();
-    assert_eq!(installs, ["photocraft", "effectcraft"]);
+    assert_eq!(installs, ["photocraft", "figcraft"]);
 
     let (mut table, _) = harness_language(ViewMode::Table, egui::Theme::Light, true, &restored.language, Vec::new());
     table.run_steps(6);
@@ -284,7 +284,7 @@ fn main_buttons_fit_the_narrowest_window(language: &str) {
         h.set_size(egui::vec2(720.0, 1600.0));
         h.run_steps(8);
         let slot = h.query_all_by_label(t("Install")).next().unwrap().rect().width();
-        for app in ["PhotoCraft", "VectorCraft", "EffectCraft"] {
+        for app in ["PhotoCraft", "VectorCraft", "FigCraft"] {
             let menu = h.get_by_label(&fmt(t("More actions for {name}"), &[("name", app)])).rect();
             let main = main_button_in_line(&h, menu, &format!("{language} {view:?} {app}"));
             assert!(main.width() <= slot + 0.5, "{language} {view:?} {app}: {main:?} wider than Install ({slot})");

@@ -1,4 +1,4 @@
-# Brazilian Portuguese (pt-BR) catalog for ArtCraft Launcher.
+# Brazilian Portuguese (pt-BR) catalog for Craft Fork Launcher.
 # Format: context<TAB>source<TAB>translation
 # Empty context = plain UI string (tl!, t).
 # @id = command-id keyed (tr_id).
@@ -40,8 +40,8 @@
 	Open	Abrir
 	Open {version}	Abrir {version}
 	Open {installed} without updating. {latest} stays available.	Abrir {installed} sem atualizar. A {latest} continua disponível.
-	{latest} is out, but ArtCraft Launcher can't install it over this copy.	A {latest} já saiu, mas o ArtCraft Launcher não consegue instalá-la sobre esta cópia.
-	ArtCraft Launcher can't install version {version} over this copy.	O ArtCraft Launcher não consegue instalar a versão {version} sobre esta cópia.
+	{latest} is out, but Craft Fork Launcher can't install it over this copy.	A {latest} já saiu, mas o Craft Fork Launcher não consegue instalá-la sobre esta cópia.
+	Craft Fork Launcher can't install version {version} over this copy.	O Craft Fork Launcher não consegue instalar a versão {version} sobre esta cópia.
 	Download for {os}	Baixar para {os}
 	Download	Baixar
 	Coming soon	Em breve
@@ -73,7 +73,7 @@
 	{name} wasn't opened: a quote in its launch options isn't closed.	{name} não foi aberto: há aspas não fechadas nas opções de inicialização.
 	Save	Salvar
 	All releases	Todos os lançamentos
-	ArtCraft Launcher {version} is available.	ArtCraft Launcher {version} está disponível.
+	Craft Fork Launcher {version} is available.	Craft Fork Launcher {version} está disponível.
 	Dismiss	Dispensar
 	Update and restart	Atualizar e reiniciar
 	A new version is available. Would you like to relaunch with the updated version?	Uma nova versão está disponível. Reiniciar com a nova versão?
@@ -84,7 +84,7 @@
 	Released {date}	Lançado em {date}
 	Open on GitHub	Abrir no GitHub
 	Close	Fechar
-	ArtCraft Launcher {version}	ArtCraft Launcher {version}
+	Craft Fork Launcher {version}	Craft Fork Launcher {version}
 	Only when I ask	Apenas quando eu pedir
 	Automatically download and install updates	Baixar e instalar atualizações automaticamente
 	Ask for permission once when updating all apps	Pedir permissão uma única vez ao atualizar todos os aplicativos
@@ -97,14 +97,14 @@
 	Updates always use the format an app was installed with.	As atualizações sempre usam o formato com o qual o aplicativo foi instalado.
 	Running in the background	Execução em segundo plano
 	Keep running in the tray when the window is closed	Continuar na bandeja do sistema ao fechar a janela
-	ArtCraft Launcher is still running	O ArtCraft Launcher continua aberto
+	Craft Fork Launcher is still running	O Craft Fork Launcher continua aberto
 	It's in the tray: open it or quit it from the tray icon, or turn this off in the settings.	Ele está na bandeja do sistema: abra-o ou encerre-o pelo ícone, ou desative isso nas configurações.
 	Show the window on the current desktop	Mostrar a janela na área de trabalho atual
-	Start ArtCraft Launcher when I log in	Iniciar o ArtCraft Launcher ao fazer login
+	Start Craft Fork Launcher when I log in	Iniciar o Craft Fork Launcher ao fazer login
 	Community	Comunidade
 	Questions, ideas and news from the ArtCraft team	Dúvidas, ideias e novidades da equipe ArtCraft
 	Appearance	Aparência
-	Quit ArtCraft Launcher	Sair do ArtCraft Launcher
+	Quit Craft Fork Launcher	Sair do Craft Fork Launcher
 	Done	Concluído
 	Uninstall {name}?	Desinstalar {name}?
 	The app will be moved to the Trash. Your documents and settings stay.	O aplicativo será movido para a Lixeira. Seus documentos e configurações serão mantidos.
@@ -145,7 +145,7 @@
 	Open link	Abrir link
 	Update	Atualizar
 	{name} icon	Ícone do {name}
-	Loading ArtCraft Launcher…	Carregando ArtCraft Launcher…
+	Loading Craft Fork Launcher…	Carregando Craft Fork Launcher…
 	Cancel update	Cancelar atualização
 	Stop waiting; the update can be started again later	Parar de aguardar; a atualização pode ser iniciada novamente depois
 	Download again	Baixar novamente
@@ -229,7 +229,7 @@ month	Dec	dez.
 	Version {version} installed	Versão {version} instalada
 	Version {latest}	Versão {latest}
 	No release published yet	Nenhum lançamento publicado ainda
-	ArtCraft Launcher	ArtCraft Launcher
+	Craft Fork Launcher	Craft Fork Launcher
 	App	Aplicativo
 	Latest	Última
 	Released	Lançado
@@ -263,7 +263,7 @@ month	Dec	dez.
 	Full changelog	Histórico completo de alterações
 	link	link
 	No apps match	Nenhum aplicativo encontrado
-	Open ArtCraft Launcher to update.	Abra o ArtCraft Launcher para atualizar.
+	Open Craft Fork Launcher to update.	Abra o Craft Fork Launcher para atualizar.
 	{name} {v} is available	{name} {v} está disponível
 	{count} updates are available	{count} atualizações estão disponíveis
 	These notes weren't fetched (GitHub's request limit was reached). They're on the release page.	Estas notas não foram carregadas (o limite de requisições do GitHub foi atingido). Elas estão na página de lançamentos.
@@ -288,7 +288,7 @@ filter	Installed	Instalados
 
 # Message templates (@msg): toasts from the backend. {placeholders} match any text.
 @msg	Couldn't open {name}: {e}	Não foi possível abrir {name}: {e}
-@msg	ArtCraft Launcher couldn't start its window on {backend}: {e}	Não foi possível iniciar a janela do ArtCraft Launcher em {backend}: {e}
+@msg	Craft Fork Launcher couldn't start its window on {backend}: {e}	Não foi possível iniciar a janela do Craft Fork Launcher em {backend}: {e}
 @msg	Download cancelled	Download cancelado
 @msg	{name} updated to {version}	{name} atualizado para {version}
 @msg	{name} installed: {version}	{name} instalado: {version}
@@ -319,7 +319,7 @@ filter	Installed	Instalados
 @id	launcher.notes	Novidades
 @id	launcher.dismiss	Dispensar
 @id	settings.open	Configurações
-@id	settings.quit	Sair do ArtCraft Launcher
+@id	settings.quit	Sair do Craft Fork Launcher
 @id	view.grid	Grade
 @id	view.table	Tabela
 @id	filter.all	Todos
@@ -343,11 +343,11 @@ filter	Installed	Instalados
 @id	linux.preferred_kind	Instalar novos aplicativos como
 @id	tray.close_to_tray	Continuar na bandeja do sistema ao fechar a janela
 @id	tray.show_on_current_desktop	Mostrar a janela na área de trabalho atual
-@id	tray.login_item	Iniciar o ArtCraft Launcher ao fazer login
+@id	tray.login_item	Iniciar o Craft Fork Launcher ao fazer login
 @id	appearance.theme	Aparência
 
 # Tray (menu bar) menu and tooltip
-	Show ArtCraft Launcher	Mostrar ArtCraft Launcher
+	Show Craft Fork Launcher	Mostrar Craft Fork Launcher
 	Check for Updates	Verificar atualizações
 	Visit getartcraft.com	Visitar getartcraft.com
 	ArtCraft on GitHub	ArtCraft no GitHub
@@ -366,7 +366,7 @@ filter	Installed	Instalados
 	Next picture (→)	Próxima imagem (→)
 	Loading pictures…	Carregando imagens…
 	Pictures couldn't be loaded. Reopen this page to try again.	Não foi possível carregar as imagens. Abra a página novamente para tentar de novo.
-@plural	ArtCraft Launcher · {n} update available|ArtCraft Launcher · {n} updates available	ArtCraft Launcher · {n} atualização disponível|ArtCraft Launcher · {n} atualizações disponíveis
+@plural	Craft Fork Launcher · {n} update available|Craft Fork Launcher · {n} updates available	Craft Fork Launcher · {n} atualização disponível|Craft Fork Launcher · {n} atualizações disponíveis
 
 	Download size: {size}	Tamanho do download: {size}
 	Install folder	Pasta de instalação
@@ -381,7 +381,7 @@ filter	Installed	Instalados
 @msg	couldn't use install folder {path}: {reason}	não foi possível usar a pasta de instalação {path}: {reason}
 @msg	this release has no AppImage for a custom install folder	esta versão não tem um AppImage para uma pasta de instalação personalizada
 @msg	custom install folders aren't supported on this system	pastas de instalação personalizadas não são compatíveis com este sistema
-@msg	{path} already exists and wasn't installed by ArtCraft Launcher	{path} já existe e não foi instalado pelo ArtCraft Launcher
+@msg	{path} already exists and wasn't installed by Craft Fork Launcher	{path} já existe e não foi instalado pelo Craft Fork Launcher
 @msg	couldn't move {path} to Trash ({reason}). Remove it in Finder instead.	não foi possível mover {path} para o Lixo ({reason}). Remova-o pelo Finder.
 	Apps are placed inside this folder.	Os aplicativos são colocados dentro desta pasta.
 	Replace what's there?	Substituir o que já existe?
