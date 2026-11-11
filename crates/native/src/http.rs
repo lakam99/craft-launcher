@@ -789,6 +789,11 @@ pub(crate) mod tests {
                         .and_then(|()| stream.write_all(&body[from..]))
                     }
                 };
+                // Gracefully close after the client has consumed queued response bytes. Bound
+                // the wait so clients rejecting a response cannot hang this test server.
+                let _ = stream.shutdown(std::net::Shutdown::Write);
+                let _ = stream.set_read_timeout(Some(Duration::from_secs(2)));
+                let _ = std::io::copy(&mut reader, &mut std::io::sink());
             }
         });
         (url, ranges)

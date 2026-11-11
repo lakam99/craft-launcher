@@ -19,7 +19,7 @@ Other catalog apps retain their existing repositories. The three editor forks ar
 
 Get the Windows x64 portable ZIP from [this fork's releases](https://github.com/lakam99/craft-launcher/releases/latest). Extract it and run `artcraft-launcher.exe`. The adjacent `CraftForkLauncherData` directory holds the launcher's settings, installation records and cache. Keep it when upgrading the launcher.
 
-The current FilmCraft, EffectCraft and SoundCraft fork releases provide Windows x64 portable ZIPs. The launcher selects these automatically; it does not substitute upstream packages on a platform without a matching fork asset. macOS signing checks remain enforced. Windows binaries are unsigned; install launcher upgrades manually from its ZIP.
+The current FilmCraft, EffectCraft and SoundCraft fork releases provide Windows x64 portable ZIPs. The launcher selects these automatically; it does not substitute upstream packages on a platform without a matching fork asset. macOS signing checks remain enforced. Windows binaries are unsigned. Versions 0.14.3 and newer can update their own portable installation using this fork's GitHub release checksum. Older launchers need one manual upgrade.
 
 See [the fork download guide](docs/fork-downloads.md) for details. Machine names, crate names and release asset stems retain `artcraft-launcher` for compatibility; the published app name is Craft Fork Launcher.
 

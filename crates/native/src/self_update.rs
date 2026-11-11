@@ -4,6 +4,9 @@
 
 use std::ffi::OsString;
 
+#[cfg(windows)]
+mod fork_portable;
+
 use artcraft_launcher_core::PackageKind;
 use artcraft_launcher_core::platform::Platform;
 use artcraft_launcher_core::protocol::JobPhase;
@@ -92,12 +95,18 @@ pub fn update(
     install: &Install,
     release: &Release,
     platform: Platform,
-    _http: &Http,
+    http: &Http,
     paths: &Paths,
     stop: &Stop,
     phase: &mut dyn FnMut(JobPhase),
     last: &dyn Fn() -> Result<(), String>,
 ) -> Result<(), String> {
+    #[cfg(windows)]
+    if fork_portable::applies(install) {
+        return fork_portable::update(install, release, platform, http, paths, stop, phase, last);
+    }
+    #[cfg(not(windows))]
+    let _ = http;
     let update_release = to_update_release(release);
     let update_platform = to_update_platform(platform);
     let update_paths = to_update_paths(paths);
@@ -153,6 +162,10 @@ pub fn kind(install: &Install) -> PackageKind {
 
 /// Finishes an update when this program was started as the update helper.
 pub fn finish(args: &[OsString]) -> Option<Result<(), String>> {
+    #[cfg(windows)]
+    if let Some(result) = fork_portable::finish(args) {
+        return Some(result);
+    }
     craft_update::self_update::finish(&UPDATE_APP, args)
 }
 

@@ -165,6 +165,14 @@ fn extract(file: &Path, destination: &Path) -> Result<(Vec<PathBuf>, Vec<PathBuf
     Ok((files, entries))
 }
 
+/// Inspect a self-update in a fresh directory before the running launcher quits. This uses the
+/// same bounded, link-free extraction and layout checks as ordinary portable installs.
+pub(crate) fn prepare_update(file: &Path, destination: &Path, app: &CraftApp) -> Result<(PathBuf, Vec<PathBuf>), String> {
+    std::fs::create_dir(destination).map_err(|e| e.to_string())?;
+    let (files, entries) = extract(file, destination)?;
+    flatten_zip_layout(app, destination, files, &entries)
+}
+
 fn recorded_files<'a>(app: &CraftApp, record: &'a Record) -> Result<(&'a Path, Vec<PathBuf>), String> {
     let root = record.path.parent().ok_or("The portable installation has no parent folder.")?;
     if record.kind != PackageKind::PortableZip || root.file_name().is_none_or(|n| n != app.id) {
@@ -408,6 +416,17 @@ fn replace_with(
     for (relative, _) in &files {
         check(&unpacked.join(relative))?;
     }
+    // A self-update owns program files, never a junction leading out of its install folder.
+    // Validate every destination before moving or replacing any existing file.
+    for (_, inside) in &files {
+        let target = folder.join(inside);
+        validate_owned_directory(folder, target.parent().ok_or("no destination folder")?)?;
+        if let Ok(meta) = std::fs::symlink_metadata(&target)
+            && (linked(&meta) || !meta.is_file())
+        {
+            return Err("The update destination contains a link or non-file.".into());
+        }
+    }
     let mut saved = Vec::new();
     let mut created = Vec::new();
     let copied = (|| {
@@ -530,6 +549,20 @@ mod tests {
         assert_eq!(std::fs::read(&exe).unwrap(), b"old launcher");
         assert!(!folder.join("README.md").exists());
         assert!(!staging.exists());
+    }
+
+    #[test]
+    fn a_self_update_rejects_destination_directories_before_changing_files() {
+        let dir = tempfile::tempdir().unwrap();
+        let folder = dir.path().join("portable");
+        std::fs::create_dir_all(folder.join("README.md")).unwrap();
+        let exe = folder.join("artcraft-launcher.exe");
+        std::fs::write(&exe, b"old launcher").unwrap();
+        let zip = archive(dir.path(), "update.zip", &[("artcraft-launcher.exe", b"new launcher"), ("README.md", b"new readme")]);
+        let error = unpack_over(&zip, &dir.path().join("staging"), &folder, std::ffi::OsStr::new("artcraft-launcher.exe"), &|_| Ok(())).unwrap_err();
+        assert!(error.contains("non-file"), "{error}");
+        assert_eq!(std::fs::read(&exe).unwrap(), b"old launcher");
+        assert!(folder.join("README.md").is_dir());
     }
 
     fn archive(root: &Path, name: &str, files: &[(&str, &[u8])]) -> PathBuf {
