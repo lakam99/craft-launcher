@@ -6,9 +6,10 @@ This independent fork is based on ArtCraft Launcher by the ArtCraft team and com
 |---|---|
 | FilmCraft | [lakam99/filmcraft releases](https://github.com/lakam99/filmcraft/releases) |
 | EffectCraft | [lakam99/effectcraft releases](https://github.com/lakam99/effectcraft/releases) |
+| SoundCraft | [lakam99/soundcraft releases](https://github.com/lakam99/soundcraft/releases) |
 | Craft Fork Launcher | [lakam99/craft-launcher releases](https://github.com/lakam99/craft-launcher/releases) |
 
-The other catalog apps retain their existing repositories. FilmCraft and EffectCraft are labelled as community builds by `lakam99`. Their original executable names are preserved, so normal launch and version detection work.
+The other catalog apps retain their existing repositories. FilmCraft, EffectCraft and SoundCraft are labelled as community builds by `lakam99`. Their original executable names are preserved, so normal launch and version detection work.
 
 Fork releases are read directly from their pinned GitHub repositories. The upstream aggregate feed cannot override them or mark a fork as having no releases. Download URLs must belong to the selected repository; the existing SHA-256 verification, bounded extraction, rollback and user-data preservation remain in place. The network relay ZIP is not an editor installer.
 

@@ -161,7 +161,7 @@ impl Feed {
     pub fn answer(&self, app: &CraftApp, now: i64) -> FeedAnswer {
         // The upstream aggregator does not track these forks. Even a fresh empty entry must
         // fall through to their pinned GitHub repository, rather than hide a fork's release.
-        if matches!(app.repo, "lakam99/filmcraft" | "lakam99/effectcraft" | "lakam99/craft-launcher") {
+        if app.publisher == "lakam99" {
             return FeedAnswer::AskGitHub;
         }
         let Some(entry) = self.apps.get(app.id) else { return FeedAnswer::AskGitHub };
@@ -464,7 +464,7 @@ mod tests {
               }},
               "app_last_fetched": "2026-10-09T13:00:00Z"
             }},
-            "soundcraft": {{ "name": "SoundCraft", "repo": "storytold/soundcraft", "latest_release": null,
+            "deckcraft": {{ "name": "DeckCraft", "repo": "storytold/deckcraft", "latest_release": null,
                              "app_last_fetched": "2026-10-09T13:00:00Z" }},
             "filmcraft": {{ "name": "FilmCraft", "repo": "storytold/filmcraft", "latest_release": null, "app_last_fetched": null }},
             "vectorcraft": {{ "repo": "storytold/vectorcraft", "app_last_fetched": "2026-10-01T00:00:00Z",
@@ -495,7 +495,7 @@ mod tests {
         assert_eq!(r.assets[0].sha256.as_deref(), Some(HASH));
         assert_eq!(r.published_at, parse_rfc3339("2026-10-09T10:00:00Z"));
         // Fresh, and no release yet.
-        assert_eq!(feed.answer(app("soundcraft"), NOW), FeedAnswer::Fresh(None));
+        assert_eq!(feed.answer(app("deckcraft"), NOW), FeedAnswer::Fresh(None));
         // Never fetched, more than a day old, or not listed: ask GitHub.
         assert_eq!(feed.answer(app("filmcraft"), NOW), FeedAnswer::AskGitHub);
         assert_eq!(feed.answer(app("vectorcraft"), NOW), FeedAnswer::AskGitHub);

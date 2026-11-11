@@ -6,7 +6,7 @@ use serde_json::json;
 
 #[test]
 fn editor_forks_and_launcher_pin_their_own_publishers_and_repositories() {
-    for id in ["filmcraft", "effectcraft"] {
+    for id in ["filmcraft", "effectcraft", "soundcraft"] {
         let app = CraftApp::by_id(id).unwrap();
         assert_eq!(app.repo, format!("lakam99/{id}"));
         assert_eq!(app.publisher, "lakam99");
@@ -21,7 +21,7 @@ fn editor_forks_and_launcher_pin_their_own_publishers_and_repositories() {
 
 #[test]
 fn upstream_feed_cannot_hide_or_redirect_fork_releases() {
-    for id in ["filmcraft", "effectcraft"] {
+    for id in ["filmcraft", "effectcraft", "soundcraft"] {
         let app = CraftApp::by_id(id).unwrap();
         for repo in [None, Some(format!("storytold/{id}")), Some(app.repo.to_string())] {
             let feed = Feed::parse(

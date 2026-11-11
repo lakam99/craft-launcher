@@ -213,13 +213,13 @@ pub const SUITE: [CraftApp; 19] = [
         "storytold/figcraft",
     ),
     app("wordcraft", "WordCraft", "Writing and document design", [[0x3f, 0x5f, 0xe0], [0x2a, 0x44, 0xb8], [0x8e, 0xa2, 0xff]], "storytold/wordcraft"),
-    app(
+    fork_app(app(
         "soundcraft",
         "SoundCraft",
         "Recording, editing and mixing audio",
         [[0x1f, 0xa5, 0xc9], [0x0e, 0x72, 0x90], [0x5f, 0xd0, 0xee]],
-        "storytold/soundcraft",
-    ),
+        "lakam99/soundcraft",
+    )),
     app(
         "deckcraft",
         "DeckCraft",

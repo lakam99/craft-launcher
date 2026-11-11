@@ -10,7 +10,7 @@ use artcraft_launcher_native::paths::Paths;
 use artcraft_launcher_native::source::{GitHubSource, ReleaseSource};
 
 #[test]
-#[ignore = "downloads public FilmCraft and EffectCraft fork releases; installs only into a temporary folder"]
+#[ignore = "downloads public FilmCraft, EffectCraft and SoundCraft fork releases; installs only into a temporary folder"]
 fn live_fork_releases_install_and_preserve_editor_data() {
     let root = tempfile::tempdir().unwrap();
     let paths = Paths::under(root.path());
@@ -19,7 +19,7 @@ fn live_fork_releases_install_and_preserve_editor_data() {
     let platform = Platform { os: Os::Windows, arch: Arch::X64 };
     let locations = InstallLocations::default();
     let stop = Stop::default();
-    for (id, data_dir) in [("filmcraft", "FilmCraftData"), ("effectcraft", "EffectCraftData")] {
+    for (id, data_dir) in [("filmcraft", "FilmCraftData"), ("effectcraft", "EffectCraftData"), ("soundcraft", "SoundCraftData")] {
         let app = CraftApp::by_id(id).unwrap();
         let LatestRelease::Found(release) = source.latest(app.repo, false).latest else { panic!("No published fork release for {id}") };
         let stems: Vec<_> = app.stems().collect();
