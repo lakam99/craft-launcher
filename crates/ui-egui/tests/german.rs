@@ -70,7 +70,7 @@ fn events() -> Vec<Event> {
         ("photocraft", "0.5.0"),
         ("vectorcraft", "0.7.0"),
         ("filmcraft", "0.4.0"),
-        ("lightcraft", "0.4.0"),
+        ("lightcraft", "0.5.0"),
         ("pdfcraft", "0.4.0"),
         ("figcraft", "0.6.0"),
         ("designcraft", "0.4.0"),
@@ -180,7 +180,7 @@ fn german_switches_persists_and_keeps_install_actions() {
     h.get_by_label("Alle aktualisieren (2)").click();
     h.run_steps(2);
     let installs: Vec<_> = sent.borrow().iter().filter_map(|c| if let Command::Install { app } = c { Some(app.clone()) } else { None }).collect();
-    assert_eq!(installs, ["photocraft", "figcraft"]);
+    assert_eq!(installs, ["lightcraft", "figcraft"]);
 
     let (mut table, _) = harness_language(ViewMode::Table, egui::Theme::Light, true, &restored.language, Vec::new());
     table.run_steps(6);
@@ -188,11 +188,11 @@ fn german_switches_persists_and_keeps_install_actions() {
     assert!(table.query_all_by_label_contains(". Okt. 2026").count() >= 1);
     snapshot(&mut table, "table-de-light");
     // Kept downloads: German retry labels are long, but a button never outgrows its slot (#956).
-    let kept = ["photocraft", "vectorcraft"].map(|app| Event::ReadyToInstall { app: app.into(), ready: true });
+    let kept = ["lightcraft", "vectorcraft"].map(|app| Event::ReadyToInstall { app: app.into(), ready: true });
     let (mut retry, _) = harness_language(ViewMode::Table, egui::Theme::Light, true, &restored.language, kept.into());
     retry.run_steps(6);
     let slot = retry.query_all_by_label("Installieren").next().unwrap().rect().width();
-    for app in ["PhotoCraft", "VectorCraft"] {
+    for app in ["LightCraft", "VectorCraft"] {
         let menu = retry.get_by_label(&format!("Weitere Aktionen für {app}")).rect();
         let main = main_button_in_line(&retry, menu, app);
         assert!(main.right() > menu.left() - 20.0, "{app}: {main:?} isn't beside the menu {menu:?}");
@@ -225,30 +225,30 @@ fn german_switches_persists_and_keeps_install_actions() {
 fn a_table_update_too_narrow_to_sit_side_by_side_stacks() {
     let (mut h, sent) = harness_language(ViewMode::Table, egui::Theme::Dark, true, "de", Vec::new());
     h.run_steps(8);
-    let keep = "0.4.1 ohne Aktualisierung öffnen. 0.5.0 bleibt verfügbar.";
+    let keep = "0.4.0 ohne Aktualisierung öffnen. 0.5.0 bleibt verfügbar.";
     let open = h.get_by_label(keep).rect();
     let update = h.get_by_label("Auf 0.5.0 aktualisieren").rect();
-    let menu = h.get_by_label("Weitere Aktionen für PhotoCraft").rect();
+    let menu = h.get_by_label("Weitere Aktionen für LightCraft").rect();
     assert!(open.bottom() <= update.top() && (open.left() - update.left()).abs() < 0.5, "Open above Update: {open:?} {update:?}");
     assert!(open.right() <= menu.left() && update.right() <= menu.left(), "both clear of the menu {menu:?}: {open:?} {update:?}");
     assert!(open.top() < menu.center().y && update.bottom() > menu.center().y, "the menu sits beside the pair: {menu:?}");
-    // Up-to-date LightCraft keeps a one-line row.
-    let light = h.get_by_label("Weitere Aktionen für LightCraft").rect();
-    assert!(update.bottom() - open.top() > light.height() * 1.5, "PhotoCraft's row grew for two buttons");
+    // Up-to-date WordCraft keeps a one-line row.
+    let word = h.get_by_label("Weitere Aktionen für WordCraft").rect();
+    assert!(update.bottom() - open.top() > word.height() * 1.5, "LightCraft's row grew for two buttons");
     // The pair stays inside its own row: the next row's controls start below it.
     let next = h
         .query_all_by_label_contains("Weitere Aktionen für")
         .map(|n| n.rect())
         .filter(|r| r.top() > menu.top())
         .min_by(|a, b| a.top().total_cmp(&b.top()))
-        .expect("a row below PhotoCraft's");
+        .expect("a row below LightCraft's");
     assert!(update.bottom() < next.top(), "Update {update:?} runs into the next row {next:?}");
 
     sent.borrow_mut().clear();
     h.get_by_label(keep).click();
     h.run_steps(2);
     let sent = sent.borrow();
-    assert!(sent.iter().any(|c| matches!(c, Command::Launch { app, .. } if app == "photocraft")), "{sent:?}");
+    assert!(sent.iter().any(|c| matches!(c, Command::Launch { app, .. } if app == "lightcraft")), "{sent:?}");
     assert!(!sent.iter().any(|c| matches!(c, Command::Install { .. })), "{sent:?}");
 }
 

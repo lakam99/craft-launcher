@@ -1659,8 +1659,8 @@ mod tests {
     /// A "Replace" answer covers the path that was shown, never a destination that changed since.
     #[test]
     fn replacing_needs_consent_for_the_exact_path_in_the_way() {
-        let shown = std::path::Path::new("/home/a/Applications/photocraft-0.5.0-linux-x86_64.AppImage");
-        let moved = std::path::Path::new("/home/a/Applications/photocraft-0.6.0-linux-x86_64.AppImage");
+        let shown = std::path::Path::new("/home/a/Applications/lightcraft-0.5.0-linux-x86_64.AppImage");
+        let moved = std::path::Path::new("/home/a/Applications/lightcraft-0.6.0-linux-x86_64.AppImage");
         let approved = shown.display().to_string();
         assert_eq!(replace_consent(None, None), Consent::Free);
         assert_eq!(replace_consent(None, Some(&approved)), Consent::Free, "nothing in the way: nothing to overwrite");
@@ -1892,7 +1892,7 @@ mod tests {
     fn feed() -> Feed {
         Feed::parse(
             r#"{"release_info": {"apps": {
-            "photocraft": {"repo": "storytold/photocraft", "latest_release": {"tag": "v0.6.0"}, "app_last_fetched": "2026-10-09T13:00:00Z"}
+            "lightcraft": {"repo": "storytold/lightcraft", "latest_release": {"tag": "v0.6.0"}, "app_last_fetched": "2026-10-09T13:00:00Z"}
         }}}"#,
         )
         .unwrap()
@@ -1942,7 +1942,7 @@ mod tests {
 
     #[test]
     fn a_local_mirror_answers_for_every_app_on_its_own() {
-        let photo = CraftApp::by_id("photocraft").unwrap();
+        let photo = CraftApp::by_id("lightcraft").unwrap();
         let word = CraftApp::by_id("wordcraft").unwrap();
         let feed = feed().with_mirror("http://127.0.0.1:8787/");
         // Listed: found, even long after the sync.
@@ -1963,11 +1963,11 @@ mod tests {
     fn github_is_only_the_fallback_and_is_asked_rarely() {
         let github = CountingGitHub::default();
         let shared = shared();
-        let photo = CraftApp::by_id("photocraft").unwrap();
+        let photo = CraftApp::by_id("lightcraft").unwrap();
         let word = CraftApp::by_id("wordcraft").unwrap();
         let feed = feed();
 
-        // The feed vouches for PhotoCraft: GitHub isn't asked.
+        // The feed vouches for LightCraft: GitHub isn't asked.
         let (latest, _, used) = latest_for(photo, Some(&feed), LOADED, &github, &shared, false, false, NOW);
         assert!(matches!(latest, Some(LatestRelease::Found(ref r)) if r.tag == "v0.6.0"));
         assert_eq!(used, Some(Source::Feed));
@@ -2023,8 +2023,8 @@ mod tests {
                 self.newest.map(str::to_string)
             }
         }
-        let photo = CraftApp::by_id("photocraft").unwrap();
-        let feed = feed(); // vouches for PhotoCraft v0.6.0
+        let photo = CraftApp::by_id("lightcraft").unwrap();
+        let feed = feed(); // vouches for LightCraft v0.6.0
         let github = |newest| Ahead { newest, asked: AtomicUsize::new(0) };
 
         // GitHub names the release the feed has: Refresh takes the feed's answer, asking nothing more.
@@ -2050,9 +2050,9 @@ mod tests {
         }
     }
 
-    const APP: &str = "photocraft";
+    const APP: &str = "lightcraft";
 
-    /// A PhotoCraft release with one file per platform and format, so whichever this machine
+    /// A LightCraft release with one file per platform and format, so whichever this machine
     /// installs is there.
     fn release(version: &str) -> Release {
         let suffixes = ["-portable.zip", ".tar.gz", ".msi", ".dmg", ".AppImage", ".deb", ".rpm", ".flatpak"];
@@ -2086,7 +2086,7 @@ mod tests {
         let msi = Installed {
             version: None,
             source: artcraft_launcher_core::InstallSource::Msi,
-            location: r"C:\Apps\PhotoCraft\photocraft.exe".into(),
+            location: r"C:\Apps\LightCraft\lightcraft.exe".into(),
             package: None,
             externally_managed: false,
             origin: None,
@@ -2096,7 +2096,7 @@ mod tests {
         let launcher = Installed {
             version: None,
             source: artcraft_launcher_core::InstallSource::Launcher,
-            location: r"D:\Craft Apps\PhotoCraft\photocraft.exe".into(),
+            location: r"D:\Craft Apps\LightCraft\lightcraft.exe".into(),
             package: None,
             externally_managed: false,
             origin: None,
@@ -2135,7 +2135,7 @@ mod tests {
         let existing = Installed {
             version: None,
             source: artcraft_launcher_core::InstallSource::Deb,
-            location: "/usr/bin/photocraft".into(),
+            location: "/usr/bin/lightcraft".into(),
             package: None,
             externally_managed: false,
             origin: None,
@@ -2210,7 +2210,7 @@ mod tests {
         publish_latest(app, LatestRelease::Found(stable("0.5.0")), Origin::GitHub, &backend.shared, Some(platform));
         assert_eq!(told(backend.poll()), ["latest"], "nothing installed: no answer");
 
-        publish_detected(app, Some(copy_of("0.4.0", InstallSource::Launcher, "/Applications/PhotoCraft.app")), &backend.shared, Some(platform));
+        publish_detected(app, Some(copy_of("0.4.0", InstallSource::Launcher, "/Applications/LightCraft.app")), &backend.shared, Some(platform));
         assert_eq!(told(backend.poll()), ["installable true", "detected"]);
 
         let mut windows_only = stable("0.6.0");
@@ -2235,7 +2235,7 @@ mod tests {
         let mut backend = backend(dir.path(), platform, None);
         system_installs(&backend, vec![PackageKind::Dmg]);
         backend.shared.latest.lock().unwrap().insert(APP.to_string(), stable("0.6.0"));
-        backend.shared.installed.lock().unwrap().insert(APP.to_string(), copy_of("0.4.0", InstallSource::Launcher, "/Applications/PhotoCraft.app"));
+        backend.shared.installed.lock().unwrap().insert(APP.to_string(), copy_of("0.4.0", InstallSource::Launcher, "/Applications/LightCraft.app"));
         let installable = |events: Vec<Event>| told(events).into_iter().filter(|t| t.starts_with("installable")).collect::<Vec<_>>();
 
         report_partial(app, &backend.shared, &backend.paths, Some(platform));
@@ -2257,7 +2257,7 @@ mod tests {
         let asked = Instant::now().checked_sub(SYSTEM_KINDS_FOR * 2).unwrap_or_else(Instant::now);
         *backend.shared.system.lock().unwrap() = Some((asked, install::SystemKinds { available: vec![PackageKind::Dmg], can_pacman: false }));
         backend.shared.latest.lock().unwrap().insert(APP.to_string(), stable("0.6.0"));
-        backend.shared.installed.lock().unwrap().insert(APP.to_string(), copy_of("0.4.0", InstallSource::Launcher, "/Applications/PhotoCraft.app"));
+        backend.shared.installed.lock().unwrap().insert(APP.to_string(), copy_of("0.4.0", InstallSource::Launcher, "/Applications/LightCraft.app"));
 
         let answer = {
             let _reporting = backend.shared.reporting.lock().unwrap();
@@ -2277,7 +2277,7 @@ mod tests {
         let dir = tempfile::tempdir().unwrap();
         let backend = backend(dir.path(), platform, None);
         system_installs(&backend, vec![PackageKind::Dmg]);
-        let installed = copy_of("0.4.0", InstallSource::Launcher, "/Applications/PhotoCraft.app");
+        let installed = copy_of("0.4.0", InstallSource::Launcher, "/Applications/LightCraft.app");
         publish_detected(app, Some(installed.clone()), &backend.shared, Some(platform));
         let shared = backend.shared.clone();
         let publisher = std::thread::spawn(move || {
@@ -2315,7 +2315,7 @@ mod tests {
         let mut backend = backend(dir.path(), platform, None);
         system_installs(&backend, vec![PackageKind::Dmg]);
         backend.shared.latest.lock().unwrap().insert(APP.to_string(), stable("0.6.0"));
-        let installed = copy_of("0.4.0", InstallSource::Launcher, "/Applications/PhotoCraft.app");
+        let installed = copy_of("0.4.0", InstallSource::Launcher, "/Applications/LightCraft.app");
 
         publish_detected(app, Some(installed.clone()), &backend.shared, Some(platform));
         assert_eq!(told(backend.poll()), ["installable true", "detected"]);
@@ -2338,7 +2338,7 @@ mod tests {
         // Nothing this system could download: only `flatpak update` can say yes.
         system_installs(&backend, Vec::new());
         backend.shared.latest.lock().unwrap().insert(APP.to_string(), stable("0.5.0"));
-        let flatpark = Installed { externally_managed: true, ..copy_of("0.5.0", InstallSource::Flatpak, "ai.storyteller.photocraft") };
+        let flatpark = Installed { externally_managed: true, ..copy_of("0.5.0", InstallSource::Flatpak, "ai.storyteller.lightcraft") };
         let options = BackendOptions::default();
         assert_eq!(repository_update(app, Some(&flatpark), &options).map(|u| u.is_ok()), Some(cfg!(target_os = "linux")));
 
@@ -2567,7 +2567,7 @@ mod tests {
             Installed {
                 version: None,
                 source: InstallSource::Msi,
-                location: r"C:\Apps\PhotoCraft\photocraft.exe".into(),
+                location: r"C:\Apps\LightCraft\lightcraft.exe".into(),
                 package: None,
                 externally_managed: false,
                 origin: None,
@@ -2850,12 +2850,12 @@ mod tests {
     #[test]
     fn the_launcher_gives_up_waiting_and_names_the_busy_apps() {
         let jobs = Mutex::new(HashMap::new());
-        for id in [LAUNCHER_ID, "photocraft"] {
+        for id in [LAUNCHER_ID, "lightcraft"] {
             jobs.lock().unwrap().insert(id.to_string(), Arc::new(Stop::default()));
         }
         let restarting = AtomicBool::new(false);
         let error = claim_restart(&jobs, &restarting, &Stop::default(), Duration::from_millis(300), &mut || {}).unwrap_err();
-        assert!(error.contains("PhotoCraft was still installing") && error.contains("cancel it"), "{error}");
+        assert!(error.contains("LightCraft was still installing") && error.contains("cancel it"), "{error}");
         assert!(!restarting.load(Ordering::SeqCst));
         assert!(restart_blocked(vec!["WordCraft", "FilmCraft"]).contains("FilmCraft, WordCraft were still installing"));
     }
@@ -2863,7 +2863,7 @@ mod tests {
     #[test]
     fn the_launcher_restarts_only_once_every_other_job_has_ended() {
         let jobs = Mutex::new(HashMap::new());
-        for id in [LAUNCHER_ID, "photocraft", "filmcraft"] {
+        for id in [LAUNCHER_ID, "lightcraft", "filmcraft"] {
             jobs.lock().unwrap().insert(id.to_string(), Arc::new(Stop::default()));
         }
         let restarting = AtomicBool::new(false);
@@ -2874,7 +2874,7 @@ mod tests {
             let claim = scope.spawn(move || claim_restart(jobs, restarting, stop, RESTART_WAIT, &mut || waiting.send(()).unwrap()));
             waits.recv().unwrap();
             // One install ends; another is still running or queued.
-            jobs.lock().unwrap().remove("photocraft");
+            jobs.lock().unwrap().remove("lightcraft");
             std::thread::sleep(Duration::from_millis(250));
             assert!(!claim.is_finished() && !restarting.load(Ordering::SeqCst));
             jobs.lock().unwrap().remove("filmcraft");
@@ -2892,7 +2892,7 @@ mod tests {
     #[test]
     fn a_cancelled_launcher_update_stops_waiting_and_claims_nothing() {
         let jobs =
-            Mutex::new(HashMap::from([(LAUNCHER_ID.to_string(), Arc::new(Stop::default())), ("photocraft".to_string(), Arc::new(Stop::default()))]));
+            Mutex::new(HashMap::from([(LAUNCHER_ID.to_string(), Arc::new(Stop::default())), ("lightcraft".to_string(), Arc::new(Stop::default()))]));
         let restarting = AtomicBool::new(false);
         let stop = Stop::default();
         let (waiting, waits) = mpsc::channel();

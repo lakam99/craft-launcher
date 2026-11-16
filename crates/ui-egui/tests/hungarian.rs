@@ -72,8 +72,8 @@ fn events() -> Vec<Event> {
     for (i, app) in SUITE.iter().enumerate() {
         let latest = LatestRelease::Found(release(app.id, "0.5.0", NOW - 40 * 86_400 - i as i64 * 600));
         ev.push(Event::Latest { app: app.id.into(), latest, from: Origin::ArtCraftApi });
-        let installed = matches!(app.id, "photocraft" | "lightcraft").then(|| Installed {
-            version: version::parse(if app.id == "photocraft" { "0.4.1" } else { "0.5.0" }),
+        let installed = matches!(app.id, "vectorcraft" | "lightcraft").then(|| Installed {
+            version: version::parse(if app.id == "vectorcraft" { "0.4.1" } else { "0.5.0" }),
             source: InstallSource::MacApp,
             location: format!("/Applications/{}.app", app.name),
             package: None,

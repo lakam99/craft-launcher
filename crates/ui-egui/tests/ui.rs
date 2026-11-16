@@ -177,10 +177,10 @@ fn release(id: &str, v: &str, at: i64) -> Release {
 fn events() -> Vec<Event> {
     let mut ev = Vec::new();
     let versions = [
-        ("photocraft", "0.5.0"),
+        ("lightcraft", "0.5.0"),
         ("vectorcraft", "0.7.0"),
         ("filmcraft", "0.4.0"),
-        ("lightcraft", "0.4.0"),
+        ("photocraft", "0.4.0"),
         ("pdfcraft", "0.4.0"),
         ("figcraft", "0.6.0"),
         ("designcraft", "0.4.0"),
@@ -197,7 +197,7 @@ fn events() -> Vec<Event> {
         });
     }
     ev.push(Event::Latest { app: "soundcraft".into(), latest: LatestRelease::None, from: Origin::ArtCraftApi });
-    let installed = [("photocraft", "0.4.1"), ("lightcraft", "0.4.0"), ("wordcraft", "0.3.0"), ("figcraft", "0.5.0")];
+    let installed = [("lightcraft", "0.4.1"), ("photocraft", "0.4.0"), ("wordcraft", "0.3.0"), ("figcraft", "0.5.0")];
     for app in &SUITE {
         let inst = installed.iter().find(|(id, _)| *id == app.id).map(|(_, v)| Installed {
             version: version::parse(v),
@@ -346,7 +346,7 @@ fn snapshot(h: &mut Harness<'_, Option<LauncherUi>>, name: &str) {
     img.save(std::path::Path::new(&dir).join(format!("{name}.png"))).unwrap();
 }
 
-/// A managing macOS fixture with a fresh PhotoCraft release and a scripted folder picker, for
+/// A managing macOS fixture with a fresh LightCraft release and a scripted folder picker, for
 /// the install-folder flow.
 fn folder_harness(picked: Rc<RefCell<Option<String>>>) -> (Harness<'static, Option<LauncherUi>>, Rc<RefCell<Vec<Command>>>) {
     struct Picker(Rc<RefCell<Option<String>>>);
@@ -359,8 +359,8 @@ fn folder_harness(picked: Rc<RefCell<Option<String>>>) -> (Harness<'static, Opti
     let sent = Rc::new(RefCell::new(Vec::new()));
     let mut backend = Some(Fake {
         events: vec![
-            Event::Latest { app: "photocraft".into(), latest: LatestRelease::Found(release("photocraft", "0.6.0", NOW)), from: Origin::GitHub },
-            Event::Detected { app: "photocraft".into(), installed: None },
+            Event::Latest { app: "lightcraft".into(), latest: LatestRelease::Found(release("lightcraft", "0.6.0", NOW)), from: Origin::GitHub },
+            Event::Detected { app: "lightcraft".into(), installed: None },
         ],
         sent: sent.clone(),
         manage: true,
@@ -393,12 +393,12 @@ fn install_commands(sent: &RefCell<Vec<Command>>) -> Vec<Command> {
 fn app_and_launcher_offer_version_choices_without_starting_an_install() {
     let (mut h, sent) = harness(ViewMode::Grid, egui::Theme::Dark, true);
     h.run_steps(6);
-    h.get_by_label("More actions for PhotoCraft").click();
+    h.get_by_label("More actions for LightCraft").click();
     h.run_steps(3);
     h.get_by_label("Choose version").click();
     h.run_steps(3);
     h.get_by_role_and_label(egui::accesskit::Role::ComboBox, "Version");
-    assert!(sent.borrow().iter().any(|c| matches!(c, Command::ListVersions { app } if app == "photocraft")));
+    assert!(sent.borrow().iter().any(|c| matches!(c, Command::ListVersions { app } if app == "lightcraft")));
     assert!(!sent.borrow().iter().any(|c| matches!(c, Command::Install { .. })));
     h.get_by_label("Close").click();
     h.run_steps(3);
@@ -485,9 +485,9 @@ impl Backend for VersionsFake {
     }
 }
 
-/// A PhotoCraft release with a published checksum, so the selector offers it.
-fn signed_photocraft(v: &str) -> Release {
-    let mut r = release("photocraft", v, NOW);
+/// A LightCraft release with a published checksum, so the selector offers it.
+fn signed_lightcraft(v: &str) -> Release {
+    let mut r = release("lightcraft", v, NOW);
     r.assets[0].sha256 = Some("0".repeat(64));
     r
 }
@@ -499,7 +499,7 @@ struct Machine {
     platform: Platform,
     theme: egui::Theme,
     preferred: Vec<artcraft_launcher_core::PackageKind>,
-    /// Events after the suite's (such as how PhotoCraft is installed).
+    /// Events after the suite's (such as how LightCraft is installed).
     more: Vec<Event>,
     /// What the backend says the running launcher was installed as.
     launcher_kind: Option<artcraft_launcher_core::PackageKind>,
@@ -517,7 +517,7 @@ impl Default for Machine {
     }
 }
 
-/// The suite on `machine` with `latest` as PhotoCraft's checked release (if any) and `answer` as
+/// The suite on `machine` with `latest` as LightCraft's checked release (if any) and `answer` as
 /// every version list.
 fn versions_harness(machine: Machine, latest: Option<Release>, answer: Vec<Release>) -> VersionsHarness {
     struct DummyHost;
@@ -526,7 +526,7 @@ fn versions_harness(machine: Machine, latest: Option<Release>, answer: Vec<Relea
     let mut ev = events();
     ev.extend(more);
     if let Some(latest) = latest {
-        ev.push(Event::Latest { app: "photocraft".into(), latest: LatestRelease::Found(latest), from: Origin::GitHub });
+        ev.push(Event::Latest { app: "lightcraft".into(), latest: LatestRelease::Found(latest), from: Origin::GitHub });
     }
     let sent = Rc::new(RefCell::new(Vec::new()));
     let queue = Rc::new(RefCell::new(ev));
@@ -548,8 +548,8 @@ fn versions_harness(machine: Machine, latest: Option<Release>, answer: Vec<Relea
     (h, sent, queue)
 }
 
-/// The suite (PhotoCraft 0.4.1 installed) with `latest` as PhotoCraft's checked release and
-/// `answer` as its published versions, opened on PhotoCraft's expanded version menu.
+/// The suite (LightCraft 0.4.1 installed) with `latest` as LightCraft's checked release and
+/// `answer` as its published versions, opened on LightCraft's expanded version menu.
 fn version_menu(latest: Release, answer: Vec<Release>) -> VersionsHarness {
     version_menu_on(Machine::default(), latest, answer)
 }
@@ -557,10 +557,10 @@ fn version_menu(latest: Release, answer: Vec<Release>) -> VersionsHarness {
 /// [`version_menu`] on `machine`.
 fn version_menu_on(machine: Machine, latest: Release, answer: Vec<Release>) -> VersionsHarness {
     let (mut h, sent, queue) = versions_harness(machine, Some(latest), answer);
-    // Not installed, PhotoCraft's card is further down.
-    h.get_by_label("More actions for PhotoCraft").scroll_to_me();
+    // Not installed, LightCraft's card is further down.
+    h.get_by_label("More actions for LightCraft").scroll_to_me();
     h.run_steps(3);
-    h.get_by_label("More actions for PhotoCraft").click();
+    h.get_by_label("More actions for LightCraft").click();
     h.run_steps(3);
     h.get_by_label("Choose version").click();
     h.run_steps(4);
@@ -582,7 +582,7 @@ fn launcher_menu_on(machine: Machine, answer: Vec<Release>) -> VersionsHarness {
 #[test]
 fn closing_the_dialog_without_installing_drops_the_chosen_version() {
     // As on a real machine: the checked release is still the newest when the older one is picked.
-    let (mut h, sent, _) = version_menu(signed_photocraft("0.5.0"), vec![signed_photocraft("0.5.0"), signed_photocraft("0.4.0")]);
+    let (mut h, sent, _) = version_menu(signed_lightcraft("0.5.0"), vec![signed_lightcraft("0.5.0"), signed_lightcraft("0.4.0")]);
     h.query_all_by_role_and_label(egui::accesskit::Role::Button, "v0.4.0").next().unwrap().click();
     h.run_steps(4);
     assert!(h.query_all_by_label("Install version v0.4.0").count() > 0, "the dialog offers the chosen version");
@@ -592,7 +592,7 @@ fn closing_the_dialog_without_installing_drops_the_chosen_version() {
     assert!(h.query_by_label("Version").is_none(), "Close closes the dialog");
     assert!(h.query_by_label("Install version v0.4.0").is_none(), "the card goes back to its own action");
     let configured = sent.borrow().iter().rev().find_map(|c| match c {
-        Command::Configure(o) => Some(o.versions.get("photocraft").cloned()),
+        Command::Configure(o) => Some(o.versions.get("lightcraft").cloned()),
         _ => None,
     });
     assert_eq!(configured, Some(None), "the choice from before (latest release) is restored");
@@ -602,8 +602,8 @@ fn closing_the_dialog_without_installing_drops_the_chosen_version() {
 #[test]
 fn choosing_an_app_version_turns_its_main_action_into_install() {
     // A newer release takes the "latest release" label, so v0.4.0 is a plain pin.
-    let pin = signed_photocraft("0.4.0");
-    let (mut h, sent, queue) = version_menu(pin.clone(), vec![signed_photocraft("0.5.0"), pin]);
+    let pin = signed_lightcraft("0.4.0");
+    let (mut h, sent, queue) = version_menu(pin.clone(), vec![signed_lightcraft("0.5.0"), pin]);
     assert!(h.query_all_by_role_and_label(egui::accesskit::Role::Button, "v0.5.0 (latest release)").next().is_some());
     sent.borrow_mut().clear();
     h.query_all_by_role_and_label(egui::accesskit::Role::Button, "v0.4.0").next().unwrap().click();
@@ -622,18 +622,18 @@ fn choosing_an_app_version_turns_its_main_action_into_install() {
         .expect("the dialog offers Install for the chosen version")
         .click();
     h.run_steps(4);
-    assert!(sent.borrow().iter().any(|c| matches!(c, Command::Install { app } if app == "photocraft")));
-    assert!(!sent.borrow().iter().any(|c| matches!(c, Command::Launch { app, .. } if app == "photocraft")));
+    assert!(sent.borrow().iter().any(|c| matches!(c, Command::Install { app } if app == "lightcraft")));
+    assert!(!sent.borrow().iter().any(|c| matches!(c, Command::Launch { app, .. } if app == "lightcraft")));
     assert!(h.query_by_label("Version").is_none(), "installing closes the dialog");
     assert!(h.query_by_label("Install version v0.4.0").is_some(), "installing from the dialog keeps the chosen version");
     // Once the pinned version is the installed copy, the card opens it again.
     let opens = h.query_all_by_label("Open").count();
     queue.borrow_mut().push(Event::Detected {
-        app: "photocraft".into(),
+        app: "lightcraft".into(),
         installed: Some(Installed {
             version: version::parse("0.4.0"),
             source: InstallSource::MacApp,
-            location: "/Applications/PhotoCraft.app".into(),
+            location: "/Applications/LightCraft.app".into(),
             package: None,
             externally_managed: false,
             origin: None,
@@ -642,7 +642,7 @@ fn choosing_an_app_version_turns_its_main_action_into_install() {
     });
     h.run_steps(4);
     assert!(h.query_by_label("Install version v0.4.0").is_none(), "an installed pin is not offered again");
-    assert_eq!(h.query_all_by_label("Open").count(), opens + 1, "PhotoCraft shows Open");
+    assert_eq!(h.query_all_by_label("Open").count(), opens + 1, "LightCraft shows Open");
 }
 
 /// The date and size painted beside the version row named `label`, and their colour. `None` when
@@ -685,12 +685,12 @@ fn contrast(a: egui::Color32, b: egui::Color32) -> f32 {
 #[test]
 fn version_rows_show_the_release_date_and_download_size() {
     // A release that publishes neither a date nor its size keeps a plain row.
-    let mut undated = signed_photocraft("0.4.0");
+    let mut undated = signed_lightcraft("0.4.0");
     undated.published_at = None;
     undated.assets[0].size = 0;
     for theme in [egui::Theme::Dark, egui::Theme::Light] {
-        let answer = vec![signed_photocraft("0.5.0"), undated.clone(), signed_photocraft("0.3.0")];
-        let (mut h, _, _) = version_menu_on(Machine { theme, ..Machine::default() }, signed_photocraft("0.5.0"), answer);
+        let answer = vec![signed_lightcraft("0.5.0"), undated.clone(), signed_lightcraft("0.3.0")];
+        let (mut h, _, _) = version_menu_on(Machine { theme, ..Machine::default() }, signed_lightcraft("0.5.0"), answer);
         // The row's name stays the version; its date and the size of this Mac's download ride beside
         // it, drawn and as its description. The day itself depends on the zone the test runs in.
         let facts = row_facts(&h, "v0.5.0 (latest release)").unwrap_or_default();
@@ -728,26 +728,26 @@ fn release_with(stem: &str, v: &str, assets: &[(&str, u64)]) -> Release {
     r
 }
 
-/// A PhotoCraft release for Windows with an MSI of 120 MB and a portable ZIP of 90 MB.
-fn windows_photocraft(v: &str) -> Release {
-    release_with("photocraft", v, &[("windows-x64.msi", 120), ("windows-x64-portable.zip", 90)])
+/// A LightCraft release for Windows with an MSI of 120 MB and a portable ZIP of 90 MB.
+fn windows_lightcraft(v: &str) -> Release {
+    release_with("lightcraft", v, &[("windows-x64.msi", 120), ("windows-x64-portable.zip", 90)])
 }
 
-fn photocraft_installed(source: InstallSource) -> Event {
+fn lightcraft_installed(source: InstallSource) -> Event {
     let installed = Installed {
         version: version::parse("0.4.1"),
         source,
-        location: "C:/Users/me/PhotoCraft".into(),
+        location: "C:/Users/me/LightCraft".into(),
         package: None,
         externally_managed: false,
         origin: None,
         installation: None,
     };
-    Event::Detected { app: "photocraft".into(), installed: Some(installed) }
+    Event::Detected { app: "lightcraft".into(), installed: Some(installed) }
 }
 
-fn photocraft_not_installed() -> Event {
-    Event::Detected { app: "photocraft".into(), installed: None }
+fn lightcraft_not_installed() -> Event {
+    Event::Detected { app: "lightcraft".into(), installed: None }
 }
 
 /// The size is that of the package the backend would install: the installed copy's format first,
@@ -763,9 +763,9 @@ fn a_version_row_sizes_the_package_this_install_would_use() {
         (None, vec![], "120 MB", "a fresh install takes the MSI by default"),
     ];
     for (source, preferred, size, why) in cases {
-        let more = vec![source.map_or_else(photocraft_not_installed, photocraft_installed)];
+        let more = vec![source.map_or_else(lightcraft_not_installed, lightcraft_installed)];
         let machine = Machine { platform: windows, preferred, more, ..Machine::default() };
-        let (h, _, _) = version_menu_on(machine, windows_photocraft("0.5.0"), vec![windows_photocraft("0.5.0")]);
+        let (h, _, _) = version_menu_on(machine, windows_lightcraft("0.5.0"), vec![windows_lightcraft("0.5.0")]);
         let facts = row_facts(&h, "v0.5.0 (latest release)").unwrap_or_default();
         assert!(facts.ends_with(&format!(" · {size}")), "{why}: {facts:?}");
         assert_eq!(painted_facts(&h, "v0.5.0 (latest release)").map(|(text, _)| text), Some(facts), "{why}");
@@ -778,11 +778,11 @@ fn a_version_row_sizes_the_package_this_install_would_use() {
 #[test]
 fn a_linux_version_row_sizes_only_a_certain_package() {
     let linux = Platform { os: Os::Linux, arch: Arch::X64 };
-    let r = release_with("photocraft", "0.5.0", &[("linux-x86_64.AppImage", 150), ("linux-x86_64.deb", 100)]);
+    let r = release_with("lightcraft", "0.5.0", &[("linux-x86_64.AppImage", 150), ("linux-x86_64.deb", 100)]);
     let cases = [
-        (photocraft_not_installed(), None, "a fresh install depends on the package managers"),
-        (photocraft_installed(InstallSource::Deb), None, "a package depends on the package managers"),
-        (photocraft_installed(InstallSource::AppImage), Some("150 MB"), "an AppImage updates as an AppImage"),
+        (lightcraft_not_installed(), None, "a fresh install depends on the package managers"),
+        (lightcraft_installed(InstallSource::Deb), None, "a package depends on the package managers"),
+        (lightcraft_installed(InstallSource::AppImage), Some("150 MB"), "an AppImage updates as an AppImage"),
     ];
     for (detected, size, why) in cases {
         let machine = Machine { platform: linux, more: vec![detected], ..Machine::default() };
@@ -797,8 +797,8 @@ fn a_linux_version_row_sizes_only_a_certain_package() {
 #[test]
 fn a_freebsd_version_row_sizes_the_tarball() {
     let freebsd = Platform { os: Os::FreeBsd, arch: Arch::X64 };
-    let r = release_with("photocraft", "0.5.0", &[("freebsd-x86_64.tar.gz", 140)]);
-    let machine = Machine { platform: freebsd, more: vec![photocraft_not_installed()], ..Machine::default() };
+    let r = release_with("lightcraft", "0.5.0", &[("freebsd-x86_64.tar.gz", 140)]);
+    let machine = Machine { platform: freebsd, more: vec![lightcraft_not_installed()], ..Machine::default() };
     let (h, _, _) = version_menu_on(machine, r.clone(), vec![r]);
     let facts = row_facts(&h, "v0.5.0 (latest release)").unwrap_or_default();
     assert!(facts.ends_with(", 2026 · 140 MB"), "{facts:?}");
@@ -850,9 +850,9 @@ fn the_launcher_version_list_sizes_what_its_self_update_downloads() {
 /// copy the backend can't replace with the chosen version (installed outside the launcher, say),
 /// it is greyed out, says why on hover, and clicking it sends no install.
 fn the_version_dialog_wont_install_a_version_the_install_would_refuse() {
-    let pin = signed_photocraft("0.4.0");
-    let (mut h, sent, queue) = version_menu(pin.clone(), vec![signed_photocraft("0.5.0"), pin]);
-    queue.borrow_mut().push(Event::Installable { app: "photocraft".into(), installable: false });
+    let pin = signed_lightcraft("0.4.0");
+    let (mut h, sent, queue) = version_menu(pin.clone(), vec![signed_lightcraft("0.5.0"), pin]);
+    queue.borrow_mut().push(Event::Installable { app: "lightcraft".into(), installable: false });
     h.query_all_by_role_and_label(egui::accesskit::Role::Button, "v0.4.0").next().unwrap().click();
     h.run_steps(8);
     sent.borrow_mut().clear();
@@ -920,8 +920,8 @@ fn a_fresh_install_confirms_the_folder_and_configures_before_installing() {
     let commands = install_commands(&sent);
     assert!(matches!(commands.first(), Some(Command::Configure(options))
         if options.install_locations.root.as_deref() == Some("/Volumes/Craft Apps")
-        && options.install_locations.folder("photocraft") == Some("/Volumes/Typed Photo")));
-    assert_eq!(commands.get(1), Some(&Command::Install { app: "photocraft".into() }));
+        && options.install_locations.folder("lightcraft") == Some("/Volumes/Typed Photo")));
+    assert_eq!(commands.get(1), Some(&Command::Install { app: "lightcraft".into() }));
 }
 
 #[test]
@@ -930,7 +930,7 @@ fn use_default_removes_an_app_override_and_settings_can_reset_the_root() {
     let (mut h, sent) = folder_harness(picked);
     h.run_steps(8);
     h.state_mut().as_mut().unwrap().settings.install_locations.root = Some("/Volumes/Craft Apps".into());
-    h.state_mut().as_mut().unwrap().settings.install_locations.per_app.insert("photocraft".into(), "/Volumes/Old Photo".into());
+    h.state_mut().as_mut().unwrap().settings.install_locations.per_app.insert("lightcraft".into(), "/Volumes/Old Photo".into());
     h.run_steps(2);
     h.get_by_label("Install").scroll_to_me();
     h.run_steps(3);
@@ -943,7 +943,7 @@ fn use_default_removes_an_app_override_and_settings_can_reset_the_root() {
     h.run_steps(2);
     assert!(h.state().as_ref().unwrap().settings.install_locations.per_app.is_empty());
     assert!(
-        matches!(install_commands(&sent).first(), Some(Command::Configure(options)) if options.install_locations.folder("photocraft") == Some("/Volumes/Craft Apps"))
+        matches!(install_commands(&sent).first(), Some(Command::Configure(options)) if options.install_locations.folder("lightcraft") == Some("/Volumes/Craft Apps"))
     );
     h.get_by_label("Settings").click();
     h.run_steps(3);
@@ -977,8 +977,8 @@ fn the_install_folder_fields_default_to_the_hosts_answer() {
     let mut backend = Some(Fake {
         downloads: Default::default(),
         events: vec![
-            Event::Latest { app: "photocraft".into(), latest: LatestRelease::Found(release("photocraft", "0.6.0", NOW)), from: Origin::GitHub },
-            Event::Detected { app: "photocraft".into(), installed: None },
+            Event::Latest { app: "lightcraft".into(), latest: LatestRelease::Found(release("lightcraft", "0.6.0", NOW)), from: Origin::GitHub },
+            Event::Detected { app: "lightcraft".into(), installed: None },
         ],
         sent: sent.clone(),
         manage: true,
@@ -1097,7 +1097,7 @@ fn windows_package_harness(
 #[test]
 fn the_install_folder_default_follows_the_package_the_backend_falls_back_to() {
     let (mut h, initial) =
-        windows_package_harness(&[("photocraft", &["photocraft-0.6.0-windows-x86.msi"])], vec![artcraft_launcher_core::PackageKind::PortableZip]);
+        windows_package_harness(&[("lightcraft", &["lightcraft-0.6.0-windows-x86.msi"])], vec![artcraft_launcher_core::PackageKind::PortableZip]);
     h.run_steps(8);
     h.get_by_label("Install").scroll_to_me();
     h.run_steps(3);
@@ -1123,10 +1123,10 @@ fn settings_shows_a_default_folder_only_when_every_app_shares_it() {
         h.run_steps(3);
         initial.take()
     };
-    let x64 = ["photocraft-0.6.0-windows-x64.msi", "photocraft-0.6.0-windows-x86.msi"];
-    let shared = open_settings_browse(&[("photocraft", &x64), ("vectorcraft", &["vectorcraft-0.6.0-windows-x64.msi"])]);
+    let x64 = ["lightcraft-0.6.0-windows-x64.msi", "lightcraft-0.6.0-windows-x86.msi"];
+    let shared = open_settings_browse(&[("lightcraft", &x64), ("vectorcraft", &["vectorcraft-0.6.0-windows-x64.msi"])]);
     assert_eq!(shared, Some(Some("Msi X64".into())));
-    let mixed = open_settings_browse(&[("photocraft", &x64), ("vectorcraft", &["vectorcraft-0.6.0-windows-x86.msi"])]);
+    let mixed = open_settings_browse(&[("lightcraft", &x64), ("vectorcraft", &["vectorcraft-0.6.0-windows-x86.msi"])]);
     assert_eq!(mixed, Some(None));
 }
 
@@ -1366,7 +1366,7 @@ fn the_actual_open_button_launches_once_across_a_discarded_pass() {
     assert_eq!(launcher.settings.launches.values().copied().sum::<u32>(), before + 1, "the launch count increments once");
 }
 
-/// What the Open half beside PhotoCraft's update reads out (0.4.1 installed, 0.5.0 out).
+/// What the Open half beside LightCraft's update reads out (0.4.1 installed, 0.5.0 out).
 const KEEP_PHOTOCRAFT: &str = "Open 0.4.1 without updating. 0.5.0 stays available.";
 
 /// The commands `sent` holds for `app`: how many launches and how many installs.
@@ -1387,19 +1387,19 @@ fn an_update_can_open_the_installed_copy_without_updating() {
         h.run_steps(8);
         let open = h.get_by_label(KEEP_PHOTOCRAFT).rect();
         let update = h.get_by_label("Update to 0.5.0").rect();
-        let menu = h.get_by_label("More actions for PhotoCraft").rect();
+        let menu = h.get_by_label("More actions for LightCraft").rect();
         assert!((open.center().y - update.center().y).abs() < 1.0, "{view:?}: one line: {open:?} {update:?}");
         assert!(open.right() < update.left() && update.right() < menu.left(), "{view:?}: Open, Update, menu: {open:?} {update:?} {menu:?}");
 
         sent.borrow_mut().clear();
         h.get_by_label(KEEP_PHOTOCRAFT).click();
         h.run_steps(2);
-        assert_eq!(launches_and_installs(&sent, "photocraft"), (1, 0), "{view:?}: Open launches and installs nothing: {:?}", sent.borrow());
+        assert_eq!(launches_and_installs(&sent, "lightcraft"), (1, 0), "{view:?}: Open launches and installs nothing: {:?}", sent.borrow());
 
         sent.borrow_mut().clear();
         h.get_by_label("Update to 0.5.0").click();
         h.run_steps(2);
-        assert_eq!(launches_and_installs(&sent, "photocraft"), (0, 1), "{view:?}: Update installs: {:?}", sent.borrow());
+        assert_eq!(launches_and_installs(&sent, "lightcraft"), (0, 1), "{view:?}: Update installs: {:?}", sent.borrow());
     }
 }
 
@@ -1413,9 +1413,9 @@ fn only_a_waiting_update_splits_the_main_button() {
     let (mut h, sent) = harness_with(ev, ViewMode::Grid, egui::Theme::Dark, true, 1.0);
     h.run_steps(8);
     let splits: Vec<String> = h.query_all_by_label_contains("without updating").filter_map(|n| n.accesskit_node().label()).collect();
-    assert_eq!(splits.len(), 2, "PhotoCraft and FigCraft wait for updates: {splits:?}");
+    assert_eq!(splits.len(), 2, "LightCraft and FigCraft wait for updates: {splits:?}");
     assert!(splits.iter().any(|l| l == "Open 0.5.0 without updating. 0.6.0 stays available."), "{splits:?}");
-    // LightCraft and WordCraft are up to date: each still has one plain Open.
+    // PhotoCraft and WordCraft are up to date: each still has one plain Open.
     assert!(h.query_all_by_label("Open").count() >= 2);
     h.get_by_label("Retry install");
 
@@ -1429,7 +1429,7 @@ fn only_a_waiting_update_splits_the_main_button() {
 /// A newer release with nothing for this computer is no update: the app opens as it is, isn't
 /// counted in Update all, and has no Update button that would fail with "has no download".
 fn a_newer_release_without_a_download_here_is_not_offered_as_an_update() {
-    let ev = no_photocraft_download_here(events());
+    let ev = no_lightcraft_download_here(events());
     let (mut h, sent) = harness_with(ev, ViewMode::Grid, egui::Theme::Dark, true, 1.0);
     h.run_steps(8);
     assert!(h.query_by_label("Update to 0.5.0").is_none(), "nothing to install here");
@@ -1437,25 +1437,25 @@ fn a_newer_release_without_a_download_here_is_not_offered_as_an_update() {
     h.get_by_label("Update to 0.6.0");
     h.get_by_label("Update 1 app");
     h.get_by_label_contains("0.4.1 · latest 0.5.0");
-    // PhotoCraft's main button is a plain Open, which launches it.
-    // Cards share a row, so PhotoCraft's Open is the one right before its own menu.
-    let menu = h.get_by_label("More actions for PhotoCraft").rect();
+    // LightCraft's main button is a plain Open, which launches it.
+    // Cards share a row, so LightCraft's Open is the one right before its own menu.
+    let menu = h.get_by_label("More actions for LightCraft").rect();
     sent.borrow_mut().clear();
     h.get_all_by_label("Open")
         .filter(|n| (n.rect().center().y - menu.center().y).abs() < 1.0 && n.rect().right() <= menu.left())
         .max_by(|a, b| a.rect().right().total_cmp(&b.rect().right()))
-        .expect("PhotoCraft's Open")
+        .expect("LightCraft's Open")
         .click();
     h.run_steps(2);
-    assert_eq!(launches_and_installs(&sent, "photocraft"), (1, 0), "{:?}", sent.borrow());
+    assert_eq!(launches_and_installs(&sent, "lightcraft"), (1, 0), "{:?}", sent.borrow());
 }
 
 #[test]
 /// The backend's answer outranks the UI's guess: a release with a Mac download that can't replace
-/// how PhotoCraft was installed (say an AppImage when only a .deb is out) is no update either.
+/// how LightCraft was installed (say an AppImage when only a .deb is out) is no update either.
 fn the_backends_installability_answer_decides_an_update() {
     let mut ev = events();
-    ev.push(Event::Installable { app: "photocraft".into(), installable: false });
+    ev.push(Event::Installable { app: "lightcraft".into(), installable: false });
     let (mut h, _sent) = harness_with(ev, ViewMode::Grid, egui::Theme::Dark, true, 1.0);
     h.run_steps(8);
     assert!(h.query_by_label("Update to 0.5.0").is_none(), "the backend can't install it");
@@ -1474,7 +1474,7 @@ const OUT_OF_REACH_TIP: &str = "0.5.0 is out, but Craft Fork Launcher can't inst
 /// The note beside a copy behind a release it can't take shows in the table too.
 fn the_table_notes_a_newer_release_that_cant_install_here() {
     let mut ev = events();
-    ev.push(Event::Installable { app: "photocraft".into(), installable: false });
+    ev.push(Event::Installable { app: "lightcraft".into(), installable: false });
     let (mut h, _) = harness_with(ev, ViewMode::Table, egui::Theme::Dark, true, 1.0);
     h.run_steps(8);
     h.get_by_label("0.4.1 · latest 0.5.0").hover();
@@ -1488,21 +1488,21 @@ fn the_table_notes_a_newer_release_that_cant_install_here() {
 fn a_repository_copy_gets_no_out_of_reach_note() {
     let mut ev = events();
     ev.push(Event::Detected {
-        app: "lightcraft".into(),
+        app: "photocraft".into(),
         installed: Some(Installed {
             version: version::parse("0.3.0"),
             source: InstallSource::Flatpak,
-            location: "ai.storyteller.lightcraft".into(),
+            location: "ai.storyteller.photocraft".into(),
             package: None,
             externally_managed: true,
             origin: Some("flatpark".into()),
             installation: Some("user".into()),
         }),
     });
-    ev.push(Event::Installable { app: "lightcraft".into(), installable: false });
+    ev.push(Event::Installable { app: "photocraft".into(), installable: false });
     let (mut h, _) = harness_with(ev, ViewMode::Table, egui::Theme::Dark, true, 1.0);
     h.run_steps(8);
-    assert!(h.query_all_by_label("0.3.0").next().is_some(), "LightCraft's version shows");
+    assert!(h.query_all_by_label("0.3.0").next().is_some(), "PhotoCraft's version shows");
     assert!(h.query_by_label_contains("0.3.0 · latest").is_none(), "no note for a repository copy");
 }
 
@@ -1512,7 +1512,7 @@ fn a_repository_copy_gets_no_out_of_reach_note() {
 /// "Install version X" for a version that can't replace this copy is greyed out with the reason.
 fn a_kept_version_gets_no_out_of_reach_note_and_says_why_it_cant_install() {
     let mut ev = events();
-    ev.push(Event::Installable { app: "photocraft".into(), installable: false });
+    ev.push(Event::Installable { app: "lightcraft".into(), installable: false });
     let (mut h, sent) = harness_with(ev, ViewMode::Grid, egui::Theme::Dark, true, 1.0);
     h.run_steps(8);
     h.get_by_label_contains("0.4.1 · latest 0.5.0");
@@ -1521,7 +1521,7 @@ fn a_kept_version_gets_no_out_of_reach_note_and_says_why_it_cant_install() {
         .expect("the harness built the launcher")
         .settings
         .versions
-        .insert("photocraft".into(), artcraft_launcher_core::protocol::VersionTrack::Pinned("v0.5.0".into()));
+        .insert("lightcraft".into(), artcraft_launcher_core::protocol::VersionTrack::Pinned("v0.5.0".into()));
     h.run_steps(4);
     assert!(h.query_by_label_contains("latest 0.5.0").is_none(), "no note while a version is kept");
     let install = h.get_by_label("Install version v0.5.0");
@@ -1532,7 +1532,7 @@ fn a_kept_version_gets_no_out_of_reach_note_and_says_why_it_cant_install() {
     sent.borrow_mut().clear();
     h.get_by_label("Install version v0.5.0").click();
     h.run_steps(2);
-    assert_eq!(launches_and_installs(&sent, "photocraft"), (0, 0), "a greyed-out Install sends nothing: {:?}", sent.borrow());
+    assert_eq!(launches_and_installs(&sent, "lightcraft"), (0, 0), "a greyed-out Install sends nothing: {:?}", sent.borrow());
 }
 
 #[test]
@@ -1541,21 +1541,21 @@ fn a_kept_version_gets_no_out_of_reach_note_and_says_why_it_cant_install() {
 fn a_repository_flatpak_keeps_reinstall() {
     let mut ev = events();
     ev.push(Event::Detected {
-        app: "lightcraft".into(),
+        app: "photocraft".into(),
         installed: Some(Installed {
             version: version::parse("0.4.0"),
             source: InstallSource::Flatpak,
-            location: "ai.storyteller.lightcraft".into(),
+            location: "ai.storyteller.photocraft".into(),
             package: None,
             externally_managed: true,
             origin: Some("flatpark".into()),
             installation: Some("user".into()),
         }),
     });
-    ev.push(Event::Installable { app: "lightcraft".into(), installable: true });
+    ev.push(Event::Installable { app: "photocraft".into(), installable: true });
     let (mut h, _) = harness_with(ev, ViewMode::Grid, egui::Theme::Dark, true, 1.0);
     h.run_steps(8);
-    h.get_by_label("More actions for LightCraft").click();
+    h.get_by_label("More actions for PhotoCraft").click();
     h.run_steps(3);
     h.get_by_label("Reinstall");
 }
@@ -1566,30 +1566,30 @@ fn a_repository_flatpak_keeps_reinstall() {
 fn reinstall_needs_an_install_that_would_go_ahead() {
     for installable in [true, false] {
         let mut ev = events();
-        ev.push(Event::Installable { app: "lightcraft".into(), installable });
+        ev.push(Event::Installable { app: "photocraft".into(), installable });
         let (mut h, sent) = harness_with(ev, ViewMode::Grid, egui::Theme::Dark, true, 1.0);
         h.run_steps(8);
-        h.get_by_label("More actions for LightCraft").click();
+        h.get_by_label("More actions for PhotoCraft").click();
         h.run_steps(3);
         assert_eq!(h.query_by_label("Reinstall").is_some(), installable, "installable: {installable}");
         if installable {
             sent.borrow_mut().clear();
             h.get_by_label("Reinstall").click();
             h.run_steps(2);
-            assert_eq!(launches_and_installs(&sent, "lightcraft"), (0, 1), "Reinstall installs: {:?}", sent.borrow());
+            assert_eq!(launches_and_installs(&sent, "photocraft"), (0, 1), "Reinstall installs: {:?}", sent.borrow());
         }
     }
 }
 
-/// `events`, with PhotoCraft's 0.5.0 published for Windows only: nothing the test's Mac can install.
-fn no_photocraft_download_here(mut ev: Vec<Event>) -> Vec<Event> {
+/// `events`, with LightCraft's 0.5.0 published for Windows only: nothing the test's Mac can install.
+fn no_lightcraft_download_here(mut ev: Vec<Event>) -> Vec<Event> {
     for e in &mut ev {
         if let Event::Latest { app, latest: LatestRelease::Found(r), .. } = e
-            && app == "photocraft"
+            && app == "lightcraft"
         {
             for a in &mut r.assets {
-                a.name = "photocraft-0.5.0-windows-x64.msi".into();
-                a.url = "https://github.com/storytold/photocraft/releases/download/v0.5.0/photocraft-0.5.0-windows-x64.msi".into();
+                a.name = "lightcraft-0.5.0-windows-x64.msi".into();
+                a.url = "https://github.com/storytold/lightcraft/releases/download/v0.5.0/lightcraft-0.5.0-windows-x64.msi".into();
             }
         }
     }
@@ -1602,13 +1602,13 @@ fn the_details_drawer_splits_a_waiting_update_too() {
     let (mut h, sent) = harness(ViewMode::Grid, egui::Theme::Dark, true);
     h.run_steps(8);
     let card = h.get_by_label(KEEP_PHOTOCRAFT).rect();
-    h.get_by_label("PhotoCraft details").click();
+    h.get_by_label("LightCraft details").click();
     h.run_steps(10);
     assert_eq!(h.query_all_by_label(KEEP_PHOTOCRAFT).count(), 2, "the card's and the drawer's");
     sent.borrow_mut().clear();
     h.get_all_by_label(KEEP_PHOTOCRAFT).find(|n| n.rect() != card).expect("the drawer's Open half").click();
     h.run_steps(2);
-    assert_eq!(launches_and_installs(&sent, "photocraft"), (1, 0), "{:?}", sent.borrow());
+    assert_eq!(launches_and_installs(&sent, "lightcraft"), (1, 0), "{:?}", sent.borrow());
 }
 
 #[test]
@@ -1619,7 +1619,7 @@ fn a_job_finished_while_hidden_shows_one_fresh_toast_on_the_next_frame() {
     let sent = Rc::new(RefCell::new(Vec::new()));
     let backend = Fake {
         downloads: Default::default(),
-        events: vec![Event::JobFinished { app: "photocraft".into(), result: Ok("PhotoCraft updated to 0.5.0".into()) }],
+        events: vec![Event::JobFinished { app: "lightcraft".into(), result: Ok("LightCraft updated to 0.5.0".into()) }],
         sent: sent.clone(),
         manage: true,
         pictures: Rc::default(),
@@ -1658,14 +1658,14 @@ fn a_job_finished_while_hidden_shows_one_fresh_toast_on_the_next_frame() {
     // must be fresh on the first drawing pass and must expire relative to it.
     h.input_mut().time = Some(1000.0);
     h.run_steps(2);
-    assert_eq!(h.query_all_by_label("PhotoCraft updated to 0.5.0").count(), 1, "the hidden result is shown once");
+    assert_eq!(h.query_all_by_label("LightCraft updated to 0.5.0").count(), 1, "the hidden result is shown once");
     h.run_steps(2);
-    assert_eq!(h.query_all_by_label("PhotoCraft updated to 0.5.0").count(), 1, "a discarded/next pass must not duplicate it");
+    assert_eq!(h.query_all_by_label("LightCraft updated to 0.5.0").count(), 1, "a discarded/next pass must not duplicate it");
     // A stale expiry (old logic time + 4.5 s) would already have dropped it; at 1004.6 the real
     // 1000.0 + 4.5 deadline has passed, so the toast goes.
     h.input_mut().time = Some(1004.6);
     h.run_steps(2);
-    assert!(h.query_by_label("PhotoCraft updated to 0.5.0").is_none(), "the toast expires relative to the drawing pass");
+    assert!(h.query_by_label("LightCraft updated to 0.5.0").is_none(), "the toast expires relative to the drawing pass");
 }
 
 #[test]
@@ -1679,7 +1679,7 @@ fn a_narrow_toolbar_names_its_controls_and_passes_strict_accessibility() {
     h.get_by_role_and_label(egui::accesskit::Role::Button, "Check for updates");
     h.get_by_role_and_label(egui::accesskit::Role::Button, "Settings");
     h.get_by_role_and_label(egui::accesskit::Role::ComboBox, "Sort");
-    h.get_by_role_and_label(egui::accesskit::Role::Button, "More actions for PhotoCraft");
+    h.get_by_role_and_label(egui::accesskit::Role::Button, "More actions for LightCraft");
     let unnamed = h.unnamed_widgets();
     assert!(unnamed.is_empty(), "narrow toolbar has unnamed input widgets: {unnamed:?}");
     h.check_accessibility();
@@ -1692,9 +1692,9 @@ fn install_locations_survive_settings_save_and_older_settings_use_system_default
     assert_eq!(old.install_locations, Default::default());
     let mut settings = old;
     settings.install_locations.root = Some("/Volumes/Craft Apps".into());
-    settings.install_locations.per_app.insert("photocraft".into(), "/Volumes/Photo".into());
+    settings.install_locations.per_app.insert("lightcraft".into(), "/Volumes/Photo".into());
     let restored: Settings = serde_json::from_str(&serde_json::to_string(&settings).unwrap()).unwrap();
-    assert_eq!(restored.install_locations.folder("photocraft"), Some("/Volumes/Photo"));
+    assert_eq!(restored.install_locations.folder("lightcraft"), Some("/Volumes/Photo"));
     assert_eq!(restored.install_locations.folder("filmcraft"), Some("/Volumes/Craft Apps"));
 }
 
@@ -1764,7 +1764,7 @@ fn grid_shows_every_status_and_installs_on_click() {
     h.run_steps(2);
     let installs: Vec<_> = sent.borrow().iter().filter_map(|c| if let Command::Install { app } = c { Some(app.clone()) } else { None }).collect();
     assert_eq!(installs.len(), 2, "{installs:?}");
-    assert!(installs.contains(&"photocraft".to_string()) && installs.contains(&"figcraft".to_string()));
+    assert!(installs.contains(&"lightcraft".to_string()) && installs.contains(&"figcraft".to_string()));
 }
 
 #[test]
@@ -1902,7 +1902,7 @@ fn a_retry_update_button_keeps_to_its_slot_and_leaves_room_for_the_menu() {
 fn an_install_waiting_for_another_says_so_and_can_be_cancelled() {
     let mut events = events();
     // Two updates reached the system's installer together: one runs, the other waits its turn.
-    events.push(Event::Progress { app: "photocraft".into(), phase: JobPhase::Installing });
+    events.push(Event::Progress { app: "lightcraft".into(), phase: JobPhase::Installing });
     events.push(Event::Progress { app: "figcraft".into(), phase: JobPhase::Waiting });
     let (mut h, sent) = harness_with(events, ViewMode::Grid, egui::Theme::Dark, true, 1.0);
     h.run_steps(6);
@@ -1953,9 +1953,9 @@ fn each_cancellation_says_what_it_called_off() {
     let finished = |app: &str, why: &str| Event::JobFinished { app: app.into(), result: Err(why.into()) };
     let mut ev = events();
     // An uninstall called off while it waited for the installer.
-    ev.push(Event::Progress { app: "lightcraft".into(), phase: JobPhase::Removing });
-    ev.push(Event::Progress { app: "lightcraft".into(), phase: JobPhase::Waiting });
-    ev.push(finished("lightcraft", CANCELLED));
+    ev.push(Event::Progress { app: "photocraft".into(), phase: JobPhase::Removing });
+    ev.push(Event::Progress { app: "photocraft".into(), phase: JobPhase::Waiting });
+    ev.push(finished("photocraft", CANCELLED));
     // The launcher's own update, cancelled while it waited.
     ev.push(Event::LauncherUpdate(release("artcraft-launcher", "0.2.0", NOW)));
     ev.push(Event::Progress { app: "artcraft-launcher".into(), phase: JobPhase::Waiting });
@@ -1976,7 +1976,7 @@ fn table_view_and_light_theme() {
     snapshot(&mut h, "table-light");
     h.get_by_label("Update to 0.5.0").click();
     h.run_steps(2);
-    assert!(sent.borrow().contains(&Command::Install { app: "photocraft".into() }));
+    assert!(sent.borrow().contains(&Command::Install { app: "lightcraft".into() }));
     h.get_all_by_label("Open").next().unwrap().click();
     h.run_steps(2);
     assert!(sent.borrow().iter().any(|c| matches!(c, Command::Launch { .. })));
@@ -1987,22 +1987,22 @@ fn table_view_and_light_theme() {
 fn pinning_an_app_keeps_it_on_top_until_unpinned() {
     let (mut h, _) = harness(ViewMode::Table, egui::Theme::Dark, true);
     h.run_steps(6);
-    // Name sort would put CADCraft before PhotoCraft; a pin must still win.
+    // Name sort would put CADCraft before LightCraft; a pin must still win.
     h.state_mut().as_mut().unwrap().settings.sort = artcraft_launcher_ui_egui::settings::SortKey::Name;
     h.state_mut().as_mut().unwrap().settings.sort_descending = false;
     h.run_steps(2);
-    h.get_by_label("More actions for PhotoCraft").click();
+    h.get_by_label("More actions for LightCraft").click();
     h.run_steps(3);
     h.get_by_label("Pin to top").click();
     h.run_steps(4);
-    assert_eq!(h.state().as_ref().unwrap().settings.pinned, vec!["photocraft".to_string()]);
+    assert_eq!(h.state().as_ref().unwrap().settings.pinned, vec!["lightcraft".to_string()]);
     let ids = h.state().as_ref().unwrap().visible_ids_for_test();
-    assert_eq!(ids.first().copied(), Some("photocraft"), "pinned app stays first under Name sort: {ids:?}");
+    assert_eq!(ids.first().copied(), Some("lightcraft"), "pinned app stays first under Name sort: {ids:?}");
     h.state_mut().as_mut().unwrap().settings.pin_app("filmcraft");
-    h.state_mut().as_mut().unwrap().settings.reorder_pinned_to("photocraft", 2);
+    h.state_mut().as_mut().unwrap().settings.reorder_pinned_to("lightcraft", 2);
     h.run_steps(2);
-    assert_eq!(h.state().as_ref().unwrap().settings.pinned, vec!["filmcraft".to_string(), "photocraft".to_string()]);
-    assert_eq!(&h.state().as_ref().unwrap().visible_ids_for_test()[..2], &["filmcraft", "photocraft"]);
+    assert_eq!(h.state().as_ref().unwrap().settings.pinned, vec!["filmcraft".to_string(), "lightcraft".to_string()]);
+    assert_eq!(&h.state().as_ref().unwrap().visible_ids_for_test()[..2], &["filmcraft", "lightcraft"]);
     h.get_all_by_label_contains("Reorder").next().expect("pinned rows expose reorder handles");
 }
 
@@ -2011,14 +2011,14 @@ fn pinning_an_app_keeps_it_on_top_until_unpinned() {
 fn hide_clears_pin() {
     let (mut h, _) = harness(ViewMode::Grid, egui::Theme::Dark, true);
     h.run_steps(6);
-    h.state_mut().as_mut().unwrap().settings.pin_app("photocraft");
+    h.state_mut().as_mut().unwrap().settings.pin_app("lightcraft");
     h.run_steps(2);
-    h.get_by_label("More actions for PhotoCraft").click();
+    h.get_by_label("More actions for LightCraft").click();
     h.run_steps(3);
     h.get_by_label("Hide App").click();
     h.run_steps(4);
     assert!(h.state().as_ref().unwrap().settings.pinned.is_empty());
-    assert!(h.state().as_ref().unwrap().settings.hidden.contains("photocraft"));
+    assert!(h.state().as_ref().unwrap().settings.hidden.contains("lightcraft"));
 }
 
 #[test]
@@ -2026,12 +2026,12 @@ fn hide_clears_pin() {
 fn pinned_app_menu_offers_unpin() {
     let (mut h, _) = harness(ViewMode::Grid, egui::Theme::Dark, true);
     h.run_steps(6);
-    h.get_by_label("More actions for PhotoCraft").click();
+    h.get_by_label("More actions for LightCraft").click();
     h.run_steps(3);
     h.get_by_label("Pin to top").click();
     h.run_steps(4);
-    assert_eq!(h.state().as_ref().unwrap().settings.pinned, vec!["photocraft".to_string()]);
-    h.get_by_label("More actions for PhotoCraft").click();
+    assert_eq!(h.state().as_ref().unwrap().settings.pinned, vec!["lightcraft".to_string()]);
+    h.get_by_label("More actions for LightCraft").click();
     h.run_steps(3);
     assert!(h.query_by_label("Pin to top").is_none(), "pinned apps must not keep offering Pin to top");
     h.get_by_label("Unpin").click();
@@ -2046,19 +2046,19 @@ fn escape_cancels_pin_drag_and_restores_order() {
     h.run_steps(6);
     {
         let ui = h.state_mut().as_mut().unwrap();
-        ui.settings.pin_app("photocraft");
+        ui.settings.pin_app("lightcraft");
         ui.settings.pin_app("filmcraft");
         ui.settings.pin_app("wordcraft");
-        assert_eq!(ui.settings.pinned, ["photocraft", "filmcraft", "wordcraft"]);
-        ui.begin_pin_drag_for_test("photocraft");
+        assert_eq!(ui.settings.pinned, ["lightcraft", "filmcraft", "wordcraft"]);
+        ui.begin_pin_drag_for_test("lightcraft");
         // Mid-drag: pointer has already reordered via drop targets.
-        ui.settings.pinned = vec!["filmcraft".into(), "photocraft".into(), "wordcraft".into()];
+        ui.settings.pinned = vec!["filmcraft".into(), "lightcraft".into(), "wordcraft".into()];
     }
     h.key_press(egui::Key::Escape);
     h.run_steps(2);
     let ui = h.state().as_ref().unwrap();
     assert!(!ui.pin_dragging_for_test());
-    assert_eq!(ui.settings.pinned, ["photocraft", "filmcraft", "wordcraft"]);
+    assert_eq!(ui.settings.pinned, ["lightcraft", "filmcraft", "wordcraft"]);
 }
 
 #[test]
@@ -2068,10 +2068,10 @@ fn escape_cancels_pin_drag_with_empty_results() {
     h.run_steps(6);
     {
         let ui = h.state_mut().as_mut().unwrap();
-        ui.settings.pin_app("photocraft");
+        ui.settings.pin_app("lightcraft");
         ui.settings.pin_app("filmcraft");
-        ui.begin_pin_drag_for_test("photocraft");
-        ui.settings.pinned = vec!["filmcraft".into(), "photocraft".into()];
+        ui.begin_pin_drag_for_test("lightcraft");
+        ui.settings.pinned = vec!["filmcraft".into(), "lightcraft".into()];
         // Apply search without an intervening empty frame (pointer-up would end the drag).
         ui.set_search_for_test("zzzz-no-match");
         assert!(ui.visible_ids_for_test().is_empty());
@@ -2081,7 +2081,7 @@ fn escape_cancels_pin_drag_with_empty_results() {
     h.run_steps(2);
     let ui = h.state().as_ref().unwrap();
     assert!(!ui.pin_dragging_for_test());
-    assert_eq!(ui.settings.pinned, ["photocraft", "filmcraft"]);
+    assert_eq!(ui.settings.pinned, ["lightcraft", "filmcraft"]);
 }
 
 #[test]
@@ -2090,10 +2090,10 @@ fn grid_shows_pinned_section_header() {
     let (mut h, _) = harness(ViewMode::Grid, egui::Theme::Dark, true);
     h.run_steps(6);
     assert!(h.query_by_label("Pinned").is_none());
-    h.state_mut().as_mut().unwrap().settings.pin_app("photocraft");
+    h.state_mut().as_mut().unwrap().settings.pin_app("lightcraft");
     h.run_steps(4);
     h.get_by_label("Pinned");
-    h.get_all_by_label_contains("Reorder PhotoCraft").next().expect("pinned card exposes a reorder handle");
+    h.get_all_by_label_contains("Reorder LightCraft").next().expect("pinned card exposes a reorder handle");
 }
 
 #[test]
@@ -2103,15 +2103,15 @@ fn grid_shows_pinned_section_header() {
 fn a_pinned_table_row_keeps_its_buttons_in_line() {
     let (mut h, _) = harness(ViewMode::Table, egui::Theme::Dark, true);
     h.run_steps(6);
-    // LightCraft and WordCraft are both installed and up to date: each row offers Open.
-    h.state_mut().as_mut().unwrap().settings.pin_app("lightcraft");
+    // PhotoCraft and WordCraft are both installed and up to date: each row offers Open.
+    h.state_mut().as_mut().unwrap().settings.pin_app("photocraft");
     h.run_steps(4);
-    let grip = h.get_all_by_label_contains("Reorder LightCraft").next().expect("pinned row has a grip").rect();
+    let grip = h.get_all_by_label_contains("Reorder PhotoCraft").next().expect("pinned row has a grip").rect();
     let open_in_row = |menu: egui::Rect| {
         let row = menu.y_range();
         h.query_all_by_label("Open").map(|n| n.rect()).find(|r| row.contains(r.center().y)).expect("an Open button in the row")
     };
-    let (pinned_menu, other_menu) = (h.get_by_label("More actions for LightCraft").rect(), h.get_by_label("More actions for WordCraft").rect());
+    let (pinned_menu, other_menu) = (h.get_by_label("More actions for PhotoCraft").rect(), h.get_by_label("More actions for WordCraft").rect());
     let (pinned_open, other_open) = (open_in_row(pinned_menu), open_in_row(other_menu));
     assert!(grip.right() <= pinned_open.left(), "grip {grip:?} leads the row's Open {pinned_open:?}");
     assert!((pinned_open.width() - other_open.width()).abs() < 0.5, "pinned {pinned_open:?} vs unpinned {other_open:?}");
@@ -2124,10 +2124,10 @@ fn pin_drag_ignores_targets_clipped_by_the_scroll_viewport() {
     for view in [ViewMode::Grid, ViewMode::Table] {
         let (mut h, _) = harness(view, egui::Theme::Dark, true);
         h.run_steps(6);
-        let pins = vec!["photocraft".to_string(), "lightcraft".to_string(), "wordcraft".to_string()];
+        let pins = vec!["lightcraft".to_string(), "photocraft".to_string(), "wordcraft".to_string()];
         h.state_mut().as_mut().unwrap().settings.pinned = pins.clone();
         h.run_steps(4);
-        let grip = h.get_by_label("Reorder PhotoCraft").rect().center();
+        let grip = h.get_by_label("Reorder LightCraft").rect().center();
         let target = h.get_by_label("WordCraft details").rect();
         let at = match view {
             ViewMode::Grid => egui::pos2(target.right() - 10.0, target.bottom() - 20.0),
@@ -2156,9 +2156,9 @@ fn pin_drag_ignores_targets_clipped_by_the_scroll_viewport() {
 fn pin_drag_accepts_the_table_grip_column() {
     let (mut h, _) = harness(ViewMode::Table, egui::Theme::Dark, true);
     h.run_steps(6);
-    h.state_mut().as_mut().unwrap().settings.pinned = vec!["photocraft".into(), "lightcraft".into(), "wordcraft".into()];
+    h.state_mut().as_mut().unwrap().settings.pinned = vec!["lightcraft".into(), "photocraft".into(), "wordcraft".into()];
     h.run_steps(4);
-    let from = h.get_by_label("Reorder PhotoCraft").rect().center();
+    let from = h.get_by_label("Reorder LightCraft").rect().center();
     let target = h.get_by_label("Reorder WordCraft").rect();
     h.hover_at(from);
     h.run_steps(2);
@@ -2170,7 +2170,7 @@ fn pin_drag_accepts_the_table_grip_column() {
     // Release directly in the last column, outside the first app cell's clip rectangle.
     h.drop_at(egui::pos2(target.center().x, target.bottom() - 2.0));
     h.run_steps(2);
-    assert_eq!(h.state().as_ref().unwrap().settings.pinned, ["lightcraft", "wordcraft", "photocraft"]);
+    assert_eq!(h.state().as_ref().unwrap().settings.pinned, ["photocraft", "wordcraft", "lightcraft"]);
     assert!(!h.state().as_ref().unwrap().pin_dragging_for_test());
 }
 
@@ -2180,23 +2180,23 @@ fn pin_drag_accepts_the_table_grip_column() {
 fn hiding_an_app_removes_it_until_it_is_unhidden() {
     let (mut h, _) = harness(ViewMode::Table, egui::Theme::Dark, true);
     h.run_steps(6);
-    let row = h.get_by_role_and_label(egui::accesskit::Role::Label, "PhotoCraft").rect().center().y;
+    let row = h.get_by_role_and_label(egui::accesskit::Role::Label, "LightCraft").rect().center().y;
     h.get_all_by_label_contains("More actions").find(|n| (n.rect().center().y - row).abs() < 25.0).unwrap().click();
     h.run_steps(3);
     h.get_by_label("Hide App").click();
     h.run_steps(4);
-    assert!(h.query_by_role_and_label(egui::accesskit::Role::Label, "PhotoCraft").is_none());
-    assert!(h.state().as_ref().unwrap().settings.hidden.contains("photocraft"));
+    assert!(h.query_by_role_and_label(egui::accesskit::Role::Label, "LightCraft").is_none());
+    assert!(h.state().as_ref().unwrap().settings.hidden.contains("lightcraft"));
     h.get_by_label("Hidden Apps 1").click();
     h.run_steps(4);
-    h.get_by_role_and_label(egui::accesskit::Role::Label, "PhotoCraft");
+    h.get_by_role_and_label(egui::accesskit::Role::Label, "LightCraft");
     assert!(h.query_by_role_and_label(egui::accesskit::Role::Label, "WordCraft").is_none());
-    let row = h.get_by_role_and_label(egui::accesskit::Role::Label, "PhotoCraft").rect().center().y;
+    let row = h.get_by_role_and_label(egui::accesskit::Role::Label, "LightCraft").rect().center().y;
     h.get_all_by_label_contains("More actions").find(|n| (n.rect().center().y - row).abs() < 25.0).unwrap().click();
     h.run_steps(3);
     h.get_by_label("Unhide App").click();
     h.run_steps(4);
-    h.get_by_role_and_label(egui::accesskit::Role::Label, "PhotoCraft");
+    h.get_by_role_and_label(egui::accesskit::Role::Label, "LightCraft");
     assert!(h.query_by_label("Hidden Apps 1").is_none());
     assert!(h.state().as_ref().unwrap().settings.hidden.is_empty());
     assert_eq!(h.state().as_ref().unwrap().settings.filter, artcraft_launcher_ui_egui::settings::Filter::All);
@@ -2228,7 +2228,7 @@ fn launch_options_are_saved_per_app_and_passed_when_it_opens() {
     let args: Vec<String> = ["--dir", "My Docs", "--open"].map(String::from).into();
     assert!(sent.borrow().contains(&Command::Launch { app: "wordcraft".into(), args }));
     // The other apps open with nothing added.
-    assert!(!h.state().as_ref().unwrap().settings.launch_flags.contains_key("lightcraft"));
+    assert!(!h.state().as_ref().unwrap().settings.launch_flags.contains_key("photocraft"));
 }
 
 #[test]
@@ -2270,14 +2270,14 @@ fn switching_views() {
     h.get_by_label("Show apps as a table").click();
     h.run_steps(4);
     assert_eq!(h.state().as_ref().unwrap().settings.view, ViewMode::Table);
-    h.get_by_role_and_label(egui::accesskit::Role::Label, "PhotoCraft");
+    h.get_by_role_and_label(egui::accesskit::Role::Label, "LightCraft");
     h.get_by_role_and_label(egui::accesskit::Role::Label, "WordCraft");
     // The row icon is decorative; the wordmark carries the name exactly once.
-    assert_eq!(h.query_all_by_role_and_label(egui::accesskit::Role::Image, "PhotoCraft").count(), 0, "the table icon must not repeat the wordmark");
+    assert_eq!(h.query_all_by_role_and_label(egui::accesskit::Role::Image, "LightCraft").count(), 0, "the table icon must not repeat the wordmark");
     assert_eq!(
-        h.query_all_by_role_and_label(egui::accesskit::Role::Label, "PhotoCraft").count(),
+        h.query_all_by_role_and_label(egui::accesskit::Role::Label, "LightCraft").count(),
         1,
-        "the table wordmark names PhotoCraft exactly once"
+        "the table wordmark names LightCraft exactly once"
     );
 }
 
@@ -2336,13 +2336,13 @@ fn every_table_column_sorts_both_ways() {
     h.get_by_label("Status").click();
     h.run_steps(3);
     let o = order(&h);
-    assert_eq!(&o[..4], ["PhotoCraft", "FigCraft", "LightCraft", "WordCraft"], "{o:?}");
+    assert_eq!(&o[..4], ["LightCraft", "FigCraft", "PhotoCraft", "WordCraft"], "{o:?}");
     // Reversed: the apps not installed first, then up to date, then the updates last. The table
     // keeps its column's order; only the grid puts installed apps above the rest.
     h.get_by_label("Status").click();
     h.run_steps(3);
     let o = order(&h);
-    assert_eq!(&o[o.len().saturating_sub(4)..], ["LightCraft", "WordCraft", "PhotoCraft", "FigCraft"], "{o:?}");
+    assert_eq!(&o[o.len().saturating_sub(4)..], ["PhotoCraft", "WordCraft", "LightCraft", "FigCraft"], "{o:?}");
     // The old Installed and Latest columns are gone; Version shows the number, and from and to for an update.
     assert!(h.query_by_label("Latest").is_none());
     h.get_by_label("Version");
@@ -2396,7 +2396,7 @@ fn community_apps_can_be_hidden_and_restored_in_settings() {
         h.get_by_label("Done").click();
         h.run_steps(4);
         assert!(h.query_by_label("SolidCraft details").is_none());
-        assert!(h.query_by_label("PhotoCraft details").is_some());
+        assert!(h.query_by_label("LightCraft details").is_some());
         h.get_by_label("Settings").click();
         h.run_steps(4);
         h.get_by_label("Hide community apps").click();
@@ -2447,14 +2447,14 @@ fn the_uninstall_prompt_keeps_its_own_size_after_a_taller_dialog() {
     h.run_steps(4);
     h.get_by_label("Done").click();
     h.run_steps(3);
-    // PhotoCraft is installed, so its … menu offers Uninstall.
-    h.get_by_role_and_label(egui::accesskit::Role::Button, "More actions for PhotoCraft").click();
+    // LightCraft is installed, so its … menu offers Uninstall.
+    h.get_by_role_and_label(egui::accesskit::Role::Button, "More actions for LightCraft").click();
     h.run_steps(3);
     h.get_by_label("Uninstall…").click();
     h.run_steps(4);
     h.check_accessibility();
-    h.get_by_role_and_label(egui::accesskit::Role::Label, "Uninstall PhotoCraft?");
-    assert_eq!(h.query_all_by_label_contains("Uninstall PhotoCraft?").count(), 1, "the title icon is decorative, not a second copy of the heading");
+    h.get_by_role_and_label(egui::accesskit::Role::Label, "Uninstall LightCraft?");
+    assert_eq!(h.query_all_by_label_contains("Uninstall LightCraft?").count(), 1, "the title icon is decorative, not a second copy of the heading");
     snapshot(&mut h, "uninstall-prompt-dark");
     // The buttons follow the text closely, not somewhere down the height Settings had (#88).
     let text = h.get_by_label("The app will be moved to the Trash. Your documents and settings stay.").rect();
@@ -2528,7 +2528,7 @@ fn links_open_the_right_pages() {
     let github = all_opened(&mut h, "GitHub");
     assert!(github.contains(&"https://github.com/lakam99/craft-launcher".to_string()), "{github:?}");
     assert!(github.contains(&"https://github.com/lakam99/effectcraft".to_string()), "{github:?}");
-    assert!(github.contains(&"https://github.com/storytold/photocraft".to_string()), "{github:?}");
+    assert!(github.contains(&"https://github.com/lakam99/photocraft".to_string()), "{github:?}");
     let sites = all_opened(&mut h, "Website");
     assert!(sites.contains(&"https://getartcraft.com".to_string()), "{sites:?}");
     assert_eq!(sites, vec!["https://getartcraft.com".to_string()], "{sites:?}");
@@ -2550,12 +2550,12 @@ fn links_open_the_right_pages() {
 /// it carries an opener metacharacter, whether it is shown on a card or in the launcher dialog.
 #[test]
 fn hostile_release_asset_urls_never_reach_the_opener() {
-    const HOSTILE: &str = "https://github.com/storytold/photocraft/releases/download/v0.5.0/photocraft-0.5.0-macos-universal.dmg|calc.exe";
+    const HOSTILE: &str = "https://github.com/storytold/lightcraft/releases/download/v0.5.0/lightcraft-0.5.0-macos-universal.dmg|calc.exe";
 
     let mut ev = events();
     for event in &mut ev {
         if let Event::Latest { app, latest: LatestRelease::Found(release), .. } = event
-            && app.as_str() == "photocraft"
+            && app.as_str() == "lightcraft"
             && let Some(asset) = release.assets.first_mut()
         {
             asset.url = HOSTILE.to_string();
@@ -2849,7 +2849,7 @@ fn automatic_updates_queue_installs_for_outdated_apps_and_launcher() {
     );
     h.run_steps(4);
     let commands = sent.borrow().clone();
-    assert!(commands.contains(&Command::Install { app: "photocraft".into() }), "outdated photocraft should be queued for install: {commands:?}");
+    assert!(commands.contains(&Command::Install { app: "lightcraft".into() }), "outdated lightcraft should be queued for install: {commands:?}");
     assert!(commands.contains(&Command::Install { app: "figcraft".into() }), "outdated figcraft should be queued for install: {commands:?}");
     assert!(commands.contains(&Command::UpdateLauncher), "launcher update should be queued: {commands:?}");
 }
@@ -2858,7 +2858,7 @@ fn automatic_updates_queue_installs_for_outdated_apps_and_launcher() {
 /// Automatic updates and update notices skip a newer release with nothing for this computer: its
 /// install could only fail. The other update still goes ahead.
 fn automatic_updates_skip_a_release_without_a_download_here() {
-    let ev = no_photocraft_download_here(events());
+    let ev = no_lightcraft_download_here(events());
     let sent = Rc::new(RefCell::new(Vec::new()));
     let sent2 = sent.clone();
     let mut backend = Some(Fake {
@@ -2885,14 +2885,14 @@ fn automatic_updates_skip_a_release_without_a_download_here() {
         None,
     );
     h.run_steps(4);
-    assert_eq!(launches_and_installs(&sent, "photocraft"), (0, 0), "{:?}", sent.borrow());
+    assert_eq!(launches_and_installs(&sent, "lightcraft"), (0, 0), "{:?}", sent.borrow());
     assert_eq!(launches_and_installs(&sent, "figcraft"), (0, 1), "{:?}", sent.borrow());
     let notified = &h.state().as_ref().expect("the harness built the launcher").settings.notified;
-    assert!(!notified.contains_key("photocraft") && notified.contains_key("figcraft"), "{notified:?}");
+    assert!(!notified.contains_key("lightcraft") && notified.contains_key("figcraft"), "{notified:?}");
 }
 
 #[test]
-/// FreeBSD: PhotoCraft 0.4.1 sits in /usr/local/bin, installed outside the launcher, and 0.5.0
+/// FreeBSD: LightCraft 0.4.1 sits in /usr/local/bin, installed outside the launcher, and 0.5.0
 /// publishes a matching FreeBSD tarball. The launcher won't replace a system binary, and its
 /// backend says so, so with notifications and automatic updates on there is no Update button or
 /// count, no notice (and 0.5.0 isn't recorded as announced), no install queued; Open still opens it.
@@ -2903,31 +2903,31 @@ fn a_freebsd_system_binary_is_not_offered_an_update_it_would_refuse() {
             self.0.borrow_mut().push(title.to_string());
         }
     }
-    let name = "photocraft-0.5.0-freebsd-x86_64.tar.gz";
+    let name = "lightcraft-0.5.0-freebsd-x86_64.tar.gz";
     let tarball = Release {
         assets: vec![Asset {
             name: name.into(),
             size: 150 << 20,
-            url: format!("https://github.com/storytold/photocraft/releases/download/v0.5.0/{name}"),
+            url: format!("https://github.com/storytold/lightcraft/releases/download/v0.5.0/{name}"),
             sha256: None,
         }],
-        ..release("photocraft", "0.5.0", NOW - 86_400)
+        ..release("lightcraft", "0.5.0", NOW - 86_400)
     };
     let system = Installed {
         version: version::parse("0.4.1"),
         source: InstallSource::Binary,
-        location: "/usr/local/bin/photocraft".into(),
+        location: "/usr/local/bin/lightcraft".into(),
         package: None,
         externally_managed: false,
         origin: None,
         installation: None,
     };
-    let mut ev = vec![Event::Latest { app: "photocraft".into(), latest: LatestRelease::Found(tarball), from: Origin::ArtCraftApi }];
+    let mut ev = vec![Event::Latest { app: "lightcraft".into(), latest: LatestRelease::Found(tarball), from: Origin::ArtCraftApi }];
     for app in &SUITE {
-        ev.push(Event::Detected { app: app.id.into(), installed: (app.id == "photocraft").then(|| system.clone()) });
+        ev.push(Event::Detected { app: app.id.into(), installed: (app.id == "lightcraft").then(|| system.clone()) });
     }
     // What the native backend answers for this copy: an install would refuse it.
-    ev.push(Event::Installable { app: "photocraft".into(), installable: false });
+    ev.push(Event::Installable { app: "lightcraft".into(), installable: false });
     ev.push(Event::CheckFinished { at: NOW - 180, source: Source::GitHubApi, rate_limited_until: None });
 
     let sent = Rc::new(RefCell::new(Vec::new()));
@@ -2965,17 +2965,17 @@ fn a_freebsd_system_binary_is_not_offered_an_update_it_would_refuse() {
     assert!(h.query_by_label_contains("Update all").is_none() && h.query_by_label("Update 1 app").is_none(), "no update count");
     assert!(notices.borrow().is_empty(), "no update notice: {:?}", notices.borrow());
     let launcher = h.state().as_ref().expect("the harness built the launcher");
-    assert!(!launcher.settings.notified.contains_key("photocraft"), "0.5.0 isn't recorded as announced");
-    assert_eq!(launches_and_installs(&sent, "photocraft"), (0, 0), "no automatic install: {:?}", sent.borrow());
+    assert!(!launcher.settings.notified.contains_key("lightcraft"), "0.5.0 isn't recorded as announced");
+    assert_eq!(launches_and_installs(&sent, "lightcraft"), (0, 0), "no automatic install: {:?}", sent.borrow());
 
-    let menu = h.get_by_label("More actions for PhotoCraft").rect();
+    let menu = h.get_by_label("More actions for LightCraft").rect();
     h.get_all_by_label("Open")
         .filter(|n| (n.rect().center().y - menu.center().y).abs() < 1.0 && n.rect().right() <= menu.left())
         .max_by(|a, b| a.rect().right().total_cmp(&b.rect().right()))
-        .expect("PhotoCraft's Open")
+        .expect("LightCraft's Open")
         .click();
     h.run_steps(2);
-    assert_eq!(launches_and_installs(&sent, "photocraft"), (1, 0), "Open still opens it: {:?}", sent.borrow());
+    assert_eq!(launches_and_installs(&sent, "lightcraft"), (1, 0), "Open still opens it: {:?}", sent.borrow());
 }
 
 #[test]
@@ -3010,7 +3010,7 @@ fn automatic_updates_are_disabled_by_default() {
     );
     h.run_steps(4);
     let commands = sent.borrow().clone();
-    assert!(!commands.contains(&Command::Install { app: "photocraft".into() }), "photocraft should not be auto-installed when auto_update is false");
+    assert!(!commands.contains(&Command::Install { app: "lightcraft".into() }), "lightcraft should not be auto-installed when auto_update is false");
     assert!(!commands.contains(&Command::UpdateLauncher), "launcher should not be auto-updated when auto_update is false");
 }
 
@@ -3302,7 +3302,7 @@ fn clicking_a_card_opens_its_details_drawer() {
 fn details_drawer_in_the_light_theme() {
     let (mut h, _sent) = harness(ViewMode::Grid, egui::Theme::Light, true);
     h.run_steps(8);
-    h.get_by_label("PhotoCraft details").click();
+    h.get_by_label("LightCraft details").click();
     h.run_steps(10);
     snapshot(&mut h, "details-light");
     h.get_all_by_label_contains("The image editor you already know how to use").last().unwrap();
@@ -3316,17 +3316,17 @@ fn fetches(sent: &Rc<RefCell<Vec<Command>>>, app: &str) -> usize {
 fn opening_a_page_asks_for_its_pictures_once_and_only_while_it_lacks_some() {
     let (mut h, sent) = harness(ViewMode::Grid, egui::Theme::Dark, true);
     h.run_steps(8);
-    assert_eq!(fetches(&sent, "photocraft"), 0, "nothing is fetched before a page is opened");
-    h.get_by_label("PhotoCraft details").click();
+    assert_eq!(fetches(&sent, "lightcraft"), 0, "nothing is fetched before a page is opened");
+    h.get_by_label("LightCraft details").click();
     h.run_steps(10);
-    assert_eq!(fetches(&sent, "photocraft"), 1);
+    assert_eq!(fetches(&sent, "lightcraft"), 1);
     h.get_by_label("Enlarge picture");
     // Closed and opened again: the pictures are in hand, so nothing is asked.
     h.key_press(egui::Key::Escape);
     h.run_steps(10);
-    h.get_by_label("PhotoCraft details").click();
+    h.get_by_label("LightCraft details").click();
     h.run_steps(10);
-    assert_eq!(fetches(&sent, "photocraft"), 1);
+    assert_eq!(fetches(&sent, "lightcraft"), 1);
     h.get_by_label("Enlarge picture");
     // Another page asks for its own, and a page without pictures asks for nothing.
     h.key_press(egui::Key::Escape);
@@ -3373,7 +3373,7 @@ fn offline_the_frame_says_so_and_opening_the_page_again_retries() {
     let pictures = Rc::new(Cell::new(Pictures::Offline));
     let (mut h, sent) = harness_pictures(events(), ViewMode::Grid, egui::Theme::Light, true, 1.0, pictures.clone());
     h.run_steps(8);
-    h.get_by_label("PhotoCraft details").click();
+    h.get_by_label("LightCraft details").click();
     h.run_steps(10);
     snapshot(&mut h, "details-offline-light");
     h.get_by_label("Pictures couldn't be loaded. Reopen this page to try again.");
@@ -3384,9 +3384,9 @@ fn offline_the_frame_says_so_and_opening_the_page_again_retries() {
     pictures.set(Pictures::Online);
     h.key_press(egui::Key::Escape);
     h.run_steps(10);
-    h.get_by_label("PhotoCraft details").click();
+    h.get_by_label("LightCraft details").click();
     h.run_steps(10);
-    assert_eq!(fetches(&sent, "photocraft"), 2);
+    assert_eq!(fetches(&sent, "lightcraft"), 2);
     h.get_by_label("Enlarge picture");
     assert!(h.query_by_label("Pictures couldn't be loaded. Reopen this page to try again.").is_none());
 }
@@ -3396,7 +3396,7 @@ fn the_enlarged_view_shows_a_frame_for_a_picture_still_missing() {
     let pictures = Rc::new(Cell::new(Pictures::SecondFails));
     let (mut h, _sent) = harness_pictures(events(), ViewMode::Grid, egui::Theme::Dark, true, 1.0, pictures);
     h.run_steps(8);
-    h.get_by_label("PhotoCraft details").click();
+    h.get_by_label("LightCraft details").click();
     h.run_steps(10);
     h.get_by_label("Enlarge picture").click();
     h.run_steps(3);
@@ -3512,7 +3512,7 @@ fn every_page_opens_and_pages_through_its_pictures() {
 fn the_drawer_and_the_enlarged_picture_survive_any_window_size() {
     let (mut h, _sent) = harness(ViewMode::Grid, egui::Theme::Dark, true);
     h.run_steps(8);
-    h.get_by_label("PhotoCraft details").click();
+    h.get_by_label("LightCraft details").click();
     h.run_steps(10);
     let sizes = [(1180.0, 900.0), (720.0, 500.0), (480.0, 320.0), (320.0, 200.0), (120.0, 90.0), (40.0, 30.0), (4000.0, 2400.0)];
     for zoom in [false, true] {
@@ -3849,10 +3849,10 @@ fn selected_version_action_previews_its_checked_download_plan() {
             .unwrap()
             .settings
             .versions
-            .insert("photocraft".into(), artcraft_launcher_core::protocol::VersionTrack::Pinned("v0.5.0".into()));
-        // Keep PhotoCraft's action visible in either view.
+            .insert("lightcraft".into(), artcraft_launcher_core::protocol::VersionTrack::Pinned("v0.5.0".into()));
+        // Keep LightCraft's action visible in either view.
         h.get_by_role(egui::accesskit::Role::TextInput).click();
-        h.get_by_role(egui::accesskit::Role::TextInput).type_text("PhotoCraft");
+        h.get_by_role(egui::accesskit::Role::TextInput).type_text("LightCraft");
         h.run_steps(4);
         let pos = h.get_by_label("Install version v0.5.0").rect().center();
         assert!(h.ctx.content_rect().contains(pos), "the selected-version action must be visible");
@@ -3873,7 +3873,7 @@ fn install_and_update_actions_preview_download_sizes() {
             }
             // Keep the action visible as the suite gains more cards.
             h.get_by_role(egui::accesskit::Role::TextInput).click();
-            h.get_by_role(egui::accesskit::Role::TextInput).type_text(if label == "Install" { "VectorCraft" } else { "PhotoCraft" });
+            h.get_by_role(egui::accesskit::Role::TextInput).type_text(if label == "Install" { "VectorCraft" } else { "LightCraft" });
             h.run_steps(4);
             let pos = h.get_by_label(label).rect().center();
             assert!(h.ctx.content_rect().contains(pos), "the download action must be visible before hovering");
@@ -3926,19 +3926,19 @@ fn download_size_preview_uses_the_managed_plan_or_manual_platform_formats() {
             self.0.now()
         }
         fn download_size(&self, app: &str) -> Option<(PackageKind, u64)> {
-            (app == "photocraft").then_some(self.1).flatten()
+            (app == "lightcraft").then_some(self.1).flatten()
         }
     }
     for (manage, installer_size, has_plan) in
         [(false, 100 << 20, true), (false, 0, true), (true, 100 << 20, true), (true, 0, true), (true, 100 << 20, false)]
     {
-        let mut r = release("photocraft", "0.5.0", NOW);
+        let mut r = release("lightcraft", "0.5.0", NOW);
         r.assets = [("windows-x64.msi", installer_size), ("windows-x64-portable.zip", 2 << 30), ("linux-x86_64.AppImage", 3 << 20)]
             .into_iter()
             .map(|(suffix, size)| Asset {
-                name: format!("photocraft-0.5.0-{suffix}"),
+                name: format!("lightcraft-0.5.0-{suffix}"),
                 size,
-                url: format!("https://github.com/storytold/photocraft/releases/download/v0.5.0/photocraft-0.5.0-{suffix}"),
+                url: format!("https://github.com/storytold/lightcraft/releases/download/v0.5.0/lightcraft-0.5.0-{suffix}"),
                 sha256: None,
             })
             .collect();
@@ -3946,8 +3946,8 @@ fn download_size_preview_uses_the_managed_plan_or_manual_platform_formats() {
         let mut backend = Some(Windows(
             Fake {
                 events: vec![
-                    Event::Latest { app: "photocraft".into(), latest: LatestRelease::Found(r), from: Origin::ArtCraftApi },
-                    Event::Detected { app: "photocraft".into(), installed: None },
+                    Event::Latest { app: "lightcraft".into(), latest: LatestRelease::Found(r), from: Origin::ArtCraftApi },
+                    Event::Detected { app: "lightcraft".into(), installed: None },
                     Event::CheckFinished { at: NOW, source: Source::GitHubApi, rate_limited_until: None },
                 ],
                 sent: Rc::default(),
@@ -3976,7 +3976,7 @@ fn download_size_preview_uses_the_managed_plan_or_manual_platform_formats() {
         h.run_steps(4);
         // Keep the target card in view regardless of the suite's alphabetical order.
         h.get_by_role(egui::accesskit::Role::TextInput).click();
-        h.get_by_role(egui::accesskit::Role::TextInput).type_text("PhotoCraft");
+        h.get_by_role(egui::accesskit::Role::TextInput).type_text("LightCraft");
         h.run_steps(4);
         if manage && has_plan && installer_size > 0 {
             h.get_by_label("Download size: 100 MB");
@@ -4046,18 +4046,18 @@ fn changelog_shortcuts_zoom_only_the_notes_text() {
     let (mut h, _) = harness(ViewMode::Grid, egui::Theme::Dark, true);
     h.run_steps(4);
     // The grid's default order is name A-Z, so pick the app explicitly: the first card is not
-    // PhotoCraft, and the heading assertion below is about this release's own page.
-    h.get_by_label("More actions for PhotoCraft").click();
+    // LightCraft, and the heading assertion below is about this release's own page.
+    h.get_by_label("More actions for LightCraft").click();
     h.run_steps(2);
     h.get_by_label("Release notes").click();
     h.run_steps(4);
     assert_eq!(
-        h.query_all_by_role_and_label(egui::accesskit::Role::Image, "PhotoCraft 0.5.0").count(),
+        h.query_all_by_role_and_label(egui::accesskit::Role::Image, "LightCraft 0.5.0").count(),
         0,
         "the Notes hero icon is decorative and must not repeat the release heading"
     );
     assert_eq!(
-        h.query_all_by_role_and_label(egui::accesskit::Role::Label, "PhotoCraft 0.5.0").count(),
+        h.query_all_by_role_and_label(egui::accesskit::Role::Label, "LightCraft 0.5.0").count(),
         1,
         "the release heading appears exactly once"
     );
@@ -4100,7 +4100,7 @@ fn changelog_shortcuts_zoom_only_the_notes_text() {
 fn the_notes_card_follows_the_zoom_within_the_window() {
     let (mut h, _) = harness(ViewMode::Grid, egui::Theme::Dark, true);
     h.run_steps(4);
-    h.get_by_label("More actions for PhotoCraft").click();
+    h.get_by_label("More actions for LightCraft").click();
     h.run_steps(2);
     h.get_by_label("Release notes").click();
     h.run_steps(4);
@@ -4151,7 +4151,7 @@ fn long_notes_get_a_taller_card_when_zoomed() {
     }
     let (mut h, _) = harness_with(ev, ViewMode::Grid, egui::Theme::Dark, true, 1.0);
     h.run_steps(4);
-    h.get_by_label("More actions for PhotoCraft").click();
+    h.get_by_label("More actions for LightCraft").click();
     h.run_steps(2);
     h.get_by_label("Release notes").click();
     h.run_steps(4);
@@ -4188,18 +4188,18 @@ fn command_m_minimizes_the_mac_window_only() {
 
 #[test]
 fn an_occupied_folder_asks_before_replacing_it() {
-    let path = "/Volumes/Craft Apps/PhotoCraft.app";
+    let path = "/Volumes/Craft Apps/LightCraft.app";
     let mut ev = events();
-    ev.push(Event::Occupied { app: "photocraft".into(), path: path.into() });
-    ev.push(Event::JobFinished { app: "photocraft".into(), result: Err(format!("{path} already exists")) });
+    ev.push(Event::Occupied { app: "lightcraft".into(), path: path.into() });
+    ev.push(Event::JobFinished { app: "lightcraft".into(), result: Err(format!("{path} already exists")) });
     let (mut h, sent) = harness_with(ev, ViewMode::Grid, egui::Theme::Dark, true, 1.0);
     h.run_steps(6);
-    h.get_by_label(&format!("{path} already exists. Installing PhotoCraft will overwrite it."));
+    h.get_by_label(&format!("{path} already exists. Installing LightCraft will overwrite it."));
     assert!(h.query_by_label(&format!("{path} already exists")).is_none());
     sent.borrow_mut().clear();
     h.get_by_label("Replace").click();
     h.run_steps(2);
-    assert_eq!(*sent.borrow(), [Command::Replace { app: "photocraft".into(), path: path.into() }]);
+    assert_eq!(*sent.borrow(), [Command::Replace { app: "lightcraft".into(), path: path.into() }]);
     assert!(h.query_by_label("Replace").is_none());
 }
 
@@ -4278,7 +4278,7 @@ fn opening_an_app_counts_and_frequently_used_puts_the_most_opened_first() {
     assert_eq!(h.state().as_ref().unwrap().settings.launches.get("wordcraft"), Some(&1));
     h.run_steps(4);
     let word = h.get_by_label("WordCraft details").rect();
-    let light = h.get_by_label("LightCraft details").rect();
+    let light = h.get_by_label("PhotoCraft details").rect();
     assert!(word.min.y < light.min.y || (word.min.y == light.min.y && word.min.x < light.min.x), "{word:?} {light:?}");
 }
 

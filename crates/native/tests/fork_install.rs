@@ -10,8 +10,23 @@ use artcraft_launcher_native::paths::Paths;
 use artcraft_launcher_native::source::{GitHubSource, ReleaseSource};
 
 #[test]
-#[ignore = "downloads public FilmCraft, EffectCraft and SoundCraft fork releases; installs only into a temporary folder"]
+#[ignore = "downloads public PhotoCraft, FilmCraft, EffectCraft and SoundCraft fork releases; installs only into a temporary folder"]
 fn live_fork_releases_install_and_preserve_editor_data() {
+    verify_apps(&[
+        ("photocraft", "PhotoCraftData"),
+        ("filmcraft", "FilmCraftData"),
+        ("effectcraft", "EffectCraftData"),
+        ("soundcraft", "SoundCraftData"),
+    ]);
+}
+
+#[test]
+#[ignore = "downloads the public PhotoCraft fork release; installs only into a temporary folder"]
+fn live_photocraft_fork_installs_and_preserves_editor_data() {
+    verify_apps(&[("photocraft", "PhotoCraftData")]);
+}
+
+fn verify_apps(apps: &[(&str, &str)]) {
     let root = tempfile::tempdir().unwrap();
     let paths = Paths::under(root.path());
     let http = Http::new().unwrap();
@@ -19,7 +34,7 @@ fn live_fork_releases_install_and_preserve_editor_data() {
     let platform = Platform { os: Os::Windows, arch: Arch::X64 };
     let locations = InstallLocations::default();
     let stop = Stop::default();
-    for (id, data_dir) in [("filmcraft", "FilmCraftData"), ("effectcraft", "EffectCraftData"), ("soundcraft", "SoundCraftData")] {
+    for &(id, data_dir) in apps {
         let app = CraftApp::by_id(id).unwrap();
         let LatestRelease::Found(release) = source.latest(app.repo, false).latest else { panic!("No published fork release for {id}") };
         let stems: Vec<_> = app.stems().collect();
