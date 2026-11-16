@@ -142,7 +142,7 @@ mod tests {
     #[test]
     fn an_update_keeps_the_installed_copys_format_as_the_backend_does() {
         use PackageKind::{Dmg, Msi, PortableZip};
-        let app = &artcraft_launcher_core::SUITE[0];
+        let app = artcraft_launcher_core::catalog::CraftApp::by_id("lightcraft").unwrap();
         let kinds = |os, source: Option<InstallSource>, preferred: &[PackageKind]| install_kinds(app, os, source.map(installed).as_ref(), preferred);
         // The launcher's own copy on Windows is its portable ZIP, even with MSI preferred.
         assert_eq!(kinds(Os::Windows, Some(InstallSource::Launcher), &[Msi]), [PortableZip]);

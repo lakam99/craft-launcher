@@ -4,16 +4,17 @@ Independent fork of [ArtCraft Launcher](https://github.com/storytold/craft-launc
 
 ![Craft Fork Launcher icon](assets/app-icon/hicolor/128x128/apps/ai.storyteller.artcraft-launcher.png)
 
-Install, update and open the Craft apps, with FilmCraft, EffectCraft and SoundCraft sourced from your forks:
+Install, update and open the Craft apps, with PhotoCraft, FilmCraft, EffectCraft and SoundCraft sourced from your forks:
 
 | App | Repository used for releases and installers |
 |---|---|
+| PhotoCraft | [lakam99/photocraft](https://github.com/lakam99/photocraft/releases) |
 | FilmCraft | [lakam99/filmcraft](https://github.com/lakam99/filmcraft/releases) |
 | EffectCraft | [lakam99/effectcraft](https://github.com/lakam99/effectcraft/releases) |
 | SoundCraft | [lakam99/soundcraft releases](https://github.com/lakam99/soundcraft/releases) |
 | Craft Fork Launcher | [lakam99/craft-launcher](https://github.com/lakam99/craft-launcher/releases) |
 
-Other catalog apps retain their existing repositories. The three editor forks are shown as community builds by lakam99. Their release feeds are pinned to these repositories; the upstream aggregate feed cannot replace or hide their releases. Downloads retain the existing SHA-256 verification, safe extraction and user-data preservation.
+Other catalog apps retain their existing repositories. The four editor forks are shown as community builds by lakam99. Their release feeds are pinned to these repositories; the upstream aggregate feed cannot replace or hide their releases. Downloads retain the existing SHA-256 verification, safe extraction and user-data preservation.
 
 ## Download
 

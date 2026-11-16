@@ -159,7 +159,7 @@ const fn fork_app(mut app: CraftApp) -> CraftApp {
 
 /// The Craft App Suite, in display order matching getartcraft.com, then the community apps:
 pub const SUITE: [CraftApp; 19] = [
-    app("photocraft", "PhotoCraft", "Image editing", [[0x2f, 0x7b, 0xf5], [0x1a, 0x5b, 0xc4], [0x7f, 0xb0, 0xff]], "storytold/photocraft"),
+    fork_app(app("photocraft", "PhotoCraft", "Image editing", [[0x2f, 0x7b, 0xf5], [0x1a, 0x5b, 0xc4], [0x7f, 0xb0, 0xff]], "lakam99/photocraft")),
     app("vectorcraft", "VectorCraft", "Vector illustration", [[0xe8, 0x57, 0x3f], [0xb8, 0x3a, 0x24], [0xff, 0x8a, 0x70]], "storytold/vectorcraft"),
     fork_app(app(
         "filmcraft",

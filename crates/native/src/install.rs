@@ -3612,7 +3612,9 @@ mod tests {
         let unsigned = artcraft_launcher_core::CraftApp { mac_team: None, ..*sc };
         assert_eq!(choose_kinds_with(&unsigned, None, None, &[], &[PackageKind::Dmg], false), Vec::<PackageKind>::new());
         let photo = artcraft_launcher_core::CraftApp::by_id("photocraft").unwrap();
-        assert_eq!(choose_kinds_with(photo, None, None, &[], &[PackageKind::Dmg], false), [PackageKind::Dmg]);
+        assert_eq!(choose_kinds_with(photo, None, None, &[], &[PackageKind::Dmg], false), Vec::<PackageKind>::new());
+        let official = artcraft_launcher_core::CraftApp::by_id("lightcraft").unwrap();
+        assert_eq!(choose_kinds_with(official, None, None, &[], &[PackageKind::Dmg], false), [PackageKind::Dmg]);
     }
 
     #[cfg(target_os = "linux")]
