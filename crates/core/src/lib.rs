@@ -1,4 +1,4 @@
-//! Craft Fork Launcher core: everything that is pure data and logic.
+//! ArkCraft Launcher core: everything that is pure data and logic.
 //!
 //! No I/O lives here, so the desktop shell, the web build and the tests share it unchanged:
 //! the Craft App Suite catalog, version handling, GitHub release parsing, choosing the right

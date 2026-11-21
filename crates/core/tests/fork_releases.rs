@@ -15,7 +15,8 @@ fn editor_forks_and_launcher_pin_their_own_publishers_and_repositories() {
     }
     assert_eq!(LAUNCHER_REPO, "lakam99/craft-launcher");
     assert_eq!(LAUNCHER.repo, LAUNCHER_REPO);
-    assert_eq!(LAUNCHER.name, "Craft Fork Launcher");
+    assert_eq!(LAUNCHER.name, "ArkCraft Launcher");
+    assert_eq!(LAUNCHER.id, "artcraft-launcher", "Updates must retain the existing package identity");
     assert_eq!(CraftApp::by_id("vectorcraft").unwrap().repo, "storytold/vectorcraft");
 }
 

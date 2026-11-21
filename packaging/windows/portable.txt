@@ -1,9 +1,9 @@
-Craft Fork Launcher portable mode
+ArkCraft Launcher portable mode
 
-While this file sits next to artcraft-launcher.exe, Craft Fork Launcher keeps its settings, its
+While this file sits next to artcraft-launcher.exe, ArkCraft Launcher keeps its settings, its
 download cache and its record of installed apps in the CraftForkLauncherData folder beside it, and
-writes nothing to %APPDATA%. Copy the whole folder to move Craft Fork Launcher with its settings.
+writes nothing to %APPDATA%. Copy the whole folder to move ArkCraft Launcher with its settings.
 
 Delete this file to use the normal per-user settings folder (%APPDATA%\Craft Fork Launcher) instead.
-If CraftForkLauncherData can't be written (for example on a read-only drive), Craft Fork Launcher says
+If CraftForkLauncherData can't be written (for example on a read-only drive), ArkCraft Launcher says
 so and uses %APPDATA%\Craft Fork Launcher instead.

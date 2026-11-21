@@ -44,24 +44,20 @@ fn load_icon() -> Result<tray_icon::Icon, String> {
 /// Windows and macOS keep tray-icon's defaults: there the title is drawn next to the icon (macOS)
 /// or unsupported (Windows), and the id never reaches the user.
 fn identity(builder: TrayIconBuilder) -> TrayIconBuilder {
-    if cfg!(any(target_os = "macos", target_os = "windows")) {
-        builder
-    } else {
-        builder.with_id("artcraft-launcher").with_title("Craft Fork Launcher")
-    }
+    if cfg!(any(target_os = "macos", target_os = "windows")) { builder } else { builder.with_id("artcraft-launcher").with_title("ArkCraft Launcher") }
 }
 
 impl Tray {
     /// Creates the tray icon. `wake` repaints the UI so it sees the action, even when hidden.
     /// `on_quit` runs when Quit is picked, before the UI can see it: the UI may never get to.
     pub fn new(wake: impl Fn() + Send + Sync + Clone + 'static, on_quit: impl Fn() + Send + Sync + 'static) -> Result<Self, String> {
-        let show = MenuItem::new(i18n::t("Show Craft Fork Launcher"), true, None);
+        let show = MenuItem::new(i18n::t("Show ArkCraft Launcher"), true, None);
         let check = MenuItem::new(i18n::t("Check for Updates"), true, None);
         use artcraft_launcher_core::catalog::{GITHUB_URL, WEBSITE_URL};
         let website = MenuItem::new(i18n::t("Visit getartcraft.com"), true, None);
         let github = MenuItem::new(i18n::t("ArtCraft on GitHub"), true, None);
         let discord = MenuItem::new(i18n::t("Join the ArtCraft Discord"), true, None);
-        let quit = MenuItem::new(i18n::t("Quit Craft Fork Launcher"), true, None);
+        let quit = MenuItem::new(i18n::t("Quit ArkCraft Launcher"), true, None);
         let menu = Menu::new();
         menu.append_items(&[&show, &check, &PredefinedMenuItem::separator(), &website, &github, &discord, &PredefinedMenuItem::separator(), &quit])
             .map_err(|e| e.to_string())?;
@@ -74,8 +70,7 @@ impl Tray {
         let builder = builder.with_icon_templated(image);
         #[cfg(not(target_os = "macos"))]
         let builder = builder.with_icon(image);
-        let icon =
-            builder.with_menu_on_left_click(cfg!(target_os = "macos")).with_tooltip("Craft Fork Launcher").build().map_err(|e| e.to_string())?;
+        let icon = builder.with_menu_on_left_click(cfg!(target_os = "macos")).with_tooltip("ArkCraft Launcher").build().map_err(|e| e.to_string())?;
         let (tx, rx): (Sender<TrayAction>, Receiver<TrayAction>) = channel();
         let (show_id, check_id, quit_id) = (show.id().clone(), check.id().clone(), quit.id().clone());
         {
@@ -110,12 +105,12 @@ impl Tray {
             }
         }));
         let labels = vec![
-            (show, "Show Craft Fork Launcher"),
+            (show, "Show ArkCraft Launcher"),
             (check, "Check for Updates"),
             (website, "Visit getartcraft.com"),
             (github, "ArtCraft on GitHub"),
             (discord, "Join the ArtCraft Discord"),
-            (quit, "Quit Craft Fork Launcher"),
+            (quit, "Quit ArkCraft Launcher"),
         ];
         Ok(Self { icon, show: show_id, check: check_id, quit: quit_id, rx, tooltip: String::new(), language: String::new(), labels })
     }
@@ -133,9 +128,9 @@ impl Tray {
             self.language = lang.code().to_string();
         }
         let tip = if count == 0 {
-            "Craft Fork Launcher".to_string()
+            "ArkCraft Launcher".to_string()
         } else {
-            i18n::trn(lang, count as u64, "Craft Fork Launcher · {n} update available", "Craft Fork Launcher · {n} updates available")
+            i18n::trn(lang, count as u64, "ArkCraft Launcher · {n} update available", "ArkCraft Launcher · {n} updates available")
         };
         if tip != self.tooltip {
             let _ = self.icon.set_tooltip(Some(&tip));

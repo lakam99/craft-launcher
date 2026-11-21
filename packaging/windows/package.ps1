@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-  Build, sign and package Craft Fork Launcher for Windows.
+  Build, sign and package ArkCraft Launcher for Windows.
 
 .DESCRIPTION
   Produces, in $env:DIST (default: dist/release):
@@ -29,7 +29,7 @@ $Root = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
 
 # ---- app-specific values ----------------------------------------------------------------------
 $Pkg = 'artcraft-launcher'          # cargo package and binary
-$AppName = 'Craft Fork Launcher'      # display name
+$AppName = 'ArkCraft Launcher'      # display name
 
 function Invoke-Native([string] $What, [scriptblock] $Block) {
   Write-Output "==> $What"

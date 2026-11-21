@@ -24,12 +24,12 @@ from PIL import Image, ImageCms
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 # Keep in sync with package.sh (volume name) and README.md (layout).
-VOLUME = "Craft Fork Launcher"
+VOLUME = "ArkCraft Launcher"
 WIDTH, HEIGHT = 660, 400  # window content, pt; the background's 1x size
 TITLE_BAR = 32
 ICON_SIZE = 128
 PALETTE = 16  # colours in background.tiff
-ICONS = {"Craft Fork Launcher.app": (326, 205), "Applications": (574, 205)}
+ICONS = {"ArkCraft Launcher.app": (326, 205), "Applications": (574, 205)}
 # A fixed date for the alias and the colour profile. Finder never matches it against the image
 # (each build is a new volume): it finds the background by volume name and path.
 FIXED_DATE = datetime.datetime(2026, 10, 11, tzinfo=datetime.timezone.utc)

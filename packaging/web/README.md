@@ -1,4 +1,4 @@
-# Hosting Craft Fork Launcher for the web
+# Hosting ArkCraft Launcher for the web
 
 `artcraft-launcher-web-<version>.zip` (from the GitHub release, or `packaging/web/package.sh`)
 holds a static site in `artcraft-launcher-web-<version>/`:
@@ -63,7 +63,7 @@ Local test: `python3 -m http.server 8765` inside the folder, then open http://lo
 ```html
 <iframe
   src="https://example.com/launcher/"
-  title="Craft Fork Launcher"
+  title="ArkCraft Launcher"
   style="width: 100%; height: 640px; border: 0;"
   allow="fullscreen"
   allowfullscreen>

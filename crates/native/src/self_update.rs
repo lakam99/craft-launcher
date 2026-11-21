@@ -1,4 +1,4 @@
-//! Craft Fork Launcher updating itself.
+//! ArkCraft Launcher updating itself.
 //!
 //! Delegated to [`craft_update::self_update`].
 
@@ -21,6 +21,7 @@ pub use craft_update::self_update::{FINISH_FLAG, Install, PRETEND_VAR, is_self_u
 /// Use the same fork for the launcher's release lookup, download and restart helper.
 const UPDATE_APP: craft_update::App = craft_update::App {
     name: artcraft_launcher_core::catalog::LAUNCHER.name,
+    former_names: artcraft_launcher_core::catalog::LAUNCHER.former_names,
     repo: artcraft_launcher_core::catalog::LAUNCHER_REPO,
     developer: "lakam99",
     ..craft_update::suite::LAUNCHER
@@ -178,7 +179,7 @@ mod tests {
         assert_eq!(UPDATE_APP.repo, artcraft_launcher_core::catalog::LAUNCHER_REPO);
         assert_eq!(UPDATE_APP.repo, "lakam99/craft-launcher");
         assert_eq!(UPDATE_APP.developer, "lakam99");
-        assert_eq!(UPDATE_APP.name, "Craft Fork Launcher");
+        assert_eq!(UPDATE_APP.name, "ArkCraft Launcher");
     }
 
     #[test]

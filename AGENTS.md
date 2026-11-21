@@ -53,6 +53,14 @@ Dependencies and assets use SPDX identifiers. An expression is allowed when ever
 
 # AGENTS.md: guide for AI agents and contributors
 
+**Fork branding:** This fork is **ArkCraft Launcher**. Use that name in current UI,
+installer branding, shortcuts and documentation. Keep the existing `artcraft-launcher`
+package/binary ids, update asset stems, MSI UpgradeCode, registration keys and
+`CraftForkLauncherData` / `Craft Fork Launcher` storage folders so upgrades retain
+settings and installed-app records. Older ArtCraft product-name references below
+describe the upstream project; they do not override this fork's display name.
+
+
 ArtCraft Launcher installs, updates and launches the **Craft App Suite** (PhotoCraft, LightCraft,
 FilmCraft, DesignCraft, VectorCraft, PdfCraft, EffectCraft, WordCraft, DeckCraft, GridCraft,
 CADCraft, SoundCraft, FigCraft, Craft Anything, TextureCraft, MaterialCraft), plus approved **community apps** made outside ArtCraft and labelled

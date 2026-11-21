@@ -50,7 +50,7 @@ fn plain(path: &Path, directory: bool) -> Result<(), String> {
 fn paths_for(exe: &Path) -> Result<Paths, String> {
     plain(exe, false)?;
     if exe.file_name().and_then(|n| n.to_str()) != Some(EXE) {
-        return Err("This helper only updates Craft Fork Launcher.".into());
+        return Err("This helper only updates ArkCraft Launcher.".into());
     }
     let folder = exe.parent().ok_or("no portable installation folder")?;
     plain(folder, true)?;
@@ -267,7 +267,7 @@ fn complete(plan: &Plan, directory: &Path) -> Result<(), String> {
             .env_remove(super::PRETEND_VAR)
             .spawn()
             .map(|_| ())
-            .map_err(|e| format!("The update installed but could not restart ({e}). Open Craft Fork Launcher again."))
+            .map_err(|e| format!("The update installed but could not restart ({e}). Open ArkCraft Launcher again."))
     })
 }
 

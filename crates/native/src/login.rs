@@ -1,4 +1,4 @@
-//! "Start Craft Fork Launcher when I log in".
+//! "Start ArkCraft Launcher when I log in".
 //!
 //! - macOS: a LaunchAgent in `~/Library/LaunchAgents`.
 //! - Windows: a value under `HKCU\…\CurrentVersion\Run`.
@@ -39,6 +39,7 @@ fn xml_escape(s: &str) -> String {
 pub fn is_enabled() -> bool {
     #[cfg(target_os = "macos")]
     return agent().is_ok_and(|p| p.exists());
+    // Retain the old Run value so a renamed copy can find and remove its existing startup entry.
     #[cfg(windows)]
     return windows_run().and_then(|k| k.get_value::<String, _>("Craft Fork Launcher").ok()).is_some();
     #[cfg(not(any(target_os = "macos", windows)))]
@@ -223,7 +224,7 @@ fn flatpak_exec(app_id: &str) -> String {
 #[cfg_attr(any(target_os = "macos", windows), allow(dead_code))]
 fn entry_text(exec: &str, extra: &str) -> String {
     format!(
-        "[Desktop Entry]\nType=Application\nName=Craft Fork Launcher\nComment=Install and update the Craft App Suite\nExec={exec} {HIDDEN_FLAG}\nIcon={ID}\nTerminal=false\nX-GNOME-Autostart-enabled=true\n{extra}"
+        "[Desktop Entry]\nType=Application\nName=ArkCraft Launcher\nComment=Install and update the Craft App Suite\nExec={exec} {HIDDEN_FLAG}\nIcon={ID}\nTerminal=false\nX-GNOME-Autostart-enabled=true\n{extra}"
     )
 }
 
@@ -407,7 +408,7 @@ mod tests {
         assert_eq!(
             autostart_entry(Path::new("/usr/bin/artcraft-launcher")).as_deref(),
             Some(
-                "[Desktop Entry]\nType=Application\nName=Craft Fork Launcher\nComment=Install and update the Craft App Suite\nExec=\"/usr/bin/artcraft-launcher\" --hidden\nIcon=ai.storyteller.artcraft-launcher\nTerminal=false\nX-GNOME-Autostart-enabled=true\n"
+                "[Desktop Entry]\nType=Application\nName=ArkCraft Launcher\nComment=Install and update the Craft App Suite\nExec=\"/usr/bin/artcraft-launcher\" --hidden\nIcon=ai.storyteller.artcraft-launcher\nTerminal=false\nX-GNOME-Autostart-enabled=true\n"
             )
         );
     }
