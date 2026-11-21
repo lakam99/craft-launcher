@@ -12,6 +12,7 @@ pub struct Paths {
     pub cache: PathBuf,
 }
 
+// Keep the original fork's storage identity: renaming it hides existing installs and settings.
 const DIR: &str = if cfg!(any(target_os = "macos", target_os = "windows")) { "Craft Fork Launcher" } else { "artcraft-launcher" };
 
 impl Paths {

@@ -1,5 +1,5 @@
 {
-  description = "Experimental Nix flake for Craft Fork Launcher";
+  description = "Experimental Nix flake for ArkCraft Launcher";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";

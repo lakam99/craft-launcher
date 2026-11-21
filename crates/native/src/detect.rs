@@ -128,9 +128,12 @@ fn suite_folders(app: &CraftApp, roots: &[PathBuf]) -> Vec<PathBuf> {
 /// keeps its own key, under the publisher name.
 #[cfg_attr(not(windows), allow(dead_code))]
 fn install_dir_keys(app: &CraftApp) -> Vec<String> {
-    let mut keys = vec![format!(r"SOFTWARE\{}", app.name)];
-    if app.id == artcraft_launcher_core::catalog::LAUNCHER_ID {
-        keys.push(format!(r"SOFTWARE\{PUBLISHER}\{}", app.name));
+    let launcher = app.id == artcraft_launcher_core::catalog::LAUNCHER_ID;
+    // The display name changes, but MSI registration stays under the existing fork's key.
+    let name = if launcher { "Craft Fork Launcher" } else { app.name };
+    let mut keys = vec![format!(r"SOFTWARE\{name}")];
+    if launcher {
+        keys.push(format!(r"SOFTWARE\{PUBLISHER}\{name}"));
     }
     keys
 }
@@ -1168,6 +1171,9 @@ mod tests {
 
     #[test]
     fn the_launcher_records_its_folder_under_the_publisher_key() {
+        let launcher = &artcraft_launcher_core::catalog::LAUNCHER;
+        assert!(is_installer_entry(launcher, "Craft Fork Launcher", LEARNING_MACHINES), "the renamed launcher must recognize its old installer");
+        assert!(is_installer_entry(launcher, "ArkCraft Launcher", LEARNING_MACHINES));
         assert_eq!(
             install_dir_keys(&artcraft_launcher_core::catalog::LAUNCHER),
             [r"SOFTWARE\Craft Fork Launcher".to_string(), format!(r"SOFTWARE\{LEARNING_MACHINES}\Craft Fork Launcher")]

@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-  Check MSI icon references without building or installing Craft Fork Launcher.
+  Check MSI icon references without building or installing ArkCraft Launcher.
 
 .DESCRIPTION
   Windows Installer caches each <Icon> under %APPDATA%\Microsoft\Installer\{ProductCode}, which

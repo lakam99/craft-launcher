@@ -297,8 +297,8 @@ pub const SUITE: [CraftApp; 19] = [
     },
 ];
 
-/// The Apple Developer team that signs every official Craft App and Craft Fork Launcher (Learning
-/// Machines LLC): the macOS side of the Windows publisher check.
+/// The Apple Developer team for official upstream Craft releases (Learning Machines LLC): the
+/// macOS side of their Windows publisher check. Forks retain their own signing policy.
 pub const ARTCRAFT_TEAM_ID: &str = "DJ6XS33FX8";
 
 /// ArtCraft's website.
@@ -322,16 +322,19 @@ pub const DISCORD_URL: &str = "https://discord.gg/artcraft";
 /// Deep link into the Discord application for the ArtCraft server invite.
 pub const DISCORD_APP_URL: &str = "discord://-/invite/artcraft";
 
-/// Craft Fork Launcher itself, described like a Craft App so it can update itself with the same
+/// ArkCraft Launcher itself, described like a Craft App so it can update itself with the same
 /// machinery (asset names `artcraft-launcher-<ver>-…`, bundle id `ai.storyteller.artcraft-launcher`,
-/// `Craft Fork Launcher.app`). Not part of [`SUITE`].
-pub const LAUNCHER: CraftApp = fork_app(app(
-    "artcraft-launcher",
-    "Craft Fork Launcher",
-    "Installs and updates the Craft App Suite",
-    [[0x0b, 0x0b, 0x0c], [0x0b, 0x0b, 0x0c], [0xf2, 0xf1, 0xee]],
-    "lakam99/craft-launcher",
-));
+/// `ArkCraft Launcher.app`). Not part of [`SUITE`].
+pub const LAUNCHER: CraftApp = CraftApp {
+    former_names: &["Craft Fork Launcher"],
+    ..fork_app(app(
+        "artcraft-launcher",
+        "ArkCraft Launcher",
+        "Installs and updates the Craft App Suite",
+        [[0x0b, 0x0b, 0x0c], [0x0b, 0x0b, 0x0c], [0xf2, 0xf1, 0xee]],
+        "lakam99/craft-launcher",
+    ))
+};
 
 /// The launcher's own repo, checked so it can say when a newer launcher is out.
 pub const LAUNCHER_REPO: &str = LAUNCHER.repo;

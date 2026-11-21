@@ -40,6 +40,12 @@ try {
   $session = $installer.OpenPackage($file, 1)
   $properties = @{}
   foreach ($row in (Read-Rows $database 'SELECT `Property`, `Value` FROM `Property`' 2)) { $properties[$row[0]] = $row[1] }
+  if ($properties['ProductName'] -ne $policy.name) { throw 'Installer display name does not match the product policy.' }
+  $shortcuts = @(Read-Rows $database 'SELECT `Name` FROM `Shortcut`' 1)
+  foreach ($shortcut in $shortcuts) {
+    # MSI may encode the short filename before a pipe; verify the visible long name.
+    if (($shortcut[0] -split '\|')[-1] -ne $policy.name) { throw 'A launcher shortcut still uses a different product name.' }
+  }
   $secureProperties = @($properties['SecureCustomProperties'] -split ';')
   if ('INSTALLFOLDER' -notin $secureProperties) {
     throw 'The selected installation folder must survive elevation (secure INSTALLFOLDER).'
@@ -77,7 +83,7 @@ try {
         $execute['CraftRestoreLauncherFolder'] -lt $execute['CostInitialize'])) {
       throw 'Silent updates must restore the launcher folder after AppSearch and before directory costing.'
     }
-    Write-Output 'PASS Craft Fork Launcher: per-user scope, suite folder, remembered/custom paths and existing registration. No installation performed.'
+    Write-Output 'PASS ArkCraft Launcher: per-user scope, suite folder, remembered/custom paths and existing registration. No installation performed.'
     return
   }
   if ($properties['ALLUSERS'] -ne '2' -or $properties['MSIINSTALLPERUSER'] -ne '1') {

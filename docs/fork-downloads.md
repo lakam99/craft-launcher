@@ -1,4 +1,4 @@
-# Craft Fork Launcher
+# ArkCraft Launcher
 
 This independent fork is based on ArtCraft Launcher by the ArtCraft team and community. It uses its own name and original download-arrow artwork.
 
@@ -8,7 +8,7 @@ This independent fork is based on ArtCraft Launcher by the ArtCraft team and com
 | FilmCraft | [lakam99/filmcraft releases](https://github.com/lakam99/filmcraft/releases) |
 | EffectCraft | [lakam99/effectcraft releases](https://github.com/lakam99/effectcraft/releases) |
 | SoundCraft | [lakam99/soundcraft releases](https://github.com/lakam99/soundcraft/releases) |
-| Craft Fork Launcher | [lakam99/craft-launcher releases](https://github.com/lakam99/craft-launcher/releases) |
+| ArkCraft Launcher | [lakam99/craft-launcher releases](https://github.com/lakam99/craft-launcher/releases) |
 
 The other catalog apps retain their existing repositories. PhotoCraft, FilmCraft, EffectCraft and SoundCraft are labelled as community builds by `lakam99`. Their original executable names are preserved, so normal launch and version detection work.
 

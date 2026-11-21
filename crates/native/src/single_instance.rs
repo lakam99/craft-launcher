@@ -69,6 +69,7 @@ const MAX_GREETING: usize = 256;
 /// (CWE-522, CWE-287).
 fn token() -> Option<String> {
     use std::io::Read;
+    // Share the legacy storage identity with Paths so old and renamed copies authenticate.
     let dir =
         dirs::data_local_dir()?.join(if cfg!(any(target_os = "macos", target_os = "windows")) { "Craft Fork Launcher" } else { "artcraft-launcher" });
     let path = dir.join(".instance-token");
@@ -176,16 +177,16 @@ pub fn claim(wake: Wake) -> Instance {
                 // again because the proven launcher may have quit and something else taken the port.
                 Instance::Secondary
             } else {
-                log::warn!("whatever holds the launcher's port didn't prove it is Craft Fork Launcher and kept the port; starting anyway");
+                log::warn!("whatever holds the launcher's port didn't prove it is ArkCraft Launcher and kept the port; starting anyway");
                 Instance::Primary(channel().1)
             }
         }
         Ok(Answer::Unrelated) => {
-            log::warn!("something on the launcher's port didn't prove it is this account's Craft Fork Launcher; starting anyway");
+            log::warn!("something on the launcher's port didn't prove it is this account's ArkCraft Launcher; starting anyway");
             Instance::Primary(channel().1)
         }
         Ok(Answer::Legacy) => {
-            log::warn!("an older Craft Fork Launcher is running and can't be asked to quit; starting anyway");
+            log::warn!("an older ArkCraft Launcher is running and can't be asked to quit; starting anyway");
             Instance::Primary(channel().1)
         }
         // The port is taken by something else: run anyway rather than refuse to start.

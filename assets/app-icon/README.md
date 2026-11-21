@@ -1,4 +1,4 @@
-# Craft Fork Launcher icon
+# ArkCraft Launcher icon
 
 Original procedural download arrow and tray, under MIT OR Apache-2.0. No ArtCraft mark or third-party artwork is used. See ATTRIBUTION.md.
 
