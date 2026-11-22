@@ -443,3 +443,7 @@ anicraft	Familiar by design	Conception familière
 anicraft	Stage, tools, timeline, layers, keyframes, Properties and Library sit where animators expect them, with onion skinning for in-betweening.	Scène, outils, chronologie, calques, images clés, Propriétés et Bibliothèque là où les animateurs les attendent, avec pelure d'oignon.
 anicraft	Tweens that ease	Interpolations fluides
 anicraft	Classic tweens with eight easing presets and custom ease curves, plus shape tweens that morph one vector contour into another.	Interpolations classiques avec huit préréglages d'accélération et courbes personnalisées, plus interpolations de forme.
+
+	Shared AI Chat	Discussion IA partagée
+	FilmCraft, EffectCraft, SoundCraft and PhotoCraft share one independently updated chat component.	FilmCraft, EffectCraft, SoundCraft et PhotoCraft partagent un composant de discussion mis à jour indépendamment.
+	Update chat component	Mettre à jour le composant de discussion

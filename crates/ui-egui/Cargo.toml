@@ -20,6 +20,8 @@ serde = { workspace = true }
 log = { workspace = true }
 
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+# Independent shared chat delivery; editor installers keep their own release lifecycle.
+craft-ai-chat-native = { git = "https://github.com/lakam99/craft-ai-chat", rev = "3d171fc5df091ec053e328600ac955cb8e71f32f", version = "0.6.2" }
 # The OS's preferred UI languages, without spawning `defaults` or `reg.exe`.
 sys-locale = "0.3"
 # Finding the Simplified Chinese face in a system font collection; egui already uses it.

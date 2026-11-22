@@ -114,8 +114,8 @@ impl LauncherUi {
                 let Ok(mut state) = state.try_borrow_mut() else { return };
                 let (this, _) = &mut *state;
                 this.settings_language(ui);
-                this.settings_updates(ui);
                 this.settings_appearance(ui);
+                this.settings_updates(ui);
             },
             |ui| {
                 let Ok(mut state) = state.try_borrow_mut() else { return };
@@ -201,6 +201,21 @@ impl LauncherUi {
                 self.version_combo(ui, launcher_id, &artcraft_launcher_core::catalog::LAUNCHER, 200.0, label);
             });
             self.launcher_version_notes(ui);
+            #[cfg(not(target_arch = "wasm32"))]
+            {
+                ui.separator();
+                ui.label(tl!("Shared AI Chat"));
+                note(ui, tl!("FilmCraft, EffectCraft, SoundCraft and PhotoCraft share one independently updated chat component."));
+                if ui
+                    .add_enabled_ui(!self.chat_component.busy(), |ui| widgets::button(ui, tl!("Update chat component"), Kind::Secondary, 0.0))
+                    .inner
+                    .clicked()
+                {
+                    let ctx = ui.ctx().clone();
+                    self.chat_component.check(std::sync::Arc::new(move || ctx.request_repaint()));
+                }
+                note(ui, &crate::i18n::msg(self.chat_component.message()));
+            }
         });
     }
 

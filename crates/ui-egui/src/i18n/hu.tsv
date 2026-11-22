@@ -446,3 +446,7 @@ anicraft	Familiar by design	Ismerős kialakítás
 anicraft	Stage, tools, timeline, layers, keyframes, Properties and Library sit where animators expect them, with onion skinning for in-betweening.	Színpad, eszközök, idővonal, rétegek, kulcsképkockák, Tulajdonságok és Könyvtár a megszokott helyen, hagymabőr funkcióval.
 anicraft	Tweens that ease	Finom mozgásinterpolációk
 anicraft	Classic tweens with eight easing presets and custom ease curves, plus shape tweens that morph one vector contour into another.	Klasszikus mozgásinterpolációk nyolc görbe-előbeállítással és egyéni görbékkel, valamint alakos interpolációk.
+
+	Shared AI Chat	Közös MI-csevegő
+	FilmCraft, EffectCraft, SoundCraft and PhotoCraft share one independently updated chat component.	A FilmCraft, EffectCraft, SoundCraft és PhotoCraft közös, önállóan frissíthető csevegőkomponenst használ.
+	Update chat component	Csevegőkomponens frissítése

@@ -137,6 +137,8 @@ impl Dialog {
 }
 
 pub struct LauncherUi {
+    #[cfg(not(target_arch = "wasm32"))]
+    pub(crate) chat_component: craft_ai_chat_native::component::Updater,
     pub(crate) backend: Box<dyn Backend>,
     pub settings: Settings,
     pub(crate) entries: Vec<AppEntry>,
@@ -269,6 +271,8 @@ impl LauncherUi {
             launcher_update: None,
             version_lists: std::collections::HashMap::new(),
             version_requests: std::collections::HashSet::new(),
+            #[cfg(not(target_arch = "wasm32"))]
+            chat_component: Default::default(),
             version_before: None,
             launcher_job: None,
             restart_requested: false,
@@ -504,6 +508,13 @@ impl LauncherUi {
 
     /// Non-drawing work: runs every frame and also while the window is hidden in the tray.
     pub fn logic(&mut self, ctx: &egui::Context, host: &mut dyn Host) {
+        #[cfg(not(target_arch = "wasm32"))]
+        {
+            self.chat_component.poll();
+            if self.chat_component.busy() {
+                ctx.request_repaint_after(Duration::from_millis(100));
+            }
+        }
         // Messages made here (toasts, alerts) are drawn later, so use the language the UI can
         // actually show: English where the system has no CJK face for the preference.
         set_current(effective_lang(&self.settings.language));
